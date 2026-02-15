@@ -36,7 +36,9 @@ CAN_SHARE_MEDIA = True  # whether the share media appears
 # how many times an item need be reported
 # to get to private state automatically
 REPORTED_TIMES_THRESHOLD = 10
-ALLOW_ANONYMOUS_ACTIONS = ["report", "like", "dislike", "watch"]  # need be a list
+ALLOW_ANONYMOUS_ACTIONS = []  # need be a list
+ALLOW_ANONYMOUS = False
+DEFAULT_ASSET_VISIBILITY = "private"
 
 # experimental functionality for user ratings - does not work
 ALLOW_RATINGS = False
@@ -442,7 +444,7 @@ LOCAL_INSTALL = False
 
 # this is an option to make the whole portal available to logged in users only
 # it is placed here so it can be overrided on local_settings.py
-GLOBAL_LOGIN_REQUIRED = False
+GLOBAL_LOGIN_REQUIRED = True
 
 # TODO: separate settings on production/development more properly, for now
 # this should be ok
