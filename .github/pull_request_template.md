@@ -1,10 +1,30 @@
-## Description
-<!-- Describe the changes introduced by this PR for the reviewers to fully understand. -->
+## Summary
+<!-- 1-3 bullet points describing what this PR does and why -->
 
+-
 
-## Steps
-<!-- Actions to be done pre and post deployment -->
-*Pre-deploy*
+## Changes
+<!-- List the key files/areas changed -->
 
-*Post-deploy*
+-
 
+## How to Test
+<!-- Step-by-step instructions for reviewers -->
+
+1. `make up`
+2.
+
+## Checklist
+
+- [ ] `make check` passes (lint + format-check + test)
+- [ ] Migrations included if models changed (`make makemigrations`)
+- [ ] No secrets or credentials committed
+- [ ] Docs updated if behavior changed
+
+## Deploy Notes
+<!-- Any pre/post-deploy steps, or "None" -->
+
+None
+
+## Screenshots
+<!-- If UI changes, paste before/after screenshots -->
