@@ -41,6 +41,9 @@ env/
 # Claude Code
 .claude/
 
+# Database dumps
+*.pgdump
+
 # Coverage & testing
 .coverage
 htmlcov/

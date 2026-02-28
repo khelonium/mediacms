@@ -51,6 +51,9 @@ FRONTEND_HOST = "http://localhost"
 # this variable - along with SSL_FRONTEND_HOST is used on several places
 # as email where a URL need appear etc
 
+# Remote server to proxy/sync media from (used by Nginx fallback and sync_remote_assets)
+REMOTE_MEDIA_HOST = "https://bjj.chadao.ro"
+
 # FRONTEND_HOST needs an http prefix - at the end of the file
 # there's a conversion to https with the SSL_FRONTEND_HOST env
 INTERNAL_IPS = "127.0.0.1"

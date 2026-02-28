@@ -9,6 +9,8 @@
 - [6. Working with the automated tests](#6-working-with-the-automated-tests)
 - [7. How video is transcoded](#7-how-video-is-transcoded)
 
+- [8. Syncing from a remote instance](#8-syncing-from-a-remote-instance)
+
 ## 1. Welcome
 This page is created for MediaCMS developers and contains related information.
 
@@ -126,3 +128,43 @@ docker-compose exec --env TESTING=True -T web pytest --cov=. --cov-report=html
 ```
 
 and of course...you are very welcome to help us increase it ;)
+
+## 8. Syncing from a remote instance
+
+When developing locally against a remote MediaCMS instance (e.g. `bjj.chadao.ro`), you can pull the database and proxy missing media files.
+
+### Database sync
+
+```
+make sync-db
+```
+
+This SSHs into the remote server, runs `pg_dump` inside the remote Docker `db` container, and restores the dump into your local `db` container. After syncing, use the same login credentials as the remote instance.
+
+The following Makefile variables can be overridden:
+
+| Variable | Default | Description |
+|---|---|---|
+| `REMOTE_HOST` | `bjj.chadao.ro` | Remote server hostname |
+| `REMOTE_USER` | `root` | SSH user |
+| `REMOTE_DIR` | `/mediacms/cms/mediacms` | Project directory on remote |
+| `REMOTE_COMPOSE` | `docker-compose-letsencrypt.yaml` | Compose file used on remote |
+
+### Media proxy fallback (nginx)
+
+After syncing the DB, media URLs will reference files that only exist on the remote. Rather than downloading all assets, the local dev setup proxies missing media requests to the remote server.
+
+This is handled by `deploy/docker/nginx_http_only_dev.conf`, which adds a `@remote_media` fallback that proxies to the remote host. The local `docker-compose.yaml` mounts this file over the original `nginx_http_only.conf` inside the `web` container:
+
+```yaml
+volumes:
+  - ./deploy/docker/nginx_http_only_dev.conf:/home/mediacms.io/mediacms/deploy/docker/nginx_http_only.conf
+```
+
+This keeps `nginx_http_only.conf` unchanged for production/remote deployments (where the proxy fallback would cause an infinite loop back to itself). The dev conf is only active locally via the volume mount.
+
+After changing the nginx config, rebuild the containers:
+
+```
+make rebuild
+```

@@ -64,6 +64,27 @@ format-check: ## Check formatting without changing files
 check: lint format-check test ## Run all quality gates (lint + format-check + test)
 
 # ──────────────────────────────────────────────
+# Remote sync (mirror bjj.chadao.ro content)
+# ──────────────────────────────────────────────
+
+REMOTE_HOST ?= bjj.chadao.ro
+REMOTE_USER ?= root
+REMOTE_DIR  ?= /mediacms/cms/mediacms
+REMOTE_COMPOSE ?= docker-compose-letsencrypt.yaml
+
+.PHONY: sync-db sync-assets sync-remote
+
+sync-db: ## Dump remote DB and restore locally
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T db pg_dump -U mediacms -Fc mediacms" > bjj_dump.pgdump
+	$(COMPOSE) exec -T db pg_restore -U mediacms -d mediacms --clean --if-exists < bjj_dump.pgdump
+	@echo "Database restored. Run 'make migrate' if needed."
+
+sync-assets: ## Download thumbnails + HLS manifests from remote
+	$(COMPOSE) exec web python manage.py sync_remote_assets
+
+sync-remote: sync-db sync-assets ## Full sync: database + assets from remote
+
+# ──────────────────────────────────────────────
 # Status
 # ──────────────────────────────────────────────
 

@@ -32,6 +32,7 @@ services:
       - "80:80"
     volumes:
       - ./:/home/mediacms.io/mediacms/
+      - ./deploy/docker/nginx_http_only_dev.conf:/home/mediacms.io/mediacms/deploy/docker/nginx_http_only.conf
     environment:
       ENABLE_CELERY_BEAT: 'no'
       ENABLE_CELERY_SHORT: 'no'
