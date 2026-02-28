@@ -13,23 +13,29 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
 
     - name: Build the Stack
-      run:  docker-compose -f docker-compose-dev.yaml build
+      run: docker compose up -d --build
 
-    - name: Start containers
-      run: docker-compose -f docker-compose-dev.yaml up -d
+    - name: Wait for services to be healthy
+      run: |
+        echo "Waiting for web service..."
+        for i in $(seq 1 30); do
+          if docker compose exec -T web python -c "import django" 2>/dev/null; then
+            echo "Web service is ready"
+            break
+          fi
+          echo "Attempt $i/30 — waiting 5s..."
+          sleep 5
+        done
 
     - name: List containers
-      run: docker ps
-
-    - name: Sleep for 60 seconds
-      run: sleep 60s
-      shell: bash
+      run: docker compose ps
 
     - name: Run Django Tests
-      run: docker-compose -f docker-compose-dev.yaml exec --env TESTING=True -T web pytest
+      run: docker compose exec -e TESTING=True -T web pytest
 
     - name: Tear down the Stack
-      run:  docker-compose -f docker-compose-dev.yaml down
+      if: always()
+      run: docker compose down
