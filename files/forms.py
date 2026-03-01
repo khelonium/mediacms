@@ -21,7 +21,6 @@ class MediaForm(forms.ModelForm):
             "uploaded_poster",
             "description",
             "state",
-            "enable_comments",
             "featured",
             "thumbnail_time",
             "reported_times",

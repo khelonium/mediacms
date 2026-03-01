@@ -475,10 +475,6 @@ export function ManageItemList(props) {
           for (entry of items) {
             newSelected.push(entry.username);
           }
-        } else if ('comments' === tableType) {
-          for (entry of items) {
-            newSelected.push(entry.uid);
-          }
         }
       }
     }
@@ -533,9 +529,9 @@ export function ManageItemList(props) {
     }
   }
 
-  function deleteItem(token, isManageComments) {
+  function deleteItem(token) {
     deleteRequest(
-      props.requestUrl.split('?')[0] + ('comments' === props.manageType ? '?comment_ids=' : '?tokens=') + token,
+      props.requestUrl.split('?')[0] + '?tokens=' + token,
       {
         headers: {
           'X-CSRFToken': csrfToken(),
@@ -550,9 +546,7 @@ export function ManageItemList(props) {
 
   function deleteSelectedItems() {
     deleteRequest(
-      props.requestUrl.split('?')[0] +
-        ('comments' === props.manageType ? '?comment_ids=' : '?tokens=') +
-        selectedItems.join(','),
+      props.requestUrl.split('?')[0] + '?tokens=' + selectedItems.join(','),
       {
         headers: {
           'X-CSRFToken': csrfToken(),

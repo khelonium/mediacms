@@ -322,31 +322,6 @@ def update_user_ratings(user, media, user_ratings):
     return user_ratings
 
 
-def notify_user_on_comment(friendly_token):
-    """Notify users through email, for a set of actions"""
-
-    media = None
-    media = models.Media.objects.filter(friendly_token=friendly_token).first()
-    if not media:
-        return False
-
-    user = media.user
-    media_url = settings.SSL_FRONTEND_HOST + media.get_absolute_url()
-
-    if user.notification_on_comments:
-        title = "[{}] - A comment was added".format(settings.PORTAL_NAME)
-        msg = """
-A comment has been added to your media %s .
-View it on %s
-        """ % (
-            media.title,
-            media_url,
-        )
-        email = EmailMessage(title, msg, settings.DEFAULT_FROM_EMAIL, [media.user.email])
-        email.send(fail_silently=True)
-    return True
-
-
 def list_tasks():
     """Lists celery tasks
     To be used in an admin dashboard

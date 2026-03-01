@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Category, Comment, EncodeProfile, Media, Playlist, Tag, Technique, TechniqueMedia
+from .models import Category, EncodeProfile, Media, Playlist, Tag, Technique, TechniqueMedia
 
 # TODO: put them in a more DRY way
 
@@ -134,7 +134,6 @@ class SingleMediaSerializer(serializers.ModelSerializer):
             "original_media_url",
             "size",
             "video_height",
-            "enable_comments",
             "categories_info",
             "is_reviewed",
             "edit_url",
@@ -253,23 +252,3 @@ class TechniqueMediaSerializer(serializers.ModelSerializer):
         model = TechniqueMedia
         read_only_fields = ("add_date", "added_by")
         fields = ("friendly_token", "title", "thumbnail_url", "url", "added_by", "add_date", "technique_id", "title_override")
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    author_profile = serializers.ReadOnlyField(source="user.get_absolute_url")
-    author_name = serializers.ReadOnlyField(source="user.name")
-    author_thumbnail_url = serializers.ReadOnlyField(source="user.thumbnail_url")
-
-    class Meta:
-        model = Comment
-        read_only_fields = ("add_date", "uid")
-        fields = (
-            "add_date",
-            "text",
-            "parent",
-            "author_thumbnail_url",
-            "author_profile",
-            "author_name",
-            "media_url",
-            "uid",
-        )

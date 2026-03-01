@@ -90,8 +90,6 @@ MAX_MEDIA_PER_PLAYLIST = 70
 # bytes, size of uploaded media
 UPLOAD_MAX_SIZE = 800 * 1024 * 1000 * 5
 
-MAX_CHARS_FOR_COMMENT = 10000  # so that it doesn't end up huge
-
 # valid options: content, author
 RELATED_MEDIA_STRATEGY = "content"
 

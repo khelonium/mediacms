@@ -60,19 +60,11 @@ class MediaPageStore extends EventEmitter {
       reported_times: 0,
       while: {
         deleteMedia: false,
-        submitComment: false,
-        deleteCommentId: null,
       },
     };
 
     this.removeMediaResponse = this.removeMediaResponse.bind(this);
     this.removeMediaFail = this.removeMediaFail.bind(this);
-
-    this.submitCommentFail = this.submitCommentFail.bind(this);
-    this.submitCommentResponse = this.submitCommentResponse.bind(this);
-
-    this.removeCommentFail = this.removeCommentFail.bind(this);
-    this.removeCommentResponse = this.removeCommentResponse.bind(this);
   }
 
   loadData() {
@@ -152,12 +144,6 @@ class MediaPageStore extends EventEmitter {
     this.emit('loaded_page_playlist_data');
   }
 
-  loadComments() {
-    this.commentsAPIUrl = this.mediacms_config.api.media + '/' + MediaPageStoreData[this.id].mediaId + '/comments';
-    this.commentsResponse = this.commentsResponse.bind(this);
-    getRequest(this.commentsAPIUrl, !1, this.commentsResponse);
-  }
-
   loadPlaylists() {
     if (!this.mediacms_config.member.can.saveMedia) {
       return;
@@ -187,10 +173,6 @@ class MediaPageStore extends EventEmitter {
     }
 
     this.loadPlaylists();
-
-    if (this.mediacms_config.member.can.readComment) {
-      this.loadComments();
-    }
   }
 
   dataErrorResponse(response) {
@@ -205,13 +187,6 @@ class MediaPageStore extends EventEmitter {
           this.emit('loaded_media_error');
           break;
       }
-    }
-  }
-
-  commentsResponse(response) {
-    if (response && response.data) {
-      MediaPageStoreData[this.id].comments = response.data.count ? response.data.results : [];
-      this.emit('comments_load');
     }
   }
 
@@ -412,9 +387,6 @@ class MediaPageStore extends EventEmitter {
       case 'media-load-error-message':
         r =
           void 0 !== MediaPageStoreData[this.id].loadErrorMessage ? MediaPageStoreData[this.id].loadErrorMessage : null;
-        break;
-      case 'media-comments':
-        r = MediaPageStoreData[this.id].comments || [];
         break;
       case 'media-data':
         r = MediaPageStoreData[this.id].data || null;
@@ -734,36 +706,6 @@ class MediaPageStore extends EventEmitter {
           this.removeMediaFail
         );
         break;
-      case 'SUBMIT_COMMENT':
-        if (MediaPageStoreData[this.id].while.submitComment) {
-          return;
-        }
-
-        MediaPageStoreData[this.id].while.submitComment = true;
-
-        postRequest(
-          this.commentsAPIUrl,
-          { text: action.commentText },
-          { headers: { 'X-CSRFToken': csrfToken() } },
-          false,
-          this.submitCommentResponse,
-          this.submitCommentFail
-        );
-        break;
-      case 'DELETE_COMMENT':
-        if (null !== MediaPageStoreData[this.id].while.deleteCommentId) {
-          return;
-        }
-
-        MediaPageStoreData[this.id].while.deleteCommentId = action.commentId;
-        deleteRequest(
-          this.commentsAPIUrl + '/' + action.commentId,
-          { headers: { 'X-CSRFToken': csrfToken() } },
-          false,
-          this.removeCommentResponse,
-          this.removeCommentFail
-        );
-        break;
       case 'CREATE_PLAYLIST':
         postRequest(
           this.mediacms_config.api.playlists,
@@ -864,66 +806,6 @@ class MediaPageStore extends EventEmitter {
     );
   }
 
-  removeCommentFail(err) {
-    this.emit('comment_delete_fail', MediaPageStoreData[this.id].while.deleteCommentId);
-    setTimeout(
-      function (ins) {
-        MediaPageStoreData[ins.id].while.deleteCommentId = null;
-      },
-      100,
-      this
-    );
-  }
-
-  removeCommentResponse(response) {
-    if (response && 204 === response.status) {
-      let k;
-      let newComments = [];
-      for (k in MediaPageStoreData[this.id].comments) {
-        if (MediaPageStoreData[this.id].comments.hasOwnProperty(k)) {
-          if (MediaPageStoreData[this.id].while.deleteCommentId !== MediaPageStoreData[this.id].comments[k].uid) {
-            newComments.push(MediaPageStoreData[this.id].comments[k]);
-          }
-        }
-      }
-      MediaPageStoreData[this.id].comments = newComments;
-      newComments = null;
-
-      this.emit('comment_delete', MediaPageStoreData[this.id].while.deleteCommentId);
-    }
-    setTimeout(
-      function (ins) {
-        MediaPageStoreData[ins.id].while.deleteCommentId = null;
-      },
-      100,
-      this
-    );
-  }
-
-  submitCommentFail(err) {
-    this.emit('comment_submit_fail');
-    setTimeout(
-      function (ins) {
-        MediaPageStoreData[ins.id].while.submitComment = false;
-      },
-      100,
-      this
-    );
-  }
-
-  submitCommentResponse(response) {
-    if (response && 201 === response.status && response.data && Object.keys(response.data)) {
-      MediaPageStoreData[this.id].comments.push(response.data);
-      this.emit('comment_submit', response.data.uid);
-    }
-    setTimeout(
-      function (ins) {
-        MediaPageStoreData[ins.id].while.submitComment = false;
-      },
-      100,
-      this
-    );
-  }
 }
 
 export default exportStore(new MediaPageStore(), 'actions_handler');

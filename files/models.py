@@ -140,8 +140,6 @@ class Media(models.Model):
 
     edit_date = models.DateTimeField(auto_now=True)
 
-    enable_comments = models.BooleanField(default=True, help_text="Whether comments will be allowed for this media")
-
     encoding_status = models.CharField(max_length=20, choices=MEDIA_ENCODING_STATUS, default="pending", db_index=True)
 
     featured = models.BooleanField(
@@ -1295,45 +1293,6 @@ class PlaylistMedia(models.Model):
 
     class Meta:
         ordering = ["ordering", "-action_date"]
-
-
-class Comment(MPTTModel):
-    """Comments model"""
-
-    add_date = models.DateTimeField(auto_now_add=True)
-
-    media = models.ForeignKey(Media, on_delete=models.CASCADE, db_index=True, related_name="comments")
-
-    parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children")
-
-    text = models.TextField(help_text="text")
-
-    uid = models.UUIDField(unique=True, default=uuid.uuid4)
-
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, db_index=True)
-
-    class MPTTMeta:
-        order_insertion_by = ["add_date"]
-
-    def __str__(self):
-        return "On {0} by {1}".format(self.media.title, self.user.username)
-
-    def save(self, *args, **kwargs):
-        strip_text_items = ["text"]
-        for item in strip_text_items:
-            setattr(self, item, strip_tags(getattr(self, item, None)))
-
-        if self.text:
-            self.text = self.text[: settings.MAX_CHARS_FOR_COMMENT]
-
-        super(Comment, self).save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return reverse("get_media") + "?m={0}".format(self.media.friendly_token)
-
-    @property
-    def media_url(self):
-        return self.get_absolute_url()
 
 
 @receiver(post_save, sender=Media)

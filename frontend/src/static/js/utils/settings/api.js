@@ -43,7 +43,6 @@ export function init(base_url, endpoints) {
     manage: {
       media: endpoints.manage_media,
       users: endpoints.manage_users,
-      comments: endpoints.manage_comments,
     },
     search: {
       query: endpoints.search + '?q=',

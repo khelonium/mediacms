@@ -1,10 +1,8 @@
 import React from 'react';
 import { ManageMediaItem } from '../../ManageItem/ManageMediaItem';
 import { ManageUsersItem } from '../../ManageItem/ManageUsersItem';
-import { ManageCommentsItem } from '../../ManageItem/ManageCommentsItem';
 import { ManageMediaItemHeader } from '../../ManageItem/ManageMediaItemHeader';
 import { ManageUsersItemHeader } from '../../ManageItem/ManageUsersItemHeader';
-import { ManageCommentsItemHeader } from '../../ManageItem/ManageCommentsItemHeader';
 
 function useManageItem(props) {
   const itemData = props.item;
@@ -75,23 +73,6 @@ function ListManageUserItem(props) {
   return <ManageUsersItem {...args} />;
 }
 
-function ListManageCommentItem(props) {
-  const [itemData, itemProps] = useManageItem(props);
-
-  const args = {
-    ...itemProps,
-    media_url: void 0 !== itemData.media_url ? itemData.media_url.replace(' ', '%20') : void 0,
-    author_name: itemData.author_name,
-    author_url: itemData.author_profile,
-    author_thumbnail_url: itemData.author_thumbnail_url,
-    add_date: itemData.add_date,
-    text: itemData.text,
-    uid: itemData.uid,
-  };
-
-  return <ManageCommentsItem {...args} />;
-}
-
 function ListManageItem(props) {
   const args = {
     item: props.item,
@@ -107,10 +88,6 @@ function ListManageItem(props) {
 
   if ('users' === props.type) {
     return <ListManageUserItem {...args} selectedRow={-1 < props.selectedItems.indexOf(props.item.username)} />;
-  }
-
-  if ('comments' === props.type) {
-    return <ListManageCommentItem {...args} selectedRow={-1 < props.selectedItems.indexOf(props.item.uid)} />;
   }
 
   return null;
@@ -135,10 +112,6 @@ function ListManageItemHeader(props) {
     args.has_verified = props.items.length && void 0 !== props.items[0].email_is_verified;
     args.has_trusted = props.items.length && void 0 !== props.items[0].advancedUser;
     return <ManageUsersItemHeader {...args} />;
-  }
-
-  if ('comments' === props.type) {
-    return <ManageCommentsItemHeader {...args} />;
   }
 
   return null;

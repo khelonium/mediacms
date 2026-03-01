@@ -65,7 +65,7 @@ black .          # Python formatting (line-length 200, config in pyproject.toml)
 ### Django Apps
 
 - **cms/** - Project configuration: settings, root URL routing, Celery app setup, WSGI/ASGI entry points
-- **files/** - Core app: Media model, categories, tags, encoding profiles, playlists, comments, subtitles. Contains the bulk of business logic including FFmpeg-based transcoding, HLS generation, and full-text search via PostgreSQL search vectors
+- **files/** - Core app: Media model, categories, tags, encoding profiles, playlists, subtitles. Contains the bulk of business logic including FFmpeg-based transcoding, HLS generation, and full-text search via PostgreSQL search vectors
 - **users/** - User accounts (extends AbstractUser), channels with subscriptions, roles (advancedUser, editor, manager). Authentication via django-allauth
 - **actions/** - Tracks user interactions (like, dislike, watch, report, rate) via a single MediaAction model. Supports anonymous tracking via session keys
 - **uploader/** - Chunked file upload handling via Fine Uploader with automatic Media object creation
@@ -102,11 +102,10 @@ Documented via Swagger at `/swagger/` and ReDoc at `/api/`. Key endpoints under 
 - `media/`, `media/{token}` - Media CRUD
 - `search` - Full-text search
 - `playlists/`, `playlists/{token}` - Playlist management
-- `comments`, `media/{token}/comments` - Comments
 - `users/`, `users/{username}` - User profiles
 - `login`, `whoami` - Authentication
 - `encode_profiles` - Available encoding profiles
-- `manage_media`, `manage_users`, `manage_comments` - Admin management
+- `manage_media`, `manage_users` - Admin management
 
 ### Key Configuration (cms/settings.py)
 

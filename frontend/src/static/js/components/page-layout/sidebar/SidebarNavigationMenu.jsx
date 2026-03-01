@@ -227,15 +227,6 @@ export function SidebarNavigationMenu() {
       });
     }
 
-    if (userCan.manageComments) {
-      items.push({
-        link: links.manage.comments,
-        icon: 'miscellaneous_services',
-        text: 'Manage comments',
-        className: 'nav-item-manage-comments',
-      });
-    }
-
     return items.length ? <NavigationMenuList key="admin" items={formatItems(items)} /> : null;
   }
 

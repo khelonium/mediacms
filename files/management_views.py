@@ -10,9 +10,9 @@ from users.models import User
 from users.serializers import UserSerializer
 
 from .methods import is_mediacms_manager
-from .models import Comment, Media
+from .models import Media
 from .permissions import IsMediacmsEditor
-from .serializers import CommentSerializer, MediaSerializer
+from .serializers import MediaSerializer
 
 
 class MediaList(APIView):
@@ -118,61 +118,6 @@ class MediaList(APIView):
         if tokens:
             tokens = tokens.split(",")
             Media.objects.filter(friendly_token__in=tokens).delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class CommentList(APIView):
-    """Comments listings
-    Used on management pages of MediaCMS
-    Should be available only to MediaCMS editors,
-    managers and admins
-    """
-
-    permission_classes = (IsMediacmsEditor,)
-    parser_classes = (JSONParser,)
-
-    @swagger_auto_schema(
-        manual_parameters=[],
-        tags=['Manage'],
-        operation_summary='Manage Comments',
-        operation_description='Manage comments for MediaCMS managers and reviewers',
-    )
-    def get(self, request, format=None):
-        params = self.request.query_params
-        ordering = params.get("ordering", "").strip()
-        sort_by = params.get("sort_by", "").strip()
-
-        sort_by_options = ["text", "add_date"]
-        if sort_by not in sort_by_options:
-            sort_by = "add_date"
-        if ordering == "asc":
-            ordering = ""
-        else:
-            ordering = "-"
-
-        pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
-
-        qs = Comment.objects.filter()
-        media = qs.order_by(f"{ordering}{sort_by}")
-
-        paginator = pagination_class()
-
-        page = paginator.paginate_queryset(media, request)
-
-        serializer = CommentSerializer(page, many=True, context={"request": request})
-        return paginator.get_paginated_response(serializer.data)
-
-    @swagger_auto_schema(
-        manual_parameters=[],
-        tags=['Manage'],
-        operation_summary='Delete Comments',
-        operation_description='Delete comments for MediaCMS managers and reviewers',
-    )
-    def delete(self, request, format=None):
-        comment_ids = request.GET.get("comment_ids")
-        if comment_ids:
-            comments = comment_ids.split(",")
-            Comment.objects.filter(uid__in=comments).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

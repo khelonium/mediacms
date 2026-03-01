@@ -16,15 +16,11 @@ export function init(user, features) {
       editProfile: false,
       changePassword: true,
       deleteProfile: false,
-      readComment: true,
-      addComment: false,
-      deleteComment: false,
       editMedia: false,
       deleteMedia: false,
       editSubtitle: false,
       manageMedia: false,
       manageUsers: false,
-      manageComments: false,
       addToTechniques: false,
       reportMedia: false,
       downloadMedia: false,
@@ -60,14 +56,11 @@ export function init(user, features) {
       MEMBER.can.changePassword = false === user.can.changePassword ? false : MEMBER.can.changePassword;
 
       MEMBER.can.deleteProfile = true === user.can.deleteProfile;
-      MEMBER.can.addComment = true === user.can.addComment;
-      MEMBER.can.deleteComment = true === user.can.deleteComment;
       MEMBER.can.editMedia = true === user.can.editMedia;
       MEMBER.can.deleteMedia = true === user.can.deleteMedia;
       MEMBER.can.editSubtitle = true === user.can.editSubtitle;
       MEMBER.can.manageMedia = true === user.can.manageMedia;
       MEMBER.can.manageUsers = true === user.can.manageUsers;
-      MEMBER.can.manageComments = true === user.can.manageComments;
       MEMBER.can.addToTechniques = true === user.can.addToTechniques;
 
       MEMBER.can.contactUser = true === user.can.contactUser;
@@ -93,15 +86,12 @@ export function init(user, features) {
 
     MEMBER.can.addMedia = true === user.can.addMedia;
     MEMBER.can.editProfile = true === user.can.editProfile;
-    MEMBER.can.readComment = false === user.can.readComment ? false : true;
   }
 
   if (void 0 !== features) {
     if (void 0 !== features.media) {
       if (void 0 !== features.media.actions) {
         const mediaActions = features.media.actions;
-
-        MEMBER.can.addComment = MEMBER.can.addComment && true === mediaActions.comment;
 
         MEMBER.can.likeMedia = false === mediaActions.like ? false : true;
         MEMBER.can.dislikeMedia = false === mediaActions.dislike ? false : true;

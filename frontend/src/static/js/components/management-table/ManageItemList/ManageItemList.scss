@@ -5,8 +5,7 @@
 @import '../../../../css/config/index.scss';
 
 #page-manage-media,
-#page-manage-users,
-#page-manage-comments {
+#page-manage-users {
   .media-list-wrapper {
     padding: 0 16px;
 
@@ -339,106 +338,6 @@
 
       @media (min-width: 768px) {
         min-width: 200px;
-      }
-    }
-  }
-
-  &.manage-comments-item {
-    > * {
-      width: 16%;
-    }
-
-    .mi-title,
-    .mi-comment,
-    .mi-author {
-      padding-left: 16px;
-      padding-right: 16px;
-    }
-
-    .mi-comment,
-    .mi-added {
-      width: 100%;
-    }
-
-    .mi-author {
-      min-width: 160px;
-      font-weight: 500;
-    }
-
-    .mi-comment {
-      min-width: 240px;
-
-      .actions {
-        margin: 0.5em 0 0;
-        font-size: 0.92857em;
-        // font-weight:500;
-
-        .seperator {
-          margin: 0 4px;
-          opacity: 0.65;
-        }
-
-        button {
-          color: var(--danger-color);
-          border: 0;
-          background: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-
-        .popup {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          font-size: initial;
-          font-weight: initial;
-        }
-
-        .popup-message-bottom {
-          position: relative;
-          float: left;
-          width: 100%;
-
-          button {
-            position: relative;
-            float: left;
-            font-size: 14px;
-            color: var(--popup-msg-main-text-color);
-
-            &.proceed-profile-removal {
-              float: right;
-              color: var(--default-theme-color);
-            }
-
-            &.cancel-profile-removal {
-              float: left;
-            }
-
-            &:hover {
-              color: inherit;
-              text-decoration: none;
-            }
-          }
-        }
-      }
-    }
-
-    .mi-added {
-      min-width: 192px;
-      text-align: center;
-    }
-
-    .mi-checkbox {
-      min-width: 48px;
-      width: 48px;
-      text-align: center;
-    }
-
-    &.manage-item-header {
-      .mi-comment {
-        padding-left: 16px;
       }
     }
   }

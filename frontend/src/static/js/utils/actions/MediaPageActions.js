@@ -45,20 +45,6 @@ export function removeMedia() {
   });
 }
 
-export function submitComment(commentText) {
-  Dispatcher.dispatch({
-    type: 'SUBMIT_COMMENT',
-    commentText,
-  });
-}
-
-export function deleteComment(commentId) {
-  Dispatcher.dispatch({
-    type: 'DELETE_COMMENT',
-    commentId,
-  });
-}
-
 export function createPlaylist(playlist_data) {
   Dispatcher.dispatch({
     type: 'CREATE_PLAYLIST',

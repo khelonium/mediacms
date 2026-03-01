@@ -5,8 +5,6 @@ import { PageStore, MediaPageStore } from '../../utils/stores/';
 import { PageActions, MediaPageActions } from '../../utils/actions/';
 import { formatInnerLink, publishedOnDate } from '../../utils/helpers/';
 import { PopupMain } from '../_shared/';
-import CommentsList from '../comments/Comments';
-
 function metafield(arr) {
   let i;
   let sep;
@@ -239,8 +237,6 @@ export default function ViewerInfoContent(props) {
           ) : null}
         </div>
       </div>
-
-      <CommentsList />
     </div>
   );
 }

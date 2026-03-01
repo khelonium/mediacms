@@ -32,10 +32,6 @@ class User(AbstractUser):
     title = models.CharField("Title", max_length=250, blank=True)
     advancedUser = models.BooleanField("advanced user", default=False, db_index=True)
     media_count = models.IntegerField(default=0)  # save number of videos
-    notification_on_comments = models.BooleanField(
-        "Whether you will receive email notifications for comments added to your content",
-        default=True,
-    )
     location = models.CharField("Location", max_length=250, blank=True)
     is_editor = models.BooleanField("MediaCMS Editor", default=False, db_index=True)
     is_manager = models.BooleanField("MediaCMS Manager", default=False, db_index=True)

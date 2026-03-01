@@ -3,7 +3,6 @@ from mptt.admin import MPTTModelAdmin
 
 from .models import (
     Category,
-    Comment,
     EncodeProfile,
     Encoding,
     Language,
@@ -13,13 +12,6 @@ from .models import (
     Technique,
     TechniqueMedia,
 )
-
-
-class CommentAdmin(admin.ModelAdmin):
-    search_fields = ["text"]
-    list_display = ["text", "add_date", "user", "media"]
-    ordering = ("-add_date",)
-    readonly_fields = ("user", "media", "parent")
 
 
 class MediaAdmin(admin.ModelAdmin):
@@ -34,16 +26,10 @@ class MediaAdmin(admin.ModelAdmin):
         "is_reviewed",
         "encoding_status",
         "featured",
-        "get_comments_count",
     ]
     list_filter = ["state", "is_reviewed", "encoding_status", "featured", "category"]
     ordering = ("-add_date",)
     readonly_fields = ("user", "tags", "category", "channel")
-
-    def get_comments_count(self, obj):
-        return obj.comments.count()
-
-    get_comments_count.short_description = "Comments count"
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -81,7 +67,6 @@ class EncodingAdmin(admin.ModelAdmin):
 
 
 admin.site.register(EncodeProfile, EncodeProfileAdmin)
-admin.site.register(Comment, CommentAdmin)
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Encoding, EncodingAdmin)
 admin.site.register(Category, CategoryAdmin)

@@ -21,7 +21,6 @@ module.exports = {
       like: true,
       dislike: true,
       download: true,
-      comment: true,
       save: true,
     },
     shareOptions: [

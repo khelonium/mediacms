@@ -20,7 +20,6 @@ class UserForm(forms.ModelForm):
             "name",
             "description",
             "logo",
-            "notification_on_comments",
             "is_featured",
             "advancedUser",
             "is_manager",

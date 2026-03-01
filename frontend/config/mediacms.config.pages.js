@@ -85,7 +85,6 @@ const PAGES = {
   categories: { id: 'categories', title: 'Categories', component: 'CategoriesPage' },
   'manage-media': { id: 'manage-media', title: 'Manage media', component: 'ManageMediaPage' },
   'manage-users': { id: 'manage-users', title: 'Manage users', component: 'ManageUsersPage' },
-  'manage-comments': { id: 'manage-comments', title: 'Manage comments', component: 'ManageCommentsPage' },
   'add-media': {
     id: 'add-media',
     title: 'Add media',
