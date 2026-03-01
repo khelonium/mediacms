@@ -1,6 +1,11 @@
 {
   "version": 3,
-  "generated_from": ["Bjj.xlsx:Done", "chat.txt (bjj.chadao.ro links)", "taiko-coaching seed data", "WhatsApp chat history 2024-2025"],
+  "generated_from": [
+    "Bjj.xlsx:Done",
+    "chat.txt (bjj.chadao.ro links)",
+    "taiko-coaching seed data",
+    "WhatsApp chat history 2024-2025"
+  ],
   "tree": [
     {
       "id": "root.guard",
@@ -64,7 +69,11 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=CeaMGa8vo", "source": "seed", "seed_title": "Pull guard to hook sweep" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=CeaMGa8vo",
+                  "source": "seed",
+                  "seed_title": "Pull guard to hook sweep"
+                }
               ],
               "children": []
             },
@@ -144,7 +153,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=138QOpqIa", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=138QOpqIa",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -210,7 +222,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=7WlG4CUsQ", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=7WlG4CUsQ",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -220,7 +235,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=fLdScVeIJ", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=fLdScVeIJ",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
@@ -266,7 +284,10 @@
               "status": "done",
               "notes": "Strengthen omoplata position",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=sx8ydJZl8", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=sx8ydJZl8",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -276,7 +297,11 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=Wfi7RrzkL", "source": "chat", "seed_title": "Low slx to Omoplata" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=Wfi7RrzkL",
+                  "source": "chat",
+                  "seed_title": "Low slx to Omoplata"
+                }
               ],
               "children": []
             },
@@ -330,7 +355,11 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/media/encoded/13/admin/390602e15932495db7c2e22a42cd1d8c.390602e15932495db7c2e22a42cd1d8c.soh_mount_control_details_and_chocke_with_own_lapel.mp4.mp4", "source": "chat", "seed_title": "Mount control details + choke with own lapel" }
+                {
+                  "url": "https://bjj.chadao.ro/media/encoded/13/admin/390602e15932495db7c2e22a42cd1d8c.390602e15932495db7c2e22a42cd1d8c.soh_mount_control_details_and_chocke_with_own_lapel.mp4.mp4",
+                  "source": "chat",
+                  "seed_title": "Mount control details + choke with own lapel"
+                }
               ],
               "children": []
             },
@@ -386,7 +415,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=4SIjFwHgt", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=4SIjFwHgt",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -396,7 +428,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=tHar1REpH", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=tHar1REpH",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -410,7 +445,10 @@
                   "status": "done",
                   "notes": null,
                   "resources": [
-                    { "url": "https://bjj.chadao.ro/view?m=Nz3RKJee0", "source": "chat" }
+                    {
+                      "url": "https://bjj.chadao.ro/view?m=Nz3RKJee0",
+                      "source": "chat"
+                    }
                   ],
                   "children": []
                 }
@@ -428,7 +466,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=ncueBehzL", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=ncueBehzL",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -438,7 +479,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=lkxfUxpwr", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=lkxfUxpwr",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -448,7 +492,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=v8zqp74H9", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=v8zqp74H9",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -458,7 +505,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=cypHH3naA", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=cypHH3naA",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
@@ -474,7 +524,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=efScXFrUM", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=efScXFrUM",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -484,7 +537,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=FMAKK5tFI", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=FMAKK5tFI",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -494,7 +550,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=7WlG4CUsQ", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=7WlG4CUsQ",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -504,7 +563,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=tWopv7HMG", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=tWopv7HMG",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
@@ -520,7 +582,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=Fp6nlWmFa", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=Fp6nlWmFa",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -530,7 +595,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=PGbzPW9pW", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=PGbzPW9pW",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -540,7 +608,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=vjxUK3bFU", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=vjxUK3bFU",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -550,7 +621,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=IOl8WUIoK", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=IOl8WUIoK",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -560,7 +634,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=uo771yv3x", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=uo771yv3x",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -570,7 +647,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=ruJeK0CA4", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=ruJeK0CA4",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
@@ -586,11 +666,19 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=vjxUK3bFU", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=vjxUK3bFU",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
           ]
+        },
+        {
+          "id": "root.guard.retention",
+          "title": "Retention",
+          "children": []
         }
       ]
     },
@@ -608,7 +696,11 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/media/encoded/3/cosmin/1d13ed6d6c0d471f90a4b137083bfdf5.1d13ed6d6c0d471f90a4b137083bfdf5.VID-20211228-WA0003.mp4.mp4", "source": "chat", "seed_title": "Knee slice + HQ details" }
+                {
+                  "url": "https://bjj.chadao.ro/media/encoded/3/cosmin/1d13ed6d6c0d471f90a4b137083bfdf5.1d13ed6d6c0d471f90a4b137083bfdf5.VID-20211228-WA0003.mp4.mp4",
+                  "source": "chat",
+                  "seed_title": "Knee slice + HQ details"
+                }
               ],
               "children": []
             },
@@ -618,7 +710,11 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=eMmnQCSOw", "source": "seed", "seed_title": "Leg pin to crazy dog" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=eMmnQCSOw",
+                  "source": "seed",
+                  "seed_title": "Leg pin to crazy dog"
+                }
               ],
               "children": []
             },
@@ -628,7 +724,11 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=RHhd6hbNg", "source": "seed", "seed_title": "Crazy dog to leg weave" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=RHhd6hbNg",
+                  "source": "seed",
+                  "seed_title": "Crazy dog to leg weave"
+                }
               ],
               "children": []
             },
@@ -638,7 +738,11 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=6z33mT1RN", "source": "seed", "seed_title": "Crazy dog variation" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=6z33mT1RN",
+                  "source": "seed",
+                  "seed_title": "Crazy dog variation"
+                }
               ],
               "children": []
             },
@@ -708,7 +812,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=IUbx95VK7", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=IUbx95VK7",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -718,7 +825,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=NwKRk6eFX", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=NwKRk6eFX",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -728,7 +838,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=fKxH7myzv", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=fKxH7myzv",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
@@ -744,7 +857,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=NwKRk6eFX", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=NwKRk6eFX",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -762,7 +878,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=9EvNbjF3N", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=9EvNbjF3N",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -797,6 +916,11 @@
               "children": []
             }
           ]
+        },
+        {
+          "id": "root.passing.hooks-guard",
+          "title": "Hooks Guard",
+          "children": []
         }
       ]
     },
@@ -818,7 +942,10 @@
                   "status": "done",
                   "notes": "Hold arm isolation 2-3 seconds in sparring",
                   "resources": [
-                    { "url": "https://bjj.chadao.ro/view?m=i6haVmQql", "source": "chat" }
+                    {
+                      "url": "https://bjj.chadao.ro/view?m=i6haVmQql",
+                      "source": "chat"
+                    }
                   ],
                   "children": []
                 },
@@ -828,10 +955,26 @@
                   "status": "done",
                   "notes": "Hold arm isolation 2-3 seconds in sparring",
                   "resources": [
-                    { "url": "https://bjj.chadao.ro/view?m=PfSgZHJgI", "source": "chat", "seed_title": "Near Arm Trap To Tainan Armbar 4" },
-                    { "url": "https://bjj.chadao.ro/view?m=j04tWhz2T", "source": "seed", "seed_title": "Stapled hand to tainan armbar (better quality)" },
-                    { "url": "https://bjj.chadao.ro/view?m=D0AwShZpg", "source": "seed", "seed_title": "Tainan armbar from arm trap" },
-                    { "url": "https://bjj.chadao.ro/view?m=pvQY55JS4", "source": "seed", "seed_title": "Near Arm Trap to Tainan Armbar 3" }
+                    {
+                      "url": "https://bjj.chadao.ro/view?m=PfSgZHJgI",
+                      "source": "chat",
+                      "seed_title": "Near Arm Trap To Tainan Armbar 4"
+                    },
+                    {
+                      "url": "https://bjj.chadao.ro/view?m=j04tWhz2T",
+                      "source": "seed",
+                      "seed_title": "Stapled hand to tainan armbar (better quality)"
+                    },
+                    {
+                      "url": "https://bjj.chadao.ro/view?m=D0AwShZpg",
+                      "source": "seed",
+                      "seed_title": "Tainan armbar from arm trap"
+                    },
+                    {
+                      "url": "https://bjj.chadao.ro/view?m=pvQY55JS4",
+                      "source": "seed",
+                      "seed_title": "Near Arm Trap to Tainan Armbar 3"
+                    }
                   ],
                   "children": []
                 },
@@ -841,7 +984,10 @@
                   "status": "done",
                   "notes": null,
                   "resources": [
-                    { "url": "https://bjj.chadao.ro/view?m=x6n5cfzRK", "source": "chat" }
+                    {
+                      "url": "https://bjj.chadao.ro/view?m=x6n5cfzRK",
+                      "source": "chat"
+                    }
                   ],
                   "children": []
                 },
@@ -851,7 +997,10 @@
                   "status": "done",
                   "notes": null,
                   "resources": [
-                    { "url": "https://bjj.chadao.ro/view?m=ws5dFAC2n", "source": "chat" }
+                    {
+                      "url": "https://bjj.chadao.ro/view?m=ws5dFAC2n",
+                      "source": "chat"
+                    }
                   ],
                   "children": []
                 }
@@ -869,11 +1018,24 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=EPJqhbBiT", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=EPJqhbBiT",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
           ]
+        },
+        {
+          "id": "root.positions.back",
+          "title": "Back",
+          "children": []
+        },
+        {
+          "id": "root.positions.crucifix",
+          "title": "Crucifix",
+          "children": []
         }
       ]
     },
@@ -891,8 +1053,16 @@
               "status": "done",
               "notes": "Hold arm isolation 2-3 seconds in sparring",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=pP2V86mxq", "source": "seed", "seed_title": "Failed Omoplata to Belly Down Armbar when opponent moves hand" },
-                { "url": "https://bjj.chadao.ro/view?m=RYnOYUUuB", "source": "chat", "seed_title": "Omoplata to belly down armbar" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=pP2V86mxq",
+                  "source": "seed",
+                  "seed_title": "Failed Omoplata to Belly Down Armbar when opponent moves hand"
+                },
+                {
+                  "url": "https://bjj.chadao.ro/view?m=RYnOYUUuB",
+                  "source": "chat",
+                  "seed_title": "Omoplata to belly down armbar"
+                }
               ],
               "children": []
             },
@@ -902,7 +1072,11 @@
               "status": "done",
               "notes": "Hold arm isolation 2-3 seconds in sparring",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=IS8clShDb", "source": "seed", "seed_title": "Close Guard to Belly Down Armbar from Back Take Option" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=IS8clShDb",
+                  "source": "seed",
+                  "seed_title": "Close Guard to Belly Down Armbar from Back Take Option"
+                }
               ],
               "children": []
             },
@@ -912,8 +1086,16 @@
               "status": "done",
               "notes": "Hold arm isolation 2-3 seconds in sparring",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=v3xWWuQXe", "source": "seed", "seed_title": "Armbar from omoplata pin" },
-                { "url": "https://bjj.chadao.ro/view?m=oI6IWpT7T", "source": "chat", "seed_title": "Omoplata to armbar" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=v3xWWuQXe",
+                  "source": "seed",
+                  "seed_title": "Armbar from omoplata pin"
+                },
+                {
+                  "url": "https://bjj.chadao.ro/view?m=oI6IWpT7T",
+                  "source": "chat",
+                  "seed_title": "Omoplata to armbar"
+                }
               ],
               "children": []
             },
@@ -923,10 +1105,26 @@
               "status": "done",
               "notes": "Hold arm isolation 2-3 seconds in sparring",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=PfSgZHJgI", "source": "chat", "seed_title": "Near Arm Trap To Tainan Armbar 4" },
-                { "url": "https://bjj.chadao.ro/view?m=j04tWhz2T", "source": "seed", "seed_title": "Stapled hand to tainan armbar (better quality)" },
-                { "url": "https://bjj.chadao.ro/view?m=D0AwShZpg", "source": "seed", "seed_title": "Tainan armbar from arm trap" },
-                { "url": "https://bjj.chadao.ro/view?m=pvQY55JS4", "source": "seed", "seed_title": "Near Arm Trap to Tainan Armbar 3" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=PfSgZHJgI",
+                  "source": "chat",
+                  "seed_title": "Near Arm Trap To Tainan Armbar 4"
+                },
+                {
+                  "url": "https://bjj.chadao.ro/view?m=j04tWhz2T",
+                  "source": "seed",
+                  "seed_title": "Stapled hand to tainan armbar (better quality)"
+                },
+                {
+                  "url": "https://bjj.chadao.ro/view?m=D0AwShZpg",
+                  "source": "seed",
+                  "seed_title": "Tainan armbar from arm trap"
+                },
+                {
+                  "url": "https://bjj.chadao.ro/view?m=pvQY55JS4",
+                  "source": "seed",
+                  "seed_title": "Near Arm Trap to Tainan Armbar 3"
+                }
               ],
               "children": []
             },
@@ -936,7 +1134,10 @@
               "status": "done",
               "notes": "Hold arm isolation 2-3 seconds in sparring",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=i6haVmQql", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=i6haVmQql",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -954,7 +1155,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=NsNMfmGLq", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=NsNMfmGLq",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -964,7 +1168,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=aC1EzFXVG", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=aC1EzFXVG",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -974,7 +1181,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=x6n5cfzRK", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=x6n5cfzRK",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -984,7 +1194,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=VZnqmgbvl", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=VZnqmgbvl",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
@@ -1000,9 +1213,21 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=Aa8GBKKeB", "source": "seed", "seed_title": "Back top clamp to bow and arrow" },
-                { "url": "https://bjj.chadao.ro/view?m=EfFE9uHlh", "source": "seed", "seed_title": "Bow and arrow choke" },
-                { "url": "https://bjj.chadao.ro/view?m=ZSsXDL3CM", "source": "seed", "seed_title": "Bow and arrow sequence" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=Aa8GBKKeB",
+                  "source": "seed",
+                  "seed_title": "Back top clamp to bow and arrow"
+                },
+                {
+                  "url": "https://bjj.chadao.ro/view?m=EfFE9uHlh",
+                  "source": "seed",
+                  "seed_title": "Bow and arrow choke"
+                },
+                {
+                  "url": "https://bjj.chadao.ro/view?m=ZSsXDL3CM",
+                  "source": "seed",
+                  "seed_title": "Bow and arrow sequence"
+                }
               ],
               "children": []
             },
@@ -1034,7 +1259,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=okypYVu86", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=okypYVu86",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1044,7 +1272,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=aC1EzFXVG", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=aC1EzFXVG",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
@@ -1060,7 +1291,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=x6n5cfzRK", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=x6n5cfzRK",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1070,7 +1304,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=q9M6h9vhq", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=q9M6h9vhq",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
@@ -1086,7 +1323,11 @@
               "status": "done",
               "notes": "Strengthen omoplata position",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=2POptLLzc", "source": "seed", "seed_title": "Monoploata from side omoplata pin" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=2POptLLzc",
+                  "source": "seed",
+                  "seed_title": "Monoploata from side omoplata pin"
+                }
               ],
               "children": []
             },
@@ -1104,8 +1345,16 @@
               "status": "done",
               "notes": "Hold arm isolation 2-3 seconds in sparring",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=pP2V86mxq", "source": "seed", "seed_title": "Failed Omoplata to Belly Down Armbar when opponent moves hand" },
-                { "url": "https://bjj.chadao.ro/view?m=RYnOYUUuB", "source": "chat", "seed_title": "Omoplata to belly down armbar" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=pP2V86mxq",
+                  "source": "seed",
+                  "seed_title": "Failed Omoplata to Belly Down Armbar when opponent moves hand"
+                },
+                {
+                  "url": "https://bjj.chadao.ro/view?m=RYnOYUUuB",
+                  "source": "chat",
+                  "seed_title": "Omoplata to belly down armbar"
+                }
               ],
               "children": []
             },
@@ -1115,8 +1364,16 @@
               "status": "done",
               "notes": "Hold arm isolation 2-3 seconds in sparring",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=v3xWWuQXe", "source": "seed", "seed_title": "Armbar from omoplata pin" },
-                { "url": "https://bjj.chadao.ro/view?m=oI6IWpT7T", "source": "chat", "seed_title": "Omoplata to armbar" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=v3xWWuQXe",
+                  "source": "seed",
+                  "seed_title": "Armbar from omoplata pin"
+                },
+                {
+                  "url": "https://bjj.chadao.ro/view?m=oI6IWpT7T",
+                  "source": "chat",
+                  "seed_title": "Omoplata to armbar"
+                }
               ],
               "children": []
             },
@@ -1126,7 +1383,10 @@
               "status": "done",
               "notes": "Strengthen omoplata position",
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=sx8ydJZl8", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=sx8ydJZl8",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1136,7 +1396,11 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=Wfi7RrzkL", "source": "chat", "seed_title": "Low slx to Omoplata" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=Wfi7RrzkL",
+                  "source": "chat",
+                  "seed_title": "Low slx to Omoplata"
+                }
               ],
               "children": []
             },
@@ -1154,7 +1418,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=pOWsnuRWi", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=pOWsnuRWi",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1164,7 +1431,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=VwFWshYp7", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=VwFWshYp7",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1174,7 +1444,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=AT5DHAlSj", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=AT5DHAlSj",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1184,7 +1457,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=uo771yv3x", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=uo771yv3x",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1194,7 +1470,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=ruJeK0CA4", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=ruJeK0CA4",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1204,7 +1483,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=9EvNbjF3N", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=9EvNbjF3N",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1214,7 +1496,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=ws5dFAC2n", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=ws5dFAC2n",
+                  "source": "chat"
+                }
               ],
               "children": []
             },
@@ -1224,7 +1509,10 @@
               "status": "done",
               "notes": null,
               "resources": [
-                { "url": "https://bjj.chadao.ro/view?m=VZnqmgbvl", "source": "chat" }
+                {
+                  "url": "https://bjj.chadao.ro/view?m=VZnqmgbvl",
+                  "source": "chat"
+                }
               ],
               "children": []
             }
