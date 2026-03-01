@@ -12,9 +12,19 @@ def populate_techniques(apps, schema_editor):
     with open(json_path, "r") as f:
         data = json.load(f)
 
-    # Recursively create Technique objects, tracking insertion order for lft/rght
-    def create_nodes(nodes, parent=None):
+    tree_id_seq = [0]
+
+    def create_nodes(nodes, parent=None, level=0, counter=None):
         for node in nodes:
+            if parent is None:
+                tree_id_seq[0] += 1
+                counter = [1]
+
+            lft = counter[0]
+            counter[0] += 1
+
+            children_data = node.get("children", [])
+
             technique = Technique.objects.create(
                 title=node.get("title", ""),
                 slug=node.get("id", ""),
@@ -22,20 +32,20 @@ def populate_techniques(apps, schema_editor):
                 status=node.get("status") or "",
                 notes=node.get("notes") or "",
                 resources=node.get("resources") or [],
-                # MPTT fields — will be fixed by rebuild()
-                lft=0,
+                lft=lft,
                 rght=0,
-                tree_id=0,
-                level=0,
+                tree_id=tree_id_seq[0],
+                level=level,
             )
-            children = node.get("children", [])
-            if children:
-                create_nodes(children, parent=technique)
+
+            if children_data:
+                create_nodes(children_data, parent=technique, level=level + 1, counter=counter)
+
+            technique.rght = counter[0]
+            counter[0] += 1
+            technique.save(update_fields=["rght"])
 
     create_nodes(data.get("tree", []))
-
-    # Rebuild MPTT tree structure
-    Technique.objects.rebuild()
 
     # Remap TechniqueMedia rows: set the new FK from old technique_id slug
     slug_to_technique = {t.slug: t for t in Technique.objects.all()}
