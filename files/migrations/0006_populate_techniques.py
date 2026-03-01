@@ -43,8 +43,8 @@ def populate_techniques(apps, schema_editor):
     for tm in TechniqueMedia.objects.all():
         technique = slug_to_technique.get(tm.technique_id)
         if technique:
-            tm.technique = technique
-            tm.save(update_fields=["technique"])
+            tm.technique_fk = technique
+            tm.save(update_fields=["technique_fk"])
         else:
             orphaned_ids.append(tm.pk)
 
@@ -57,12 +57,12 @@ def unpopulate_techniques(apps, schema_editor):
     Technique = apps.get_model("files", "Technique")
     TechniqueMedia = apps.get_model("files", "TechniqueMedia")
     # Restore technique_id from the FK before clearing
-    # (0007 reverse has already re-added the technique_id column)
-    for tm in TechniqueMedia.objects.select_related("technique").all():
-        if tm.technique:
-            tm.technique_id = tm.technique.slug
+    # (0007 reverse has already re-added the technique_id column and renamed FK back)
+    for tm in TechniqueMedia.objects.select_related("technique_fk").all():
+        if tm.technique_fk:
+            tm.technique_id = tm.technique_fk.slug
             tm.save(update_fields=["technique_id"])
-    TechniqueMedia.objects.update(technique=None)
+    TechniqueMedia.objects.update(technique_fk=None)
     Technique.objects.all().delete()
 
 

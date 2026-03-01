@@ -39,10 +39,11 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "techniques",
             },
         ),
-        # 2. Add temporary nullable FK on TechniqueMedia (alongside old technique_id)
+        # 2. Add temporary nullable FK named technique_fk to avoid collision
+        #    with existing technique_id CharField column
         migrations.AddField(
             model_name="techniquemedia",
-            name="technique",
+            name="technique_fk",
             field=models.ForeignKey(
                 null=True,
                 blank=True,
