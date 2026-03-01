@@ -134,32 +134,36 @@ deploy-verify: ## Verify production is healthy
 # Sync DB data to production
 # ──────────────────────────────────────────────
 
-.PHONY: push-technique-media
+.PHONY: push-technique-media rebuild-techniques
 
 push-technique-media: ## Export local TechniqueMedia records and import to production
 	@echo "Exporting TechniqueMedia from local DB..."
 	$(COMPOSE) exec -T web python manage.py shell -c "\
 from files.models import TechniqueMedia; \
-[print(f'{tm.technique_id}|{tm.media.friendly_token}|{tm.title_override or \"\"}') for tm in TechniqueMedia.objects.select_related('media').all()]" > /tmp/technique_media_export.txt
+[print(f'{tm.technique.slug}|{tm.media.friendly_token}|{tm.title_override or \"\"}') for tm in TechniqueMedia.objects.select_related('technique', 'media').all()]" > /tmp/technique_media_export.txt
 	@echo "Importing $$(wc -l < /tmp/technique_media_export.txt | tr -d ' ') records to production..."
 	@cat /tmp/technique_media_export.txt | ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T web python manage.py shell -c \"\
 import sys; \
-from files.models import TechniqueMedia, Media; \
+from files.models import Technique, TechniqueMedia, Media; \
 from users.models import User; \
 admin = User.objects.filter(is_superuser=True).first(); \
 created = 0; \
 for line in sys.stdin: \
     parts = line.strip().split('|'); \
     if len(parts) < 2: continue; \
-    tid, token, title = parts[0], parts[1], parts[2] if len(parts) > 2 else ''; \
+    slug, token, title = parts[0], parts[1], parts[2] if len(parts) > 2 else ''; \
     try: \
+        technique = Technique.objects.get(slug=slug); \
         media = Media.objects.get(friendly_token=token); \
-        _, was_created = TechniqueMedia.objects.get_or_create(technique_id=tid, media=media, defaults={'title_override': title, 'added_by': admin}); \
+        _, was_created = TechniqueMedia.objects.get_or_create(technique=technique, media=media, defaults={'title_override': title, 'added_by': admin}); \
         created += int(was_created); \
-    except Media.DoesNotExist: print('Missing: ' + token); \
+    except (Technique.DoesNotExist, Media.DoesNotExist) as e: print('Missing: ' + slug + '/' + token); \
 print(str(created) + ' records created'); \
 \""
 	@rm /tmp/technique_media_export.txt
+
+rebuild-techniques: ## Rebuild MPTT tree for Technique model
+	$(COMPOSE) exec web python manage.py shell -c "from files.models import Technique; Technique.objects.rebuild(); print(f'Rebuilt {Technique.objects.count()} techniques')"
 
 # ──────────────────────────────────────────────
 # Status

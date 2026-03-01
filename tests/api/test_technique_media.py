@@ -2,7 +2,7 @@ from django.db import IntegrityError
 from django.db.models.signals import post_save
 from django.test import Client, TestCase
 
-from files.models import Media, TechniqueMedia, media_save
+from files.models import Media, Technique, TechniqueMedia, media_save
 from files.tests import create_account
 
 
@@ -22,6 +22,12 @@ class TestTechniqueMediaAPI(TestCase):
             media_type="video",
         )
         post_save.connect(media_save, sender=Media)
+
+        # Create Technique objects in DB (guard → slx → slx-control)
+        self.guard = Technique.objects.create(title="Guard", slug="root.guard", parent=None)
+        self.slx = Technique.objects.create(title="SLX", slug="root.guard.slx", parent=self.guard)
+        self.slx_control = Technique.objects.create(title="Slx Control", slug="root.guard.slx.slx-control", parent=self.slx)
+        Technique.objects.rebuild()
 
         self.technique_id = "root.guard.slx.slx-control"
 
@@ -45,10 +51,10 @@ class TestTechniqueMediaAPI(TestCase):
         url = f"/api/v1/techniques/{self.technique_id}/media"
         response = client.post(url, {"media_friendly_token": self.media.friendly_token}, content_type="application/json")
         self.assertEqual(response.status_code, 201)
-        self.assertTrue(TechniqueMedia.objects.filter(technique_id=self.technique_id, media=self.media).exists())
+        self.assertTrue(TechniqueMedia.objects.filter(technique=self.slx_control, media=self.media).exists())
 
     def test_add_media_duplicate_returns_409(self):
-        TechniqueMedia.objects.create(technique_id=self.technique_id, media=self.media, added_by=self.superuser)
+        TechniqueMedia.objects.create(technique=self.slx_control, media=self.media, added_by=self.superuser)
         client = Client()
         client.force_login(self.superuser)
         url = f"/api/v1/techniques/{self.technique_id}/media"
@@ -70,13 +76,13 @@ class TestTechniqueMediaAPI(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_remove_media_success(self):
-        TechniqueMedia.objects.create(technique_id=self.technique_id, media=self.media, added_by=self.superuser)
+        TechniqueMedia.objects.create(technique=self.slx_control, media=self.media, added_by=self.superuser)
         client = Client()
         client.force_login(self.superuser)
         url = f"/api/v1/techniques/{self.technique_id}/media/{self.media.friendly_token}"
         response = client.delete(url)
         self.assertEqual(response.status_code, 204)
-        self.assertFalse(TechniqueMedia.objects.filter(technique_id=self.technique_id, media=self.media).exists())
+        self.assertFalse(TechniqueMedia.objects.filter(technique=self.slx_control, media=self.media).exists())
 
     def test_remove_media_not_found(self):
         client = Client()
@@ -86,7 +92,7 @@ class TestTechniqueMediaAPI(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_remove_media_requires_superuser(self):
-        TechniqueMedia.objects.create(technique_id=self.technique_id, media=self.media, added_by=self.superuser)
+        TechniqueMedia.objects.create(technique=self.slx_control, media=self.media, added_by=self.superuser)
         client = Client()
         client.force_login(self.regular_user)
         url = f"/api/v1/techniques/{self.technique_id}/media/{self.media.friendly_token}"
@@ -94,7 +100,7 @@ class TestTechniqueMediaAPI(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_techniques_list_merges_media(self):
-        TechniqueMedia.objects.create(technique_id=self.technique_id, media=self.media, added_by=self.superuser)
+        TechniqueMedia.objects.create(technique=self.slx_control, media=self.media, added_by=self.superuser)
         client = Client()
         client.force_login(self.superuser)
         response = client.get("/api/v1/techniques")
@@ -123,9 +129,9 @@ class TestTechniqueMediaAPI(TestCase):
         self.assertIn("title", node)
 
     def test_unique_constraint_at_db_level(self):
-        TechniqueMedia.objects.create(technique_id=self.technique_id, media=self.media, added_by=self.superuser)
+        TechniqueMedia.objects.create(technique=self.slx_control, media=self.media, added_by=self.superuser)
         with self.assertRaises(IntegrityError):
-            TechniqueMedia.objects.create(technique_id=self.technique_id, media=self.media, added_by=self.superuser)
+            TechniqueMedia.objects.create(technique=self.slx_control, media=self.media, added_by=self.superuser)
 
     def _find_node(self, nodes, target_id):
         for node in nodes:

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from mptt.admin import MPTTModelAdmin
 
 from .models import (
     Category,
@@ -9,6 +10,7 @@ from .models import (
     Media,
     Subtitle,
     Tag,
+    Technique,
     TechniqueMedia,
 )
 
@@ -88,11 +90,20 @@ admin.site.register(Subtitle, SubtitleAdmin)
 admin.site.register(Language, LanguageAdmin)
 
 
+class TechniqueAdmin(MPTTModelAdmin):
+    list_display = ["title", "slug", "status", "parent"]
+    list_filter = ["status"]
+    search_fields = ["title", "slug"]
+    mptt_level_indent = 20
+
+
 class TechniqueMediaAdmin(admin.ModelAdmin):
-    list_display = ["technique_id", "media", "added_by", "add_date"]
-    list_filter = ["technique_id"]
-    search_fields = ["technique_id", "media__title"]
+    list_display = ["technique", "media", "added_by", "add_date"]
+    list_filter = ["technique"]
+    search_fields = ["technique__slug", "technique__title", "media__title"]
     readonly_fields = ("added_by", "media")
+    raw_id_fields = ("technique",)
 
 
+admin.site.register(Technique, TechniqueAdmin)
 admin.site.register(TechniqueMedia, TechniqueMediaAdmin)

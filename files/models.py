@@ -1576,18 +1576,36 @@ def encoding_file_delete(sender, instance, **kwargs):
     # last encoding of a media is complete
 
 
+class Technique(MPTTModel):
+    title = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200, unique=True, db_index=True)
+    parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children")
+    status = models.CharField(max_length=20, blank=True, default="")
+    notes = models.TextField(blank=True, default="")
+    resources = models.JSONField(default=list, blank=True)
+
+    class MPTTMeta:
+        order_insertion_by = ["title"]
+
+    class Meta:
+        verbose_name_plural = "techniques"
+
+    def __str__(self):
+        return self.title
+
+
 class TechniqueMedia(models.Model):
     """Associates a Media object with a technique from the techniques tree."""
 
-    technique_id = models.CharField(max_length=200, db_index=True)
+    technique = models.ForeignKey(Technique, on_delete=models.CASCADE, related_name="technique_media")
     media = models.ForeignKey("Media", on_delete=models.CASCADE, related_name="technique_associations")
     added_by = models.ForeignKey("users.User", on_delete=models.CASCADE)
     title_override = models.CharField(max_length=200, blank=True)
     add_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ("technique_id", "media")
+        unique_together = ("technique", "media")
         ordering = ["-add_date"]
 
     def __str__(self):
-        return f"{self.technique_id} - {self.media.title}"
+        return f"{self.technique.slug} - {self.media.title}"
