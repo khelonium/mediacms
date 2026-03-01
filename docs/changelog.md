@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-03-02
+
+- **chore(i18n):** Remove dormant i18n infrastructure — `USE_I18N = False`, strip `{% trans %}` / `{% blocktrans %}` from 27 templates, remove `gettext_lazy`
+- **chore(dev):** Add local test infrastructure — `docker-compose-test.yaml`, `make test-local` / `check-local` targets, exclude `node_modules` from linters
+
 ## 2026-03-01
 
 - **feat(techniques):** Add `/techniques` page — tree view of BJJ technique data
