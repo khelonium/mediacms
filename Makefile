@@ -89,6 +89,79 @@ sync-json: ## Sync techniques.json from remote server
 sync-remote: sync-db sync-assets sync-json ## Full sync: database + assets + JSON data from remote
 
 # ──────────────────────────────────────────────
+# Frontend build
+# ──────────────────────────────────────────────
+
+.PHONY: frontend-build
+
+frontend-build: ## Rebuild frontend and copy to static/
+	cd frontend && NODE_OPTIONS=--openssl-legacy-provider npm run dist
+	cp frontend/dist/static/js/*.js static/js/
+	cp frontend/dist/static/js/*.txt static/js/ 2>/dev/null || true
+	cp frontend/dist/static/css/*.css static/css/
+	@echo "Frontend built and copied to static/"
+
+# ──────────────────────────────────────────────
+# Deploy to production
+# ──────────────────────────────────────────────
+
+.PHONY: deploy deploy-pull deploy-static deploy-restart deploy-verify
+
+deploy: deploy-pull deploy-static deploy-restart deploy-verify ## Full deploy to production
+
+deploy-pull: ## Pull latest code on production
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && git pull origin main"
+
+deploy-static: ## Ensure frontend/dist/static exists and run collectstatic on production
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && mkdir -p frontend/dist/static && cp -r static/js static/css static/favicons static/images static/lib frontend/dist/static/"
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T web python manage.py collectstatic --noinput"
+
+deploy-restart: ## Restart migrations + web + celery on production
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) restart migrations"
+	@sleep 5
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) restart web celery_worker"
+
+deploy-verify: ## Verify production is healthy
+	@echo "=== Migration status ==="
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T web python manage.py showmigrations files"
+	@echo ""
+	@echo "=== HTTP check ==="
+	@curl -s -o /dev/null -w "Homepage: %{http_code}\n" -L https://$(REMOTE_HOST)/
+	@echo ""
+	@echo "Deploy complete."
+
+# ──────────────────────────────────────────────
+# Sync DB data to production
+# ──────────────────────────────────────────────
+
+.PHONY: push-technique-media
+
+push-technique-media: ## Export local TechniqueMedia records and import to production
+	@echo "Exporting TechniqueMedia from local DB..."
+	$(COMPOSE) exec -T web python manage.py shell -c "\
+from files.models import TechniqueMedia; \
+[print(f'{tm.technique_id}|{tm.media.friendly_token}|{tm.title_override or \"\"}') for tm in TechniqueMedia.objects.select_related('media').all()]" > /tmp/technique_media_export.txt
+	@echo "Importing $$(wc -l < /tmp/technique_media_export.txt | tr -d ' ') records to production..."
+	@cat /tmp/technique_media_export.txt | ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T web python manage.py shell -c \"\
+import sys; \
+from files.models import TechniqueMedia, Media; \
+from users.models import User; \
+admin = User.objects.filter(is_superuser=True).first(); \
+created = 0; \
+for line in sys.stdin: \
+    parts = line.strip().split('|'); \
+    if len(parts) < 2: continue; \
+    tid, token, title = parts[0], parts[1], parts[2] if len(parts) > 2 else ''; \
+    try: \
+        media = Media.objects.get(friendly_token=token); \
+        _, was_created = TechniqueMedia.objects.get_or_create(technique_id=tid, media=media, defaults={'title_override': title, 'added_by': admin}); \
+        created += int(was_created); \
+    except Media.DoesNotExist: print('Missing: ' + token); \
+print(str(created) + ' records created'); \
+\""
+	@rm /tmp/technique_media_export.txt
+
+# ──────────────────────────────────────────────
 # Status
 # ──────────────────────────────────────────────
 
