@@ -38,9 +38,12 @@ env/
 # Environment
 .env
 
-# Claude Code (keep skills tracked)
+# Claude Code (keep commands tracked)
 .claude/*
-!.claude/skills/
+!.claude/commands/
+
+# Deploy artifacts
+.deploy-rollback-commit
 
 # Database dumps
 *.pgdump
