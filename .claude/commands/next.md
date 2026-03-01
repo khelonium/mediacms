@@ -76,13 +76,27 @@ Enter plan mode with `EnterPlanMode`, then:
 
 ## Phase 3 — Finalize
 
-### Update Roadmap and Changelog
+### Step 1: Update Docs
 
-1. Read `ROADMAP.md` and remove the completed item from "## Up Next".
-2. Read `docs/changelog.md` and add a new entry at the top following the existing format:
+After all code changes are verified, update project documentation so it stays in sync with the codebase. Read each file first, then edit only the sections affected by this removal.
+
+1. **`ROADMAP.md`** — Remove the completed item from "## Up Next".
+2. **`docs/changelog.md`** — Add a new entry at the top:
    - Use today's date as the section header (or append to today's section if it exists)
    - Use conventional commit format: `**chore(scope):** description`
-3. Commit all changes with a conventional commit message: `chore(scope): remove [feature name]`
+3. **`CLAUDE.md`** — Review these sections and remove or update any references to the removed feature:
+   - "### Django Apps" — app descriptions, model fields, business logic
+   - "### REST API" — removed endpoints
+   - "### Key Configuration" — removed settings
+   - "### External Dependencies" — removed packages
+   - "### Services" — if Celery tasks or queues were removed
+   - "### Frontend" — removed pages, components, routes
+4. **`MEMORY.md`** (at `~/.claude/projects/.../memory/MEMORY.md`) — If the removal produced a reusable pattern or lesson, add it. If the removal invalidates an existing memory entry, update or remove it.
+
+### Step 2: Commit
+
+1. Stage all changed files (code + docs) with `git add` listing specific files.
+2. Commit with a conventional commit message: `chore(scope): remove [feature name]`
 
 ---
 
