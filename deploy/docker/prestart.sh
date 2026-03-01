@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 RANDOM_ADMIN_PASS=`python -c "import secrets;chars = 'abcdefghijklmnopqrstuvwxyz0123456789';print(''.join(secrets.choice(chars) for i in range(10)))"`
 ADMIN_PASSWORD=${ADMIN_PASSWORD:-$RANDOM_ADMIN_PASS}
@@ -26,6 +27,21 @@ if [ X"$ENABLE_MIGRATIONS" = X"yes" ]; then
     echo "RUNNING COLLECTSTATIC"
 
     python manage.py collectstatic --noinput
+
+    echo "Validating staticfiles manifest..."
+    python -c "
+import json, sys
+try:
+    m = json.load(open('static/staticfiles.json'))
+    count = len(m.get('paths', {}))
+    print(f'Manifest has {count} entries')
+    if count < 10:
+        print(f'ERROR: manifest has only {count} entries (expected >10)', file=sys.stderr)
+        sys.exit(1)
+except (FileNotFoundError, json.JSONDecodeError) as e:
+    print(f'ERROR: cannot read manifest: {e}', file=sys.stderr)
+    sys.exit(1)
+"
 
     # echo "Updating hostname ..."
     # TODO: Get the FRONTEND_HOST from cms/local_settings.py

@@ -42,7 +42,7 @@ services:
       ADMIN_EMAIL: 'admin@localhost'
       ADMIN_PASSWORD: '72k6t6xgai'
     command: "./deploy/docker/prestart.sh"
-    restart: on-failure
+    restart: "no"
     depends_on:
       redis:
         condition: service_healthy
@@ -63,7 +63,8 @@ services:
       LETSENCRYPT_HOST: 'bjj.chadao.ro'
       LETSENCRYPT_EMAIL: 'khelonium+letsencrypt@gmail.com'
     depends_on:
-      - migrations
+      migrations:
+        condition: service_completed_successfully
   celery_beat:
     image: mediacms/mediacms:latest
     volumes:
@@ -88,7 +89,8 @@ services:
       ENABLE_CELERY_BEAT: 'no'
       ENABLE_MIGRATIONS: 'no'
     depends_on:
-      - migrations
+      migrations:
+        condition: service_completed_successfully
   db:
     image: postgres:13
     volumes:

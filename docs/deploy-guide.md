@@ -9,19 +9,25 @@ Production uses `docker-compose-letsencrypt.yaml` with **volume mounts** (`./:/h
 - `prestart.sh` runs `migrate` + `collectstatic` on the `migrations` container start
 - The web container serves whatever is in `static/` via uWSGI + Nginx
 
+## Deploy Strategy: Stop-Migrate-Start
+
+The deploy sequence explicitly **stops web before migrating**, then starts web after migrations complete. This prevents race conditions where web serves against a partially-migrated schema.
+
+Brief downtime (10-30s) is expected and preferable to 500 errors.
+
 ## Deploy Checklist
 
-### Quick deploy (code-only changes)
+### Quick deploy
 
 ```bash
 make deploy
 ```
 
-This runs: `deploy-pull` → `deploy-static` → `deploy-restart` → `deploy-verify`
+This runs: `deploy-pre-check` → `deploy-db-backup` → `deploy-backup` → `deploy-pull` → `deploy-static` → `deploy-migrate` → `deploy-restart` → `deploy-verify`
 
-### Step-by-step (when troubleshooting)
+### Step-by-step (recommended for first use or troubleshooting)
 
-#### 1. Build frontend locally
+#### 0. Build frontend (if frontend changed)
 
 The Dockerfile does **NOT** run `npm run dist`. Built JS/CSS must be committed.
 
@@ -32,35 +38,88 @@ git commit -m "chore: rebuild frontend"
 git push origin main
 ```
 
-#### 2. Pull on server
+#### 1. Pre-flight checks
+
+```bash
+make deploy-pre-check
+```
+
+Validates: on main branch, clean working tree, pushed to origin, `frontend/dist/static/` exists, `staticfiles.json` tracked.
+
+#### 2. Database backup
+
+```bash
+make deploy-db-backup
+```
+
+Creates a `pg_dump -Fc` backup locally as `pre-deploy-YYYYMMDD-HHMMSS.pgdump`. **Critical before destructive migrations** (e.g., DROP TABLE).
+
+#### 3. Record rollback commit
+
+```bash
+make deploy-backup
+```
+
+Saves the current production commit SHA to `.deploy-rollback-commit`.
+
+#### 4. Pull code
 
 ```bash
 make deploy-pull
-# or: ssh root@bjj.chadao.ro "cd /mediacms/cms/mediacms && git pull origin main"
 ```
 
-#### 3. Fix collectstatic source directory
-
-`STATICFILES_DIRS` points to `frontend/dist/static/` which doesn't exist on the server (created by `npm run dist` locally). Must populate it for `collectstatic` to work:
+#### 5. Populate static files
 
 ```bash
 make deploy-static
 ```
 
-This creates `frontend/dist/static/` and copies all static assets there, then runs `collectstatic`.
+Creates `frontend/dist/static/` on the server and copies all static assets there, then runs `collectstatic`.
 
-#### 4. Restart services
+#### 6. Stop services + run migrations
+
+```bash
+make deploy-migrate
+```
+
+Stops web/celery/beat, then runs `docker compose run --rm migrations ./deploy/docker/prestart.sh`. This is synchronous — it returns only after migrations and collectstatic complete (or exits non-zero on failure). The manifest is validated (must have >10 entries).
+
+#### 7. Start services
 
 ```bash
 make deploy-restart
 ```
 
-Restarts migrations (runs migrate + collectstatic), then web + celery.
+Starts web/celery/beat and polls the homepage until HTTP 200 (up to 15 attempts, 2s apart).
 
-#### 5. Verify
+#### 8. Verify
 
 ```bash
 make deploy-verify
+```
+
+Checks: git state, migration status (files + users apps), container status, HTTP codes (homepage + API + techniques), manifest entry count.
+
+## Rollback
+
+### Code-only rollback
+
+```bash
+make deploy-rollback
+```
+
+Checks out the saved commit, re-populates static files, runs collectstatic, and restarts services.
+
+### Database rollback (after destructive migration)
+
+If a destructive migration (e.g., DROP TABLE) broke the database:
+
+```bash
+# Restore the database from backup
+ssh root@bjj.chadao.ro "cd /mediacms/cms/mediacms && docker compose -f docker-compose-letsencrypt.yaml exec -T db pg_restore -U mediacms -d mediacms --clean --if-exists" < pre-deploy-YYYYMMDD-HHMMSS.pgdump
+
+# Then rollback the code
+make deploy-rollback
 ```
 
 ## Common Gotchas
