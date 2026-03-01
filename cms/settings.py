@@ -93,7 +93,7 @@ UPLOAD_MAX_SIZE = 800 * 1024 * 1000 * 5
 # valid options: content, author
 RELATED_MEDIA_STRATEGY = "content"
 
-USE_I18N = True
+USE_I18N = False
 USE_L10N = True
 USE_TZ = True
 SITE_ID = 1

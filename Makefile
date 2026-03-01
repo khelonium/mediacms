@@ -64,6 +64,34 @@ format-check: ## Check formatting without changing files
 check: lint format-check test ## Run all quality gates (lint + format-check + test)
 
 # ──────────────────────────────────────────────
+# Local quality gates (host Python + test DB)
+# ──────────────────────────────────────────────
+
+COMPOSE_TEST := docker compose -p mediacms-test -f docker-compose-test.yaml
+
+.PHONY: test-db-up test-db-down test-local lint-local format-local format-check-local check-local
+
+test-db-up: ## Start test DB + Redis containers
+	$(COMPOSE_TEST) up -d --wait
+
+test-db-down: ## Stop test DB + Redis containers
+	$(COMPOSE_TEST) down
+
+test-local: test-db-up ## Run pytest locally (auto-starts test DB, stops it after)
+	POSTGRES_HOST=127.0.0.1 REDIS_LOCATION=redis://127.0.0.1:6379/1 pytest $(ARGS); rc=$$?; $(COMPOSE_TEST) down; exit $$rc
+
+lint-local: ## Run flake8 locally
+	flake8
+
+format-local: ## Run black (auto-fix) locally
+	black .
+
+format-check-local: ## Check formatting locally
+	black --check .
+
+check-local: lint-local format-check-local test-local ## Run all quality gates locally
+
+# ──────────────────────────────────────────────
 # Remote sync (mirror bjj.chadao.ro content)
 # ──────────────────────────────────────────────
 
