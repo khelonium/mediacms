@@ -88,3 +88,18 @@ export function addNewPlaylist(playlist_data) {
     playlist_data,
   });
 }
+
+export function loadTechniqueTree() {
+  Dispatcher.dispatch({
+    type: 'LOAD_TECHNIQUE_TREE',
+  });
+}
+
+export function addMediaToTechnique(technique_id, media_friendly_token, title_override) {
+  Dispatcher.dispatch({
+    type: 'ADD_MEDIA_TO_TECHNIQUE',
+    technique_id,
+    media_friendly_token,
+    title_override,
+  });
+}

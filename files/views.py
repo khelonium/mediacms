@@ -28,7 +28,7 @@ from rest_framework.views import APIView
 
 from actions.models import USER_MEDIA_ACTIONS, MediaAction
 from cms.custom_pagination import FastPaginationWithoutCount
-from cms.permissions import IsAuthorizedToAdd, IsUserOrEditor, user_allowed_to_upload
+from cms.permissions import IsAuthorizedToAdd, IsSuperUser, IsUserOrEditor, user_allowed_to_upload
 from users.models import User
 
 from .forms import ContactForm, MediaForm, SubtitleForm
@@ -52,6 +52,7 @@ from .models import (
     Playlist,
     PlaylistMedia,
     Tag,
+    TechniqueMedia,
 )
 from .serializers import (
     CategorySerializer,
@@ -63,6 +64,7 @@ from .serializers import (
     PlaylistSerializer,
     SingleMediaSerializer,
     TagSerializer,
+    TechniqueMediaSerializer,
 )
 from .stop_words import STOP_WORDS
 from .tasks import save_user_action
@@ -1415,6 +1417,14 @@ class TechniquesList(APIView):
     swagger_schema = None
     permission_classes = (permissions.IsAuthenticated,)
 
+    def _merge_media(self, tree, media_by_technique):
+        """Recursively merge DB media associations into the JSON tree."""
+        for node in tree:
+            node_id = node.get("id", "")
+            node["media"] = media_by_technique.get(node_id, [])
+            if node.get("children"):
+                self._merge_media(node["children"], media_by_technique)
+
     def get(self, request, format=None):
         if not _is_techniques_user(request.user):
             return Response({"detail": "not allowed"}, status=status.HTTP_403_FORBIDDEN)
@@ -1422,4 +1432,154 @@ class TechniquesList(APIView):
         json_path = os.path.join(os.path.dirname(__file__), "data", "techniques.json")
         with open(json_path, "r") as f:
             data = json.load(f)
+
+        # Merge media associations from DB
+        associations = TechniqueMedia.objects.select_related("media", "added_by").all()
+        media_by_technique = {}
+        for assoc in associations:
+            entry = {
+                "friendly_token": assoc.media.friendly_token,
+                "title": assoc.title_override or assoc.media.title,
+                "thumbnail_url": assoc.media.thumbnail_url,
+                "url": assoc.media.get_absolute_url(),
+            }
+            media_by_technique.setdefault(assoc.technique_id, []).append(entry)
+
+        # Deduplicate: if a media token appears on both a parent and a
+        # descendant technique, keep it only on the descendant.
+        all_technique_ids = list(media_by_technique.keys())
+        for tid in all_technique_ids:
+            prefix = tid + "."
+            descendant_tokens = set()
+            for other_tid in all_technique_ids:
+                if other_tid.startswith(prefix):
+                    for entry in media_by_technique[other_tid]:
+                        descendant_tokens.add(entry["friendly_token"])
+            if descendant_tokens:
+                media_by_technique[tid] = [e for e in media_by_technique[tid] if e["friendly_token"] not in descendant_tokens]
+
+        self._merge_media(data.get("tree", []), media_by_technique)
         return Response(data)
+
+
+class TechniqueTreeView(APIView):
+    """Lightweight categories/subcategories for the technique modal dropdown."""
+
+    swagger_schema = None
+    permission_classes = (IsSuperUser,)
+
+    def _extract_tree(self, nodes, depth=0):
+        result = []
+        for node in nodes:
+            item = {"id": node.get("id", ""), "title": node.get("title", "")}
+            children = node.get("children", [])
+            if children and depth < 2:
+                item["children"] = self._extract_tree(children, depth + 1)
+            result.append(item)
+        return result
+
+    def get(self, request, format=None):
+        json_path = os.path.join(os.path.dirname(__file__), "data", "techniques.json")
+        with open(json_path, "r") as f:
+            data = json.load(f)
+        tree = self._extract_tree(data.get("tree", []))
+        return Response(tree)
+
+
+class TechniqueMediaAdd(APIView):
+    """Associate a video with a technique."""
+
+    swagger_schema = None
+    permission_classes = (IsSuperUser,)
+
+    def post(self, request, technique_id, format=None):
+        media_token = request.data.get("media_friendly_token")
+        title_override = request.data.get("title_override", "")
+
+        if not media_token:
+            return Response({"detail": "media_friendly_token is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            media = Media.objects.get(friendly_token=media_token)
+        except Media.DoesNotExist:
+            return Response({"detail": "Media not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        obj, created = TechniqueMedia.objects.get_or_create(
+            technique_id=technique_id,
+            media=media,
+            defaults={"added_by": request.user, "title_override": title_override},
+        )
+
+        if not created:
+            return Response({"detail": "Media already associated with this technique"}, status=status.HTTP_409_CONFLICT)
+
+        serializer = TechniqueMediaSerializer(obj)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class TechniqueMediaRemove(APIView):
+    """Remove a video association from a technique."""
+
+    swagger_schema = None
+    permission_classes = (IsSuperUser,)
+
+    def delete(self, request, technique_id, friendly_token, format=None):
+        try:
+            assoc = TechniqueMedia.objects.get(technique_id=technique_id, media__friendly_token=friendly_token)
+        except TechniqueMedia.DoesNotExist:
+            return Response({"detail": "Association not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        assoc.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TechniqueCategoryCreate(APIView):
+    """Create a new category or subcategory in the techniques tree."""
+
+    swagger_schema = None
+    permission_classes = (IsSuperUser,)
+
+    def post(self, request, format=None):
+        import tempfile
+
+        parent_id = request.data.get("parent_id")
+        title = request.data.get("title", "").strip()
+
+        if not title:
+            return Response({"detail": "title is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        json_path = os.path.join(os.path.dirname(__file__), "data", "techniques.json")
+        with open(json_path, "r") as f:
+            data = json.load(f)
+
+        new_id = (parent_id + "." if parent_id else "root.") + slugify(title)
+        new_node = {"id": new_id, "title": title, "children": []}
+
+        def insert_node(nodes, target_id, node):
+            for n in nodes:
+                if n.get("id") == target_id:
+                    n.setdefault("children", []).append(node)
+                    return True
+                if insert_node(n.get("children", []), target_id, node):
+                    return True
+            return False
+
+        if parent_id:
+            if not insert_node(data.get("tree", []), parent_id, new_node):
+                return Response({"detail": "Parent not found"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            data.setdefault("tree", []).append(new_node)
+
+        # Atomic write: write to temp file then rename
+        dir_path = os.path.dirname(json_path)
+        fd, tmp_path = tempfile.mkstemp(dir=dir_path, suffix=".json")
+        try:
+            with os.fdopen(fd, "w") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+            os.rename(tmp_path, json_path)
+        except Exception:
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+            raise
+
+        return Response({"id": new_id, "title": title}, status=status.HTTP_201_CREATED)

@@ -72,7 +72,7 @@ REMOTE_USER ?= root
 REMOTE_DIR  ?= /mediacms/cms/mediacms
 REMOTE_COMPOSE ?= docker-compose-letsencrypt.yaml
 
-.PHONY: sync-db sync-assets sync-remote
+.PHONY: sync-db sync-assets sync-json sync-remote
 
 sync-db: ## Dump remote DB and restore locally
 	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T db pg_dump -U mediacms -Fc mediacms" > bjj_dump.pgdump
@@ -82,7 +82,11 @@ sync-db: ## Dump remote DB and restore locally
 sync-assets: ## Download thumbnails + HLS manifests from remote
 	$(COMPOSE) exec web python manage.py sync_remote_assets
 
-sync-remote: sync-db sync-assets ## Full sync: database + assets from remote
+sync-json: ## Sync techniques.json from remote server
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T web cat files/data/techniques.json" > files/data/techniques.json
+	@echo "techniques.json synced from $(REMOTE_HOST)"
+
+sync-remote: sync-db sync-assets sync-json ## Full sync: database + assets + JSON data from remote
 
 # ──────────────────────────────────────────────
 # Status

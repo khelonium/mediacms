@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Category, Comment, EncodeProfile, Media, Playlist, Tag
+from .models import Category, Comment, EncodeProfile, Media, Playlist, Tag, TechniqueMedia
 
 # TODO: put them in a more DRY way
 
@@ -216,6 +216,25 @@ class PlaylistDetailSerializer(serializers.ModelSerializer):
         model = Playlist
         read_only_fields = ("add_date", "user")
         fields = ("title", "add_date", "user_thumbnail_url", "description", "user", "media_count", "url", "thumbnail_url")
+
+
+class TechniqueMediaSerializer(serializers.ModelSerializer):
+    friendly_token = serializers.ReadOnlyField(source="media.friendly_token")
+    title = serializers.SerializerMethodField()
+    thumbnail_url = serializers.ReadOnlyField(source="media.thumbnail_url")
+    url = serializers.SerializerMethodField()
+    added_by = serializers.ReadOnlyField(source="added_by.username")
+
+    def get_title(self, obj):
+        return obj.title_override or obj.media.title
+
+    def get_url(self, obj):
+        return obj.media.get_absolute_url()
+
+    class Meta:
+        model = TechniqueMedia
+        read_only_fields = ("add_date", "added_by")
+        fields = ("friendly_token", "title", "thumbnail_url", "url", "added_by", "add_date", "technique_id", "title_override")
 
 
 class CommentSerializer(serializers.ModelSerializer):

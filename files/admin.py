@@ -9,6 +9,7 @@ from .models import (
     Media,
     Subtitle,
     Tag,
+    TechniqueMedia,
 )
 
 
@@ -85,3 +86,13 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Subtitle, SubtitleAdmin)
 admin.site.register(Language, LanguageAdmin)
+
+
+class TechniqueMediaAdmin(admin.ModelAdmin):
+    list_display = ["technique_id", "media", "added_by", "add_date"]
+    list_filter = ["technique_id"]
+    search_fields = ["technique_id", "media__title"]
+    readonly_fields = ("added_by", "media")
+
+
+admin.site.register(TechniqueMedia, TechniqueMediaAdmin)

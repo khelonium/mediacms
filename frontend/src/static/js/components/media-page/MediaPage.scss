@@ -155,6 +155,7 @@
 
         &.share,
         &.save,
+        &.technique,
         &.more-options,
         &.video-downloads {
           .popup-fullscreen {
@@ -789,6 +790,7 @@
         &.dislike,
         &.share,
         &.save,
+        &.technique,
         &.download,
         &.video-downloads {
           > *:not(.popup) {
@@ -1081,6 +1083,7 @@
 
         &.share,
         &.save,
+        &.technique,
         &.download a {
           color: rgb(144, 144, 144);
         }
@@ -1159,6 +1162,7 @@
 
         &.share,
         &.save,
+        &.technique,
         &.more-options,
         &.video-downloads {
           .popup-fullscreen {

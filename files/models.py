@@ -1574,3 +1574,20 @@ def encoding_file_delete(sender, instance, **kwargs):
             instance.media.post_encode_actions(encoding=instance, action="delete")
     # delete local chunks, and remote chunks + media file. Only when the
     # last encoding of a media is complete
+
+
+class TechniqueMedia(models.Model):
+    """Associates a Media object with a technique from the techniques tree."""
+
+    technique_id = models.CharField(max_length=200, db_index=True)
+    media = models.ForeignKey("Media", on_delete=models.CASCADE, related_name="technique_associations")
+    added_by = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    title_override = models.CharField(max_length=200, blank=True)
+    add_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("technique_id", "media")
+        ordering = ["-add_date"]
+
+    def __str__(self):
+        return f"{self.technique_id} - {self.media.title}"

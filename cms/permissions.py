@@ -4,6 +4,13 @@ from rest_framework import permissions
 from files.methods import is_mediacms_editor, is_mediacms_manager
 
 
+class IsSuperUser(permissions.BasePermission):
+    """Only allows superusers."""
+
+    def has_permission(self, request, view):
+        return request.user and request.user.is_superuser
+
+
 class IsAuthorizedToAdd(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:

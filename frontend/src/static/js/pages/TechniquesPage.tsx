@@ -14,12 +14,20 @@ interface Resource {
   seed_title?: string;
 }
 
+interface TechniqueMediaItem {
+  friendly_token: string;
+  title: string;
+  thumbnail_url: string | null;
+  url: string;
+}
+
 interface TechniqueNode {
   id: string;
   title: string;
   status?: string;
   notes?: string | null;
   resources?: Resource[];
+  media?: TechniqueMediaItem[];
   children?: TechniqueNode[];
 }
 
@@ -28,17 +36,41 @@ interface TechniquesData {
   tree: TechniqueNode[];
 }
 
+function MediaItems({ media }: { media: TechniqueMediaItem[] }) {
+  return (
+    <>
+      {media.map((m) => (
+        <li key={m.friendly_token} className="techniques-item">
+          <span className="techniques-item-title">{m.title}</span>
+          <span className="techniques-resources">
+            <a href={m.url} className="techniques-link">Watch</a>
+          </span>
+        </li>
+      ))}
+    </>
+  );
+}
+
 function TechniqueItem({ node, depth }: { node: TechniqueNode; depth: number }) {
   const hasChildren = node.children && node.children.length > 0;
   const hasResources = node.resources && node.resources.length > 0;
+  const hasMedia = node.media && node.media.length > 0;
+  const mediaItems = hasMedia ? node.media! : [];
+  const childItems = hasChildren ? node.children! : [];
 
   if (depth === 0) {
+    const hasContent = mediaItems.length > 0 || childItems.length > 0;
     return (
       <div className="techniques-category">
         <h2 className="techniques-category-title">{node.title}</h2>
-        {hasChildren && (
+        {hasContent && (
           <div className="techniques-category-children">
-            {node.children!.map((child) => (
+            {mediaItems.length > 0 && (
+              <ul className="techniques-list">
+                <MediaItems media={mediaItems} />
+              </ul>
+            )}
+            {childItems.map((child) => (
               <TechniqueItem key={child.id} node={child} depth={depth + 1} />
             ))}
           </div>
@@ -47,16 +79,20 @@ function TechniqueItem({ node, depth }: { node: TechniqueNode; depth: number }) 
     );
   }
 
-  if (depth === 1 && hasChildren) {
+  if (depth === 1) {
+    const hasContent = mediaItems.length > 0 || childItems.length > 0;
     return (
       <div className="techniques-subcategory">
         <h3 className="techniques-subcategory-title">{node.title}</h3>
         {node.notes && <span className="techniques-notes">{node.notes}</span>}
-        <ul className="techniques-list">
-          {node.children!.map((child) => (
-            <TechniqueItem key={child.id} node={child} depth={depth + 1} />
-          ))}
-        </ul>
+        {hasContent && (
+          <ul className="techniques-list">
+            <MediaItems media={mediaItems} />
+            {childItems.map((child) => (
+              <TechniqueItem key={child.id} node={child} depth={depth + 1} />
+            ))}
+          </ul>
+        )}
       </div>
     );
   }
@@ -66,7 +102,8 @@ function TechniqueItem({ node, depth }: { node: TechniqueNode; depth: number }) 
       <li className="techniques-sub-subcategory">
         <h4 className="techniques-sub-subcategory-title">{node.title}</h4>
         <ul className="techniques-list">
-          {node.children!.map((child) => (
+          <MediaItems media={mediaItems} />
+          {childItems.map((child) => (
             <TechniqueItem key={child.id} node={child} depth={depth + 1} />
           ))}
         </ul>
@@ -87,9 +124,14 @@ function TechniqueItem({ node, depth }: { node: TechniqueNode; depth: number }) 
           ))}
         </span>
       )}
+      {hasMedia && (
+        <ul className="techniques-list">
+          <MediaItems media={mediaItems} />
+        </ul>
+      )}
       {hasChildren && (
         <ul className="techniques-list">
-          {node.children!.map((child) => (
+          {childItems.map((child) => (
             <TechniqueItem key={child.id} node={child} depth={depth + 1} />
           ))}
         </ul>

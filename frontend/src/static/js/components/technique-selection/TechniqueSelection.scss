@@ -1,0 +1,111 @@
+.media-title-banner .media-actions > * > *.technique .popup-fullscreen {
+  padding-top: 64px;
+  padding-bottom: 8px;
+}
+
+.media-title-banner .media-actions > * > *.technique .popup-fullscreen .popup-main > div.technique-popup {
+  max-width: 320px;
+  padding: 0;
+  color: var(--playlist-save-popup-text-color);
+
+  .technique-title {
+    height: 52px;
+    padding: 16px 52px 15px 24px;
+    line-height: 20px;
+    font-size: 16px;
+
+    .circle-icon-button {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: none;
+    }
+  }
+
+  .technique-loading {
+    padding: 16px 24px;
+    font-size: 14px;
+  }
+
+  .technique-form {
+    padding: 12px 24px 16px;
+    border-top: 1px solid var(--playlist-save-popup-border-color);
+  }
+
+  .technique-field {
+    margin-bottom: 12px;
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select,
+    input[type="text"] {
+      width: 100%;
+      padding: 6px 8px;
+      font-size: 14px;
+      border: 1px solid var(--playlist-save-popup-border-color, #ccc);
+      border-radius: 4px;
+      background: inherit;
+      color: inherit;
+      box-sizing: border-box;
+    }
+  }
+
+  .technique-create-new {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+
+    input[type="text"] {
+      flex: 1;
+      padding: 4px 8px;
+      font-size: 13px;
+      border: 1px solid var(--playlist-save-popup-border-color, #ccc);
+      border-radius: 4px;
+      background: inherit;
+      color: inherit;
+    }
+
+    button {
+      padding: 4px 10px;
+      font-size: 13px;
+      border: 1px solid var(--playlist-save-popup-border-color, #ccc);
+      border-radius: 4px;
+      background: none;
+      color: inherit;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+    }
+  }
+
+  .technique-submit {
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    background: var(--default-theme-color, #1a73e8);
+    color: #fff;
+    cursor: pointer;
+    margin-top: 4px;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    &:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+  }
+}

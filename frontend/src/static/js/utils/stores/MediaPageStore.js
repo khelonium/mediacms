@@ -513,6 +513,9 @@ class MediaPageStore extends EventEmitter {
               MediaPageStoreData[this.id].data.author_thumbnail.replace(/^\//g, '')
             : null;
         break;
+      case 'technique-tree':
+        r = MediaPageStoreData[this.id].techniqueTree || [];
+        break;
       case 'playlist-data':
         r = this.pagePlaylistData;
         break;
@@ -644,6 +647,31 @@ class MediaPageStore extends EventEmitter {
 
   onPlaylistMediaRemovalFailed(playlist_id, response) {
     this.emit('media_playlist_removal_failed');
+  }
+
+  onTechniqueTreeLoaded(response) {
+    if (response && response.data) {
+      MediaPageStoreData[this.id].techniqueTree = response.data;
+      this.emit('technique_tree_loaded');
+    }
+  }
+
+  onTechniqueTreeLoadFailed() {
+    this.emit('technique_tree_load_failed');
+  }
+
+  onTechniqueMediaAdditionCompleted(response) {
+    if (response) {
+      this.emit('technique_media_addition_completed');
+    }
+  }
+
+  onTechniqueMediaAdditionFailed(error) {
+    if (error && error.response && error.response.status === 409) {
+      this.emit('technique_media_already_added');
+    } else {
+      this.emit('technique_media_addition_failed');
+    }
   }
 
   actions_handler(action) {
@@ -790,6 +818,31 @@ class MediaPageStore extends EventEmitter {
       case 'APPEND_NEW_PLAYLIST':
         MediaPageStoreData[this.id].playlists.push(action.playlist_data);
         this.emit('playlists_load');
+        break;
+      case 'LOAD_TECHNIQUE_TREE':
+        getRequest(
+          this.mediacms_config.site.url + '/api/v1/techniques/tree',
+          !1,
+          this.onTechniqueTreeLoaded.bind(this),
+          this.onTechniqueTreeLoadFailed.bind(this)
+        );
+        break;
+      case 'ADD_MEDIA_TO_TECHNIQUE':
+        postRequest(
+          this.mediacms_config.site.url + '/api/v1/techniques/' + action.technique_id + '/media',
+          {
+            media_friendly_token: action.media_friendly_token,
+            title_override: action.title_override || '',
+          },
+          {
+            headers: {
+              'X-CSRFToken': csrfToken(),
+            },
+          },
+          false,
+          this.onTechniqueMediaAdditionCompleted.bind(this),
+          this.onTechniqueMediaAdditionFailed.bind(this)
+        );
         break;
     }
   }

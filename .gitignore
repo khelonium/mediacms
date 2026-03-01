@@ -38,8 +38,9 @@ env/
 # Environment
 .env
 
-# Claude Code
-.claude/
+# Claude Code (keep skills tracked)
+.claude/*
+!.claude/skills/
 
 # Database dumps
 *.pgdump
@@ -51,3 +52,8 @@ htmlcov/
 
 # Frontend
 frontend/node_modules/
+
+# collectstatic hashed copies of vendored/image/favicon assets
+static/lib/
+static/favicons/
+static/images/
