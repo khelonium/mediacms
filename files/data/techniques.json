@@ -1,0 +1,1236 @@
+{
+  "version": 3,
+  "generated_from": ["Bjj.xlsx:Done", "chat.txt (bjj.chadao.ro links)", "taiko-coaching seed data", "WhatsApp chat history 2024-2025"],
+  "tree": [
+    {
+      "id": "root.guard",
+      "title": "Guard",
+      "children": [
+        {
+          "id": "root.guard.slx",
+          "title": "SLX",
+          "children": [
+            {
+              "id": "root.guard.slx.slx-control",
+              "title": "Slx Control",
+              "status": "done",
+              "notes": "Side",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.slx-regular-sweep",
+              "title": "Slx Regular Sweep",
+              "status": "done",
+              "notes": "Pummeling Edge",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.slx-double-pants-sweep",
+              "title": "Slx Double Pants Sweep",
+              "status": "done",
+              "notes": "Pummeling Side Control",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.dlr-to-slx",
+              "title": "DLR To SLX",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.spider-to-slx",
+              "title": "Spider to Slx",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.regular-slx-sweep-knee-outwards",
+              "title": "Regular SLX Sweep when opponenet knee points outwards",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.hook-sweep",
+              "title": "Hook sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=CeaMGa8vo", "source": "seed", "seed_title": "Pull guard to hook sweep" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.technical-stand-up",
+              "title": "Technical Stand up",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.sweep-far-sleeve-control",
+              "title": "Sweep with Far Sleeve Control",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.triangle-omoplata-near-sleeve",
+              "title": "Triangle or omoplata entry with near sleeve control",
+              "status": "done",
+              "notes": "Strengthen omoplata position",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.transition-knee-on-floor",
+              "title": "Transition when opponent puts knee on floor",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.slx.sweep-pulling-knee",
+              "title": "Sweep by pulling the knee (?)",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.guard.x-guard",
+          "title": "X Guard",
+          "children": [
+            {
+              "id": "root.guard.x-guard.base-sweep",
+              "title": "X Guard base sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.foot-lever-sweep",
+              "title": "X Guard foot lever sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.technical-stand-up",
+              "title": "X Guard Technical Stand Up",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.barrel-sweep",
+              "title": "X Guard Barrel Sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=138QOpqIa", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.near-sleeve-to-triangle",
+              "title": "X Guard Near Sleve To Triangle",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.far-sleeve-sweep",
+              "title": "X Guard Far Sleve Sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.back-take",
+              "title": "X Guard Back Take",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.reverse-sweep-technical-stand-up",
+              "title": "X Guard Reverse Sweep to technical stand up",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.hammer-sweep",
+              "title": "X Guard Hammer Sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.high-step-defense",
+              "title": "X Guard High Step Defense",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.transition-from-dlr",
+              "title": "X guard transition from dlr",
+              "status": "done",
+              "notes": "Guard",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.butterfly-to-x-guard-tsu",
+              "title": "Butterfly to X-Guard to Technical Stand Up",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=7WlG4CUsQ", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.x-guard.x-guard-to-triangle",
+              "title": "X guard to triangle",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=fLdScVeIJ", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.guard.low-x-guard",
+          "title": "Low X Guard",
+          "children": [
+            {
+              "id": "root.guard.low-x-guard.short-x",
+              "title": "Short X (Low X Guard)",
+              "status": "done",
+              "notes": "Tripod sweep",
+              "resources": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.guard.low-slx",
+          "title": "Low SLX",
+          "children": [
+            {
+              "id": "root.guard.low-slx.technical-stand-up",
+              "title": "Low Slx Technical Stand up",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.low-slx.far-sweep",
+              "title": "Low Slx Far Sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.low-slx.omoplata-or-triangle",
+              "title": "Low SLX Omoplata or triangle",
+              "status": "done",
+              "notes": "Strengthen omoplata position",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=sx8ydJZl8", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.low-slx.to-omoplata",
+              "title": "Low slx to Omoplata",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=Wfi7RrzkL", "source": "chat", "seed_title": "Low slx to Omoplata" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.low-slx.knee-sweep",
+              "title": "Low Slx knee sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.guard.entries-transitions",
+          "title": "Entries & Transitions",
+          "children": [
+            {
+              "id": "root.guard.entries-transitions.pull-guard-hooks",
+              "title": "Pull Guard to Hooks Guard",
+              "status": "done",
+              "notes": "Establish grips before sitting",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.entries-transitions.pull-guard-butterfly-sweep",
+              "title": "Pull Guard to butterfly Sweep",
+              "status": "done",
+              "notes": "Establish grips before sitting",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.entries-transitions.pull-guard-spider-lasso",
+              "title": "Pull Guard when opponent has spider or lasso",
+              "status": "done",
+              "notes": "Establish grips before sitting",
+              "resources": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.guard.top-control",
+          "title": "Top control",
+          "children": [
+            {
+              "id": "root.guard.top-control.motorcycle-mount",
+              "title": "Motorcycle Mount",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/media/encoded/13/admin/390602e15932495db7c2e22a42cd1d8c.390602e15932495db7c2e22a42cd1d8c.soh_mount_control_details_and_chocke_with_own_lapel.mp4.mp4", "source": "chat", "seed_title": "Mount control details + choke with own lapel" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.top-control.arm-isolation",
+              "title": "Arm isolation",
+              "status": "done",
+              "notes": "video to be added",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.top-control.shin-mount",
+              "title": "Shin mount",
+              "status": "done",
+              "notes": "video to be added",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.top-control.top-armbar",
+              "title": "Top armbar",
+              "status": "done",
+              "notes": "video to be added",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.top-control.knee-slice-recovery-quarter-guard",
+              "title": "Knee slice pass recovery when opponent gets quarter guard",
+              "status": "done",
+              "notes": "video to be added",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.guard.top-control.half-guard-recovery",
+              "title": "Half guard pass recovery when opponent gets half guard",
+              "status": "done",
+              "notes": "video to be added",
+              "resources": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.guard.deep-dlr",
+          "title": "Deep DLR",
+          "children": [
+            {
+              "id": "root.guard.deep-dlr.back-via-z-hook",
+              "title": "Deep DLR to Back via Z hook",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=4SIjFwHgt", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.deep-dlr.sweep",
+              "title": "Deep DLR Sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=tHar1REpH", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.deep-dlr.low-deep-dlr",
+              "title": "Low Deep DLR",
+              "children": [
+                {
+                  "id": "root.guard.deep-dlr.low-deep-dlr.x-to-sweep",
+                  "title": "Low DLR X to Sweep",
+                  "status": "done",
+                  "notes": null,
+                  "resources": [
+                    { "url": "https://bjj.chadao.ro/view?m=Nz3RKJee0", "source": "chat" }
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "root.guard.rdlr",
+          "title": "RDLR",
+          "children": [
+            {
+              "id": "root.guard.rdlr.pass-pummeling-knee-slice-tap",
+              "title": "RDLR pass with pummeling, knee slice or knee tap",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=ncueBehzL", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.rdlr.double-collar-grip",
+              "title": "RDLR double collar grip",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=lkxfUxpwr", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.rdlr.to-kob-jump",
+              "title": "RDLR to KOB jump",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=v8zqp74H9", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.rdlr.knee-weave-to-leg-weave",
+              "title": "RDLR to Knee Weave to Leg Weave",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=cypHH3naA", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.guard.butterfly",
+          "title": "Butterfly",
+          "children": [
+            {
+              "id": "root.guard.butterfly.x-sweep-fist-choke",
+              "title": "Butterfly X sweep with fist choke threat",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=efScXFrUM", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.butterfly.base-sweep",
+              "title": "Base butterfly sweep",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=FMAKK5tFI", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.butterfly.to-x-guard-tsu",
+              "title": "Butterfly to X-Guard to Technical Stand Up",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=7WlG4CUsQ", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.butterfly.entry-under-drill",
+              "title": "Butterfly entry under drill and angle adjustment",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=tWopv7HMG", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.guard.tarantula",
+          "title": "Tarantula",
+          "children": [
+            {
+              "id": "root.guard.tarantula.sweep-vs-knee-slice",
+              "title": "Sweep from tarantula when opponent passes from knee slice",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=Fp6nlWmFa", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.tarantula.sweep-vs-kob",
+              "title": "Sweep from tarantula when opponent passes to KOB",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=PGbzPW9pW", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.tarantula.entry-from-spider-sweep-kob",
+              "title": "Tarantula entry from spider followed by sweep when opponent KOB",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=vjxUK3bFU", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.tarantula.double-step-to-triangle",
+              "title": "Double step tarantula to triangle",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=IOl8WUIoK", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.tarantula.to-omoplata",
+              "title": "Tarantula to omoplata",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=uo771yv3x", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.guard.tarantula.double-step-to-omoplata",
+              "title": "Double step tarantula to omoplata",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=ruJeK0CA4", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.guard.spider",
+          "title": "Spider",
+          "children": [
+            {
+              "id": "root.guard.spider.tarantula-entry-sweep-kob",
+              "title": "Tarantula entry from spider followed by sweep when opponent KOB",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=vjxUK3bFU", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "root.passing",
+      "title": "Passing",
+      "children": [
+        {
+          "id": "root.passing.knee-slice",
+          "title": "Knee Slice",
+          "children": [
+            {
+              "id": "root.passing.knee-slice.with-pressure",
+              "title": "Knee Slice With Pressure",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/media/encoded/3/cosmin/1d13ed6d6c0d471f90a4b137083bfdf5.1d13ed6d6c0d471f90a4b137083bfdf5.VID-20211228-WA0003.mp4.mp4", "source": "chat", "seed_title": "Knee slice + HQ details" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.passing.knee-slice.leg-pin-to-crazy-dog",
+              "title": "Leg pin to crazy dog",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=eMmnQCSOw", "source": "seed", "seed_title": "Leg pin to crazy dog" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.passing.knee-slice.crazy-dog-to-leg-weave",
+              "title": "Crazy dog to leg weave",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=RHhd6hbNg", "source": "seed", "seed_title": "Crazy dog to leg weave" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.passing.knee-slice.crazy-dog-variation",
+              "title": "Crazy dog variation",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=6z33mT1RN", "source": "seed", "seed_title": "Crazy dog variation" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.passing.knee-slice.circle-double-hooks",
+              "title": "Circle from double hooks to knee slice",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.passing.knee-slice.circle-double-hooks-leg-weave-knee-slice",
+              "title": "Circle from double hooks to leg weave to knee slice",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.passing.leg-weave",
+          "title": "Leg Weave",
+          "children": [
+            {
+              "id": "root.passing.leg-weave.base",
+              "title": "Leg Weave",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.passing.leg-weave.long-step",
+              "title": "Leg Weave -> Long Step",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.passing.leg-weave.circle-double-hooks",
+              "title": "Circle from double hooks to leg weave",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.passing.leg-weave.circle-double-hooks-to-knee-slice",
+              "title": "Circle from double hooks to leg weave to knee slice",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.passing.single-stack",
+          "title": "Single Stack",
+          "children": [
+            {
+              "id": "root.passing.single-stack.vs-inverted-long-step",
+              "title": "Pass vs inverted - Long Step",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=IUbx95VK7", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.passing.single-stack.vs-inverted-back-step",
+              "title": "Pass vs inverted when he pushes - Back step",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=NwKRk6eFX", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.passing.single-stack.single-under-baby-back-step",
+              "title": "Single Under With Baby Back Step when opp presures biceps",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=fKxH7myzv", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.passing.vs-x-guard",
+          "title": "vs X Guard",
+          "children": [
+            {
+              "id": "root.passing.vs-x-guard.back-step",
+              "title": "Back step vs x guard",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=NwKRk6eFX", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.passing.vs-x-guard.high-step-pass",
+              "title": "X Guard Pass High Step Pass With & Without Control",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.passing.vs-x-guard.leg-pummeling-to-omoplata",
+              "title": "Passing x guard with leg pummeling to omoplata",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=9EvNbjF3N", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.passing.vs-x-guard.top-leg-pummeling-far-sleeve",
+              "title": "X-Guard top Leg pummeling with far sleeve control",
+              "status": "done",
+              "notes": "video to be added",
+              "resources": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.passing.half-guard",
+          "title": "Half Guard",
+          "children": [
+            {
+              "id": "root.passing.half-guard.top-base-pass",
+              "title": "Half guard top base pass",
+              "status": "done",
+              "notes": "video to be added",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.passing.half-guard.reverse-top-base-pass",
+              "title": "Reverse half guard top base pass",
+              "status": "done",
+              "notes": "video to be added",
+              "resources": [],
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "root.positions",
+      "title": "Positions",
+      "children": [
+        {
+          "id": "root.positions.side-control",
+          "title": "Side Control",
+          "children": [
+            {
+              "id": "root.positions.side-control.side-crucifix",
+              "title": "Side Crucifix",
+              "children": [
+                {
+                  "id": "root.positions.side-control.side-crucifix.x-control-armbar",
+                  "title": "X Control to Armbar",
+                  "status": "done",
+                  "notes": "Hold arm isolation 2-3 seconds in sparring",
+                  "resources": [
+                    { "url": "https://bjj.chadao.ro/view?m=i6haVmQql", "source": "chat" }
+                  ],
+                  "children": []
+                },
+                {
+                  "id": "root.positions.side-control.side-crucifix.tainan-armbar",
+                  "title": "Tainan Armbar",
+                  "status": "done",
+                  "notes": "Hold arm isolation 2-3 seconds in sparring",
+                  "resources": [
+                    { "url": "https://bjj.chadao.ro/view?m=PfSgZHJgI", "source": "chat", "seed_title": "Near Arm Trap To Tainan Armbar 4" },
+                    { "url": "https://bjj.chadao.ro/view?m=j04tWhz2T", "source": "seed", "seed_title": "Stapled hand to tainan armbar (better quality)" },
+                    { "url": "https://bjj.chadao.ro/view?m=D0AwShZpg", "source": "seed", "seed_title": "Tainan armbar from arm trap" },
+                    { "url": "https://bjj.chadao.ro/view?m=pvQY55JS4", "source": "seed", "seed_title": "Near Arm Trap to Tainan Armbar 3" }
+                  ],
+                  "children": []
+                },
+                {
+                  "id": "root.positions.side-control.side-crucifix.armbar-top-triangle",
+                  "title": "Side crucifix to armbar or top triangle",
+                  "status": "done",
+                  "notes": null,
+                  "resources": [
+                    { "url": "https://bjj.chadao.ro/view?m=x6n5cfzRK", "source": "chat" }
+                  ],
+                  "children": []
+                },
+                {
+                  "id": "root.positions.side-control.side-crucifix.omoplata-far-side",
+                  "title": "Omoplata from side crucifix far side",
+                  "status": "done",
+                  "notes": null,
+                  "resources": [
+                    { "url": "https://bjj.chadao.ro/view?m=ws5dFAC2n", "source": "chat" }
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "root.positions.kob",
+          "title": "Knee on Belly",
+          "children": [
+            {
+              "id": "root.positions.kob.lapel-cross-choke-armbar",
+              "title": "KOB -> Lapel under -> Cross choke -> Armbar combo",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=EPJqhbBiT", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "root.attacks",
+      "title": "Attacks",
+      "children": [
+        {
+          "id": "root.attacks.armbars",
+          "title": "Armbars",
+          "children": [
+            {
+              "id": "root.attacks.armbars.belly-down-failed-omoplata",
+              "title": "Belly Down Armbar from Failed Omoplata",
+              "status": "done",
+              "notes": "Hold arm isolation 2-3 seconds in sparring",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=pP2V86mxq", "source": "seed", "seed_title": "Failed Omoplata to Belly Down Armbar when opponent moves hand" },
+                { "url": "https://bjj.chadao.ro/view?m=RYnOYUUuB", "source": "chat", "seed_title": "Omoplata to belly down armbar" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.armbars.belly-down-back-take",
+              "title": "Belly Down Armbar from Back Take",
+              "status": "done",
+              "notes": "Hold arm isolation 2-3 seconds in sparring",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=IS8clShDb", "source": "seed", "seed_title": "Close Guard to Belly Down Armbar from Back Take Option" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.armbars.from-omoplata-pin",
+              "title": "Armbar from omoplata pin",
+              "status": "done",
+              "notes": "Hold arm isolation 2-3 seconds in sparring",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=v3xWWuQXe", "source": "seed", "seed_title": "Armbar from omoplata pin" },
+                { "url": "https://bjj.chadao.ro/view?m=oI6IWpT7T", "source": "chat", "seed_title": "Omoplata to armbar" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.armbars.tainan",
+              "title": "Tainan Armbar",
+              "status": "done",
+              "notes": "Hold arm isolation 2-3 seconds in sparring",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=PfSgZHJgI", "source": "chat", "seed_title": "Near Arm Trap To Tainan Armbar 4" },
+                { "url": "https://bjj.chadao.ro/view?m=j04tWhz2T", "source": "seed", "seed_title": "Stapled hand to tainan armbar (better quality)" },
+                { "url": "https://bjj.chadao.ro/view?m=D0AwShZpg", "source": "seed", "seed_title": "Tainan armbar from arm trap" },
+                { "url": "https://bjj.chadao.ro/view?m=pvQY55JS4", "source": "seed", "seed_title": "Near Arm Trap to Tainan Armbar 3" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.armbars.x-control",
+              "title": "X Control to Armbar",
+              "status": "done",
+              "notes": "Hold arm isolation 2-3 seconds in sparring",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=i6haVmQql", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.armbars.bow-arrow-shin-near-leg-armbar",
+              "title": "Bow and arrow variation with shin near leg armbar",
+              "status": "done",
+              "notes": "Hold arm isolation 2-3 seconds in sparring",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.attacks.armbars.control-options-hook",
+              "title": "Control options from armbar with hook",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=NsNMfmGLq", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.armbars.choke-combo",
+              "title": "Armbar choke combo",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=aC1EzFXVG", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.armbars.side-crucifix-armbar-triangle",
+              "title": "Side crucifix to armbar or top triangle",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=x6n5cfzRK", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.armbars.omoplata-hand-lost",
+              "title": "Armbar when omoplata hand is lost",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=VZnqmgbvl", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.attacks.bow-arrow",
+          "title": "Bow & Arrow",
+          "children": [
+            {
+              "id": "root.attacks.bow-arrow.base",
+              "title": "Bow and arrow",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=Aa8GBKKeB", "source": "seed", "seed_title": "Back top clamp to bow and arrow" },
+                { "url": "https://bjj.chadao.ro/view?m=EfFE9uHlh", "source": "seed", "seed_title": "Bow and arrow choke" },
+                { "url": "https://bjj.chadao.ro/view?m=ZSsXDL3CM", "source": "seed", "seed_title": "Bow and arrow sequence" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.bow-arrow.shin-near-leg",
+              "title": "Bow and arrow variation with shin near leg",
+              "status": "done",
+              "notes": null,
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.attacks.bow-arrow.shin-near-leg-armbar",
+              "title": "Bow and arrow variation with shin near leg armbar",
+              "status": "done",
+              "notes": "Hold arm isolation 2-3 seconds in sparring",
+              "resources": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.attacks.chokes",
+          "title": "Other Chokes",
+          "children": [
+            {
+              "id": "root.attacks.chokes.baseball",
+              "title": "Baseball Choke",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=okypYVu86", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.chokes.armbar-choke-combo",
+              "title": "Armbar choke combo",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=aC1EzFXVG", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.attacks.top-triangle",
+          "title": "Top Triangle",
+          "children": [
+            {
+              "id": "root.attacks.top-triangle.side-crucifix",
+              "title": "Side crucifix to armbar or top triangle",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=x6n5cfzRK", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.top-triangle.entry-from-armbar",
+              "title": "Top Triangle Entry from Armbar",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=q9M6h9vhq", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "root.attacks.omoplata",
+          "title": "Omoplata",
+          "children": [
+            {
+              "id": "root.attacks.omoplata.monoplata-from-pin",
+              "title": "Monoplata from omoplata pin",
+              "status": "done",
+              "notes": "Strengthen omoplata position",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=2POptLLzc", "source": "seed", "seed_title": "Monoploata from side omoplata pin" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.reroll-from-pin",
+              "title": "Omoplata reroll from omoplata pin",
+              "status": "done",
+              "notes": "Strengthen omoplata position",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.belly-down-armbar-failed",
+              "title": "Belly Down Armbar from Failed Omoplata",
+              "status": "done",
+              "notes": "Hold arm isolation 2-3 seconds in sparring",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=pP2V86mxq", "source": "seed", "seed_title": "Failed Omoplata to Belly Down Armbar when opponent moves hand" },
+                { "url": "https://bjj.chadao.ro/view?m=RYnOYUUuB", "source": "chat", "seed_title": "Omoplata to belly down armbar" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.armbar-from-pin",
+              "title": "Armbar from omoplata pin",
+              "status": "done",
+              "notes": "Hold arm isolation 2-3 seconds in sparring",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=v3xWWuQXe", "source": "seed", "seed_title": "Armbar from omoplata pin" },
+                { "url": "https://bjj.chadao.ro/view?m=oI6IWpT7T", "source": "chat", "seed_title": "Omoplata to armbar" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.low-slx-omoplata-triangle",
+              "title": "Low SLX Omoplata or triangle",
+              "status": "done",
+              "notes": "Strengthen omoplata position",
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=sx8ydJZl8", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.low-slx-to-omoplata",
+              "title": "Low slx to Omoplata",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=Wfi7RrzkL", "source": "chat", "seed_title": "Low slx to Omoplata" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.triangle-near-sleeve",
+              "title": "Triangle or omoplata entry with near sleeve control",
+              "status": "done",
+              "notes": "Strengthen omoplata position",
+              "resources": [],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.defense-1-armpit",
+              "title": "Omoplata defense 1 (armpit)",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=pOWsnuRWi", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.defense-2-grabs-leg",
+              "title": "Omoplata defense 2 (opponent grabs leg)",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=VwFWshYp7", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.defense-3-weave",
+              "title": "Omoplata defense 3 (Omoplata weave)",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=AT5DHAlSj", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.tarantula-to-omoplata",
+              "title": "Tarantula to omoplata",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=uo771yv3x", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.double-step-tarantula",
+              "title": "Double step tarantula to omoplata",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=ruJeK0CA4", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.passing-x-guard-pummeling",
+              "title": "Passing x guard with leg pummeling to omoplata",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=9EvNbjF3N", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.from-side-crucifix-far",
+              "title": "Omoplata from side crucifix far side",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=ws5dFAC2n", "source": "chat" }
+              ],
+              "children": []
+            },
+            {
+              "id": "root.attacks.omoplata.armbar-hand-lost",
+              "title": "Armbar when omoplata hand is lost",
+              "status": "done",
+              "notes": null,
+              "resources": [
+                { "url": "https://bjj.chadao.ro/view?m=VZnqmgbvl", "source": "chat" }
+              ],
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

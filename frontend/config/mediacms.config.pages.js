@@ -79,6 +79,7 @@ const PAGES = {
   recommended: { id: 'recommended', title: 'Recommended', component: 'RecommendedMediaPage' },
   members: { id: 'members', title: 'Members', component: 'MembersPage' },
   history: { id: 'history', title: 'History', component: 'HistoryPage' },
+  techniques: { id: 'techniques', title: 'Techniques', component: 'TechniquesPage' },
   liked: { id: 'liked', title: 'Liked media', component: 'LikedMediaPage' },
   tags: { id: 'tags', title: 'Tags', component: 'TagsPage' },
   categories: { id: 'categories', title: 'Categories', component: 'CategoriesPage' },

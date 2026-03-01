@@ -59,6 +59,7 @@ export function config(glbl) {
       addMedia: glbl.url.addMedia,
       editChannel: glbl.url.editChannel,
       editProfile: glbl.url.editProfile,
+      techniques: glbl.url.techniques || '',
     },
     archive: {
       tags: glbl.url.tags,

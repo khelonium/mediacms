@@ -1,3 +1,5 @@
+import json
+import os
 from datetime import datetime, timedelta
 
 from celery.task.control import revoke
@@ -1394,3 +1396,30 @@ class TaskDetail(APIView):
     def delete(self, request, uid, format=None):
         revoke(uid, terminate=True)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def _is_techniques_user(user):
+    return user.is_authenticated and (user.username == "madalina130" or user.is_superuser)
+
+
+@login_required
+def techniques(request):
+    if not _is_techniques_user(request.user):
+        return HttpResponseRedirect("/")
+    return render(request, "cms/techniques.html", {})
+
+
+class TechniquesList(APIView):
+    """List BJJ techniques (private, restricted access)"""
+
+    swagger_schema = None
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, format=None):
+        if not _is_techniques_user(request.user):
+            return Response({"detail": "not allowed"}, status=status.HTTP_403_FORBIDDEN)
+
+        json_path = os.path.join(os.path.dirname(__file__), "data", "techniques.json")
+        with open(json_path, "r") as f:
+            data = json.load(f)
+        return Response(data)

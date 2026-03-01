@@ -6,7 +6,7 @@ import { LinksContext, SidebarContext } from '../../../utils/contexts/';
 import { NavigationMenuList } from '../../_shared';
 
 export function SidebarNavigationMenu() {
-  const { userCan, isAnonymous, pages: userPages } = useUser();
+  const { userCan, isAnonymous, isAdmin, username, pages: userPages } = useUser();
 
   const links = useContext(LinksContext);
   const sidebar = useContext(SidebarContext);
@@ -187,6 +187,19 @@ export function SidebarNavigationMenu() {
     return items.length ? <NavigationMenuList key="user" items={formatItems(items)} /> : null;
   }
 
+  function TechniquesMenuSection() {
+    if (username === 'madalina130' || isAdmin) {
+      const items = [{
+        link: links.user.techniques,
+        icon: 'fitness_center',
+        text: 'Techniques',
+        className: 'nav-item-techniques',
+      }];
+      return items[0].link ? <NavigationMenuList key="techniques" items={formatItems(items)} /> : null;
+    }
+    return null;
+  }
+
   function CustomMenuSection() {
     const items = PageStore.get('config-contents').sidebar.navMenu.items;
 
@@ -226,5 +239,5 @@ export function SidebarNavigationMenu() {
     return items.length ? <NavigationMenuList key="admin" items={formatItems(items)} /> : null;
   }
 
-  return [MainMenuFirstSection(), MainMenuSecondSection(), UserMenuSection(), CustomMenuSection(), AdminMenuSection()];
+  return [MainMenuFirstSection(), TechniquesMenuSection(), MainMenuSecondSection(), UserMenuSection(), CustomMenuSection(), AdminMenuSection()];
 }
