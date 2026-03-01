@@ -107,7 +107,7 @@ frontend-build: ## Rebuild frontend and copy to static/
 
 REMOTE := $(REMOTE_USER)@$(REMOTE_HOST)
 REMOTE_CD := cd $(REMOTE_DIR)
-REMOTE_DC := docker compose -f $(REMOTE_COMPOSE)
+REMOTE_DC := docker-compose -f $(REMOTE_COMPOSE)
 
 .PHONY: deploy deploy-pre-check deploy-db-backup deploy-backup deploy-pull deploy-static deploy-migrate deploy-restart deploy-verify deploy-rollback
 
