@@ -101,11 +101,33 @@ This exports from local DB and imports to production.
 
 **Fix:** Already handled in `make frontend-build` via `NODE_OPTIONS=--openssl-legacy-provider`.
 
+## Django Migration Pitfalls (production environment)
+
+Production runs Python 3.8 / Django 3.x. These issues were discovered deploying the techniques-to-DB migration (0005–0007).
+
+### FK column name collision with existing CharField
+
+**Problem:** Adding a `technique` ForeignKey creates a DB column `technique_id`, which collides with an existing `technique_id` CharField.
+
+**Fix:** Name the temporary FK `technique_fk` (creates column `technique_fk_id`). After removing the old CharField, use `RenameField` to rename `technique_fk` → `technique`.
+
+### MPTT `rebuild()` unavailable in data migrations
+
+**Problem:** `apps.get_model()` returns a historical model with a plain `Manager`, not MPTT's `TreeManager`. Calling `Technique.objects.rebuild()` fails with `AttributeError: 'Manager' object has no attribute 'rebuild'`.
+
+**Fix:** Compute MPTT `lft`/`rght`/`tree_id`/`level` values inline during recursive node creation using nested set numbering instead of relying on `rebuild()`.
+
+### `AlterUniqueTogether` must run before `RemoveField`
+
+**Problem:** `RemoveField` on a column that's part of a `unique_together` constraint causes PostgreSQL to auto-drop the constraint. A later `AlterUniqueTogether` then fails with `Found wrong number (0) of constraints`.
+
+**Fix:** Reorder operations: first `AlterUniqueTogether(unique_together=set())` to explicitly drop the old constraint, then `RemoveField`, then set the new `AlterUniqueTogether`.
+
 ## What lives where
 
 | Data | Location | Synced how |
 |------|----------|------------|
-| Technique tree structure | `files/data/techniques.json` (git) | `git push` + `git pull` |
+| Technique tree structure | `Technique` table (DB), seeded from `files/data/techniques.json` | Migration 0006 (initial seed); edit via Django admin |
 | Technique-media links | `TechniqueMedia` table (DB) | `make push-technique-media` |
 | Built JS/CSS bundles | `static/js/`, `static/css/` (git) | `make frontend-build` + commit |
 | Static file manifest | `static/staticfiles.json` (regenerated) | `collectstatic` on server |
