@@ -54,9 +54,7 @@ def pre_save_action(media, user, session_key, action, remote_ip):
 
     if query:
         query = query.first()
-        if action in ["report"]:
-            return False  # has already done action once
-        elif action == "watch" and user:
+        if action == "watch" and user:
             # increase the number of times a media is viewed
             if media.duration:
                 now = datetime.now(query.action_date.tzinfo)

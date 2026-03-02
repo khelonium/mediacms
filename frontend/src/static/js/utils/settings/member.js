@@ -21,7 +21,6 @@ export function init(user, features) {
       manageMedia: false,
       manageUsers: false,
       addToTechniques: false,
-      reportMedia: false,
       downloadMedia: false,
       saveMedia: false,
       shareMedia: true,
@@ -86,8 +85,6 @@ export function init(user, features) {
     if (void 0 !== features.media) {
       if (void 0 !== features.media.actions) {
         const mediaActions = features.media.actions;
-
-        MEMBER.can.reportMedia = false === mediaActions.report ? false : true;
 
         MEMBER.can.downloadMedia = true === mediaActions.download;
         MEMBER.can.saveMedia = true === mediaActions.save;

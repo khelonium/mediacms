@@ -47,7 +47,6 @@ export function ManageMediaItemHeader(props) {
       <div className="mi-state">State</div>
       <div className="mi-reviewed">Reviewed</div>
       <div className="mi-featured">Featured</div>
-      <div className="mi-reported">Reported</div>
     </div>
   );
 }

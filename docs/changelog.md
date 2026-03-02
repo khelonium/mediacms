@@ -2,6 +2,7 @@
 
 ## 2026-03-02
 
+- **feat:** Remove Media Reporting — `reported_times` field, `CAN_REPORT_MEDIA` setting, report action, `ReportForm.jsx`, report config, management table column
 - **feat:** Remove Email Functionality — django-celery-email, EMAIL_* settings, notify_users(), email templates, notification toggles
 - **feat:** Remove Contact Feature — contact page, contact_user API, allow_contact field, ChannelContactForm, sidebar nav link
 - **feat:** Remove Subtitles — `Language`/`Subtitle` models, `SubtitleForm`, `add_subtitle` view/URL/template, frontend components

@@ -23,7 +23,7 @@ from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
-from actions.models import USER_MEDIA_ACTIONS, MediaAction
+from actions.models import USER_MEDIA_ACTIONS
 from cms.custom_pagination import FastPaginationWithoutCount
 from cms.permissions import IsAuthorizedToAdd, IsSuperUser, IsUserOrEditor, user_allowed_to_upload
 from users.models import User
@@ -544,29 +544,7 @@ class MediaActions(APIView):
         operation_summary='to_be_written',
         operation_description='to_be_written',
     )
-    def get(self, request, friendly_token, format=None):
-        # show date and reason for each time media was reported
-        media = self.get_object(friendly_token)
-        if isinstance(media, Response):
-            return media
-
-        ret = {}
-        reported = MediaAction.objects.filter(media=media, action="report")
-        ret["reported"] = []
-        for rep in reported:
-            item = {"reported_date": rep.action_date, "reason": rep.extra_info}
-            ret["reported"].append(item)
-
-        return Response(ret, status=status.HTTP_200_OK)
-
-    @swagger_auto_schema(
-        manual_parameters=[],
-        tags=['Media'],
-        operation_summary='to_be_written',
-        operation_description='to_be_written',
-    )
     def post(self, request, friendly_token, format=None):
-        # perform like/dislike/report actions
         media = self.get_object(friendly_token)
         if isinstance(media, Response):
             return media
@@ -574,8 +552,6 @@ class MediaActions(APIView):
         action = request.data.get("type")
         extra = request.data.get("extra_info")
         if request.user.is_anonymous:
-            # there is a list of allowed actions for
-            # anonymous users, specified in settings
             if action not in settings.ALLOW_ANONYMOUS_ACTIONS:
                 return Response(
                     {"detail": "action allowed on logged in users only"},
@@ -591,33 +567,6 @@ class MediaActions(APIView):
             )
 
             return Response({"detail": "action received"}, status=status.HTTP_201_CREATED)
-        else:
-            return Response({"detail": "no action specified"}, status=status.HTTP_400_BAD_REQUEST)
-
-    @swagger_auto_schema(
-        manual_parameters=[],
-        tags=['Media'],
-        operation_summary='to_be_written',
-        operation_description='to_be_written',
-    )
-    def delete(self, request, friendly_token, format=None):
-        media = self.get_object(friendly_token)
-        if isinstance(media, Response):
-            return media
-
-        if not request.user.is_superuser:
-            return Response({"detail": "not allowed"}, status=status.HTTP_400_BAD_REQUEST)
-
-        action = request.data.get("type")
-        if action:
-            if action == "report":  # delete reported actions
-                MediaAction.objects.filter(media=media, action="report").delete()
-                media.reported_times = 0
-                media.save(update_fields=["reported_times"])
-                return Response(
-                    {"detail": "reset reported times counter"},
-                    status=status.HTTP_201_CREATED,
-                )
         else:
             return Response({"detail": "no action specified"}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -221,17 +221,6 @@ export function ManageMediaItem(props) {
           '-'
         )}
       </div>
-      <div className="mi-reported">
-        {void 0 === props.reported_times ? (
-          <i className="non-available">N/A</i>
-        ) : 0 === props.reported_times ? (
-          <span>-</span>
-        ) : (
-          <span className="reported-number">
-            {props.reported_times} {'time' + (1 < props.reported_times ? 's' : '')}
-          </span>
-        )}
-      </div>
     </div>
   );
 }
@@ -249,7 +238,6 @@ ManageMediaItem.propTypes = {
   state: PropTypes.string,
   is_reviewed: PropTypes.bool,
   featured: PropTypes.bool,
-  reported_times: PropTypes.number,
   onCheckRow: PropTypes.func,
   selectedRow: PropTypes.bool.isRequired,
   hideDeleteAction: PropTypes.bool.isRequired,

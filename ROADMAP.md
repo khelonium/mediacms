@@ -15,13 +15,6 @@ Phase A items can be done in any order.
 
 Phase B items can be done in parallel except B1 must complete before Phase C.
 
-#### B1. Remove Media Reporting
-- **Why:** Django admin suffices for moderation
-- **Scope:** `reported_times` field, `CAN_REPORT_MEDIA` setting, `report` action handling in tasks/views/methods, `ReportForm.jsx`, report in features config
-- **Files:** `files/models.py`, `files/views.py`, `files/tasks.py`, `files/methods.py`, `files/serializers.py`, `files/management_views.py`, `files/forms.py`, `actions/models.py`, `cms/settings.py`, `frontend/src/.../ReportForm.jsx` (delete), `frontend/src/.../features.config.js`
-- **Migration:** Drop `reported_times` from `files_media`
-- **Note:** Must complete before C1
-
 #### B2. Remove Featured/Recommended Media
 - **Why:** Simple "latest" listing suffices; editorial features add complexity
 - **Scope:** `featured_media`/`recommended_media` views, URLs, templates, `show_recommended_media()`, `get_list_of_popular_media` Celery beat task, `VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE` setting, `featured`/`user_featured` fields on Media, `FeaturedMediaPage.tsx`, `RecommendedMediaPage.tsx`
@@ -82,12 +75,12 @@ Phase A (parallel, any order):
 Existing items (sequential):
   Contact → Email
 
-Phase B (mostly parallel, B1 before C1):
-  B1 Reporting              B2 Featured/Recommended
+Phase B (mostly parallel):
+  B2 Featured/Recommended
   B3 Remove Embed Page      B4 Revise Sharing Options (config only)
   B5 Management Pages
 
-Phase C (after A1 + B1):
+Phase C (after B1 done):
   C1 Simplify Actions App
 
 Phase D (after all features removed):
@@ -112,6 +105,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### B1. Remove Media Reporting
+- Removed `reported_times` field, `CAN_REPORT_MEDIA`/`REPORTED_TIMES_THRESHOLD` settings, `report` action from `USER_MEDIA_ACTIONS`, report handling in `pre_save_action`/`save_user_action`/`MediaActions` view, `CAN_REPORT_MEDIA` context var, `ReportForm.jsx`, report config in features template/config, `reportMedia` member permission, `MediaPageStore` report methods, management table reported column. Migration drops column.
 
 ### Remove Email Functionality
 - Removed `django-celery-email` package and `djcelery_email` from INSTALLED_APPS, all `EMAIL_*` settings, `ADMIN_EMAIL_LIST`, `USERS_NOTIFICATIONS`/`ADMINS_NOTIFICATIONS`, `notify_users()`, new-user email alert signal. Stubbed allauth adapter `send_mail`. Set `ACCOUNT_EMAIL_VERIFICATION = "none"`. Deleted email templates.

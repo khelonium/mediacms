@@ -6,13 +6,6 @@ export function loadMediaData() {
   });
 }
 
-export function reportMedia(reportDescription) {
-  Dispatcher.dispatch({
-    type: 'REPORT_MEDIA',
-    reportDescription: !!reportDescription ? reportDescription.replace(/\s/g, '') : '',
-  });
-}
-
 export function copyShareLink(inputElem) {
   Dispatcher.dispatch({
     type: 'COPY_SHARE_LINK',

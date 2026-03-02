@@ -23,7 +23,6 @@ class MediaForm(forms.ModelForm):
             "state",
             "featured",
             "thumbnail_time",
-            "reported_times",
             "is_reviewed",
             "allow_download",
         )
@@ -38,7 +37,6 @@ class MediaForm(forms.ModelForm):
             self.fields.pop("thumbnail_time")
         if not is_mediacms_editor(user):
             self.fields.pop("featured")
-            self.fields.pop("reported_times")
             self.fields.pop("is_reviewed")
         self.fields["new_tags"].initial = ", ".join([tag.title for tag in self.instance.tags.all()])
 

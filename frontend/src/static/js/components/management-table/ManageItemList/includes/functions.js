@@ -34,7 +34,6 @@ function ListManageMediaItem(props) {
     state: itemData.state,
     is_reviewed: itemData.is_reviewed,
     featured: itemData.featured,
-    reported_times: itemData.reported_times,
     token: itemData.friendly_token,
   };
 

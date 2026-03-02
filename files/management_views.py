@@ -27,7 +27,7 @@ class MediaList(APIView):
 
     @swagger_auto_schema(
         manual_parameters=[
-            openapi.Parameter(name='sort_by', type=openapi.TYPE_STRING, in_=openapi.IN_QUERY, description='Sort by any of: title, add_date, edit_date, views, reported_times'),
+            openapi.Parameter(name='sort_by', type=openapi.TYPE_STRING, in_=openapi.IN_QUERY, description='Sort by any of: title, add_date, edit_date, views'),
             openapi.Parameter(name='ordering', type=openapi.TYPE_STRING, in_=openapi.IN_QUERY, description='Order by: asc, desc'),
             openapi.Parameter(name='state', type=openapi.TYPE_STRING, in_=openapi.IN_QUERY, description='Media state, options: private", "public", "unlisted'),
             openapi.Parameter(name='encoding_status', type=openapi.TYPE_STRING, in_=openapi.IN_QUERY, description='Encoding status, options "pending", "running", "fail", "success"'),
@@ -52,7 +52,6 @@ class MediaList(APIView):
             "add_date",
             "edit_date",
             "views",
-            "reported_times",
         ]
         if sort_by not in sort_by_options:
             sort_by = "add_date"

@@ -29,11 +29,7 @@ LOAD_FROM_CDN = False
 LOGIN_ALLOWED = True  # whether the login button appears
 REGISTER_ALLOWED = True  # whether the register button appears
 UPLOAD_MEDIA_ALLOWED = True  # whether the upload media button appears
-CAN_REPORT_MEDIA = True  # whether the report media appears
 CAN_SHARE_MEDIA = True  # whether the share media appears
-# how many times an item need be reported
-# to get to private state automatically
-REPORTED_TIMES_THRESHOLD = 10
 ALLOW_ANONYMOUS_ACTIONS = []  # need be a list
 ALLOW_ANONYMOUS = False
 DEFAULT_ASSET_VISIBILITY = "private"
@@ -83,7 +79,7 @@ USE_TZ = True
 SITE_ID = 1
 
 # protection agains anonymous users
-# per ip address limit, for actions as report
+# per ip address limit, for actions
 TIME_TO_ACTION_ANONYMOUS = 10 * 60
 
 # django-allauth settings

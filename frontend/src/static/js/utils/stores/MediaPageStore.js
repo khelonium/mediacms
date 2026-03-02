@@ -55,7 +55,6 @@ class MediaPageStore extends EventEmitter {
     MediaPageStoreData[
       Object.defineProperty(this, 'id', { value: 'MediaPageStoreData_' + Object.keys(MediaPageStoreData).length }).id
     ] = {
-      reported_times: 0,
       while: {
         deleteMedia: false,
       },
@@ -157,7 +156,6 @@ class MediaPageStore extends EventEmitter {
   dataResponse(response) {
     if (response && response.data) {
       MediaPageStoreData[this.id].data = response.data;
-      MediaPageStoreData[this.id].reported_times = !!MediaPageStoreData[this.id].data.reported_times;
 
       switch (this.get('media-type')) {
         case 'video':
@@ -244,41 +242,6 @@ class MediaPageStore extends EventEmitter {
         }.bind(this)(i));
 
         i += 1;
-      }
-    }
-  }
-
-  requestMediaReport(descr) {
-    if (!MediaPageStoreData[this.id].mediaId) {
-      console.warn('Invalid media id:', MediaPageStoreData[this.id].mediaId);
-      return false;
-    }
-
-    const url = this.mediacms_config.api.media + '/' + MediaPageStoreData[this.id].mediaId + '/actions';
-    this.reportActionResponse = this.reportActionResponse.bind(this);
-    postRequest(
-      url,
-      {
-        type: 'report',
-        extra_info: descr,
-      },
-      {
-        headers: {
-          'X-CSRFToken': csrfToken(),
-        },
-      },
-      false,
-      this.reportActionResponse,
-      this.reportActionResponse
-    );
-  }
-
-  reportActionResponse(response) {
-    if (response) {
-      if (response instanceof Error) {
-      } else if (response.data) {
-        MediaPageStoreData[this.id].reported_times += 1;
-        this.emit('reported_media');
       }
     }
   }
@@ -543,13 +506,6 @@ class MediaPageStore extends EventEmitter {
           this.loadData();
         }
 
-        break;
-      case 'REPORT_MEDIA':
-        if (!MediaPageStoreData[this.id].reported_times) {
-          if ('' !== action.reportDescription) {
-            this.requestMediaReport(action.reportDescription);
-          }
-        }
         break;
       case 'COPY_SHARE_LINK':
         if (action.inputElement instanceof HTMLElement) {

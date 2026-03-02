@@ -3,10 +3,7 @@ from django.db import models
 from files.models import Media
 from users.models import User
 
-USER_MEDIA_ACTIONS = (
-    ("watch", "Watch"),
-    ("report", "Report"),
-)
+USER_MEDIA_ACTIONS = (("watch", "Watch"),)
 
 
 class MediaAction(models.Model):
@@ -29,7 +26,6 @@ class MediaAction(models.Model):
     )
 
     action = models.CharField(max_length=20, choices=USER_MEDIA_ACTIONS, default="watch")
-    # keeps extra info, eg on report action, why it is reported
     extra_info = models.TextField(blank=True, null=True)
 
     media = models.ForeignKey(Media, on_delete=models.CASCADE, related_name="mediaactions")

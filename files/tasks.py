@@ -592,7 +592,7 @@ def save_user_action(user_or_session, friendly_token=None, action="watch", extra
     if not (user or session_key):
         return False
 
-    if action in ["watch", "report"]:
+    if action == "watch":
         if not pre_save_action(
             media=media,
             user=user,
@@ -620,12 +620,6 @@ def save_user_action(user_or_session, friendly_token=None, action="watch", extra
     if action == "watch":
         media.views += 1
         media.save(update_fields=["views"])
-    elif action == "report":
-        media.reported_times += 1
-
-        if media.reported_times >= settings.REPORTED_TIMES_THRESHOLD:
-            media.state = "private"
-        media.save(update_fields=["reported_times", "state"])
 
     return True
 

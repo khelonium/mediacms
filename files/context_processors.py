@@ -13,7 +13,6 @@ def stuff(request):
     ret["CAN_LOGIN"] = settings.LOGIN_ALLOWED
     ret["CAN_REGISTER"] = settings.REGISTER_ALLOWED
     ret["CAN_UPLOAD_MEDIA"] = settings.UPLOAD_MEDIA_ALLOWED
-    ret["CAN_REPORT_MEDIA"] = settings.CAN_REPORT_MEDIA
     ret["CAN_SHARE_MEDIA"] = settings.CAN_SHARE_MEDIA
     ret["UPLOAD_MAX_SIZE"] = settings.UPLOAD_MAX_SIZE
     ret["UPLOAD_MAX_FILES_NUMBER"] = settings.UPLOAD_MAX_FILES_NUMBER

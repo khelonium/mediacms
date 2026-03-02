@@ -188,8 +188,6 @@ class Media(models.Model):
         help_text="media extracted big thumbnail, shown on media page",
     )
 
-    reported_times = models.IntegerField(default=0, help_text="how many time a media is reported")
-
     search = SearchVectorField(
         null=True,
         help_text="used to store all searchable info and metadata for a Media",

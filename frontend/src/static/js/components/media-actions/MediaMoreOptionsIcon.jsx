@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { formatInnerLink } from '../../utils/helpers/';
 import { usePopup, useUser } from '../../utils/hooks/';
 import { SiteContext } from '../../utils/contexts/';
-import { PageActions, MediaPageActions } from '../../utils/actions/';
 import { MediaPageStore } from '../../utils/stores/';
 import { CircleIconButton, MaterialIcon, NavigationContentApp, NavigationMenuList, PopupMain } from '../_shared/';
-import { ReportForm } from '../report-form/ReportForm';
 
 function downloadOptions(mediaData, allowDownload) {
   const site = SiteContext._currentValue;
@@ -50,13 +48,12 @@ function downloadOptions(mediaData, allowDownload) {
   return Object.values(options);
 }
 
-function optionsItems(userCan, mediaData, allowDownload, downloadLink, mediaReported) {
+function optionsItems(userCan, mediaData, allowDownload, downloadLink) {
 
   const items = [];
 
   const mediaType = mediaData.media_type;
   const mediaIsVideo = 'video' === mediaType;
-  const mediaReportedTimes = mediaData.reported_times;
 
   if (allowDownload && userCan.downloadMedia) {
     if (!mediaIsVideo) {
@@ -103,44 +100,19 @@ function optionsItems(userCan, mediaData, allowDownload, downloadLink, mediaRepo
     });
   }
 
-  if (userCan.reportMedia) {
-    if (mediaReported) {
-      items.push({
-        itemType: 'div',
-        text: 'Reported',
-        icon: 'flag',
-        divAttr: {
-          className: 'reported-label loggedin-media-reported',
-        },
-      });
-    } else {
-      items.push({
-        itemType: 'open-subpage',
-        text: 'Report',
-        icon: 'flag',
-        buttonAttr: {
-          className: 'change-page' + (mediaReportedTimes ? ' loggedin-media-reported' : ''),
-          'data-page-id': 'loggedInReportMedia',
-        },
-      });
-    }
-  }
-
   return items;
 }
 
-function getPopupPages(userCan, mediaData, allowDownload, downloadLink, mediaReported, submitReportForm, cancelReportForm) {
+function getPopupPages(userCan, mediaData, allowDownload, downloadLink) {
 
-  const mediaUrl = mediaData.url;
   const mediaType = mediaData.media_type;
   const mediaState = mediaData.state || 'N/A';
   const mediaEncodingStatus = mediaData.encoding_status || 'N/A';
-  const mediaReportedTimes = mediaData.reported_times;
   const mediaIsReviewed = mediaData.is_reviewed;
 
   const mediaIsVideo = 'video' === mediaType;
 
-  const navItems = optionsItems(userCan, mediaData, allowDownload, downloadLink, mediaReported);
+  const navItems = optionsItems(userCan, mediaData, allowDownload, downloadLink);
 
   const pages = {};
 
@@ -149,19 +121,6 @@ function getPopupPages(userCan, mediaData, allowDownload, downloadLink, mediaRep
       <div className="main-options">
         <PopupMain>
           <NavigationMenuList items={navItems} />
-        </PopupMain>
-      </div>
-    );
-  }
-
-  if (userCan.reportMedia) {
-    pages.loggedInReportMedia = mediaReported ? null : (
-      <div className="popup-fullscreen">
-        <PopupMain>
-          <span className="popup-fullscreen-overlay"></span>
-          <div>
-            <ReportForm mediaUrl={mediaUrl} submitReportForm={submitReportForm} cancelReportForm={cancelReportForm} />
-          </div>
         </PopupMain>
       </div>
     );
@@ -184,11 +143,6 @@ function getPopupPages(userCan, mediaData, allowDownload, downloadLink, mediaRep
             {mediaIsVideo ? (
               <li>
                 Encoding Status: <span>{mediaEncodingStatus}</span>
-              </li>
-            ) : null}
-            {mediaReportedTimes ? (
-              <li className="reports">
-                Reports: <span>{mediaReportedTimes}</span>
               </li>
             ) : null}
           </ul>
@@ -224,43 +178,16 @@ export function MediaMoreOptionsIcon(props) {
   const [popupContentRef, PopupContent, PopupTrigger] = usePopup();
 
   const [visible, setVisible] = useState(false);
-  const [reported, setReported] = useState(false);
   const [popupPages, setPopupPages] = useState({});
   const [popupCurrentPage, setPopupCurrentPage] = useState('main');
   const [containerClassname, setContainerClassname] = useState(defaultContainerClassname);
 
-  function submitReportForm(reportDescription) {
-    MediaPageActions.reportMedia(reportDescription);
-  }
-  function cancelReportFormSubmission() {
-    popupContentRef.current.toggle();
-  }
   function onPopupPageChange(newPage) {
     setPopupCurrentPage(newPage);
   }
   function onPopupHide() {
     setPopupCurrentPage('main');
   }
-
-  function onCompleteMediaReport() {
-    popupContentRef.current.tryToHide();
-    // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
-    setTimeout(function () {
-      PageActions.addNotification('Media Reported', 'reportedMedia');
-      setReported(true);
-      MediaPageStore.removeListener('reported_media', onCompleteMediaReport);
-    }, 100);
-  }
-
-  useEffect(() => {
-    if (!reported) {
-      if (visible) {
-        MediaPageStore.on('reported_media', onCompleteMediaReport);
-      } else {
-        MediaPageStore.removeListener('reported_media', onCompleteMediaReport);
-      }
-    }
-  }, [visible]);
 
   useEffect(() => {
     setVisible(Object.keys(popupPages).length && props.allowDownload && userCan.downloadMedia);
@@ -288,31 +215,9 @@ export function MediaMoreOptionsIcon(props) {
         userCan,
         mediaData,
         props.allowDownload,
-        downloadLink,
-        reported,
-        submitReportForm,
-        cancelReportFormSubmission
+        downloadLink
       )
     );
-  }, [reported]);
-
-  useEffect(() => {
-    setPopupPages(
-      getPopupPages(
-        userCan,
-        mediaData,
-        props.allowDownload,
-        downloadLink,
-        reported,
-        submitReportForm,
-        cancelReportFormSubmission
-      )
-    );
-    return () => {
-      if (visible && !reported) {
-        MediaPageStore.removeListener('reported_media', onCompleteMediaReport);
-      }
-    };
   }, []);
 
   return !visible ? null : (
