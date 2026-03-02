@@ -2,6 +2,7 @@
 
 ## 2026-03-02
 
+- **feat:** Remove Management Pages — management_views.py, manage views/URLs/API endpoints, templates, ManageMediaPage/ManageUsersPage, management-table components, sidebar nav items, URL/API/permission configs
 - **feat:** Revise Sharing Options — trim to 7 platforms (fb, tw, whatsapp, telegram, reddit, linkedin, email), remove embed/tumblr/vk/pinterest/mix, delete MediaShareEmbed.jsx and optionsEmbedded.js
 - **feat:** Remove Embed Page — `embed_media` view, URL, template, `EmbedPage.tsx`, config, renderer
 - **feat:** Remove Featured/Recommended Media — views, URLs, Celery task, settings, `featured`/`user_featured` fields, frontend pages/configs

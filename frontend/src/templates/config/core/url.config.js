@@ -2,8 +2,6 @@ module.exports = {
   home: './index.html',
   search: './search.html',
   latestMedia: './latest.html',
-  featuredMedia: './featured.html',
-  recommendedMedia: './recommended.html',
   /* Error pages */
   error404: './error.html',
   /* Archive pages */
@@ -23,7 +21,4 @@ module.exports = {
   changePassword: './change-password.html',
   /* Administration pages */
   admin: '/admin',
-  /* Management pages */
-  manageMedia: './manage-media.html',
-  manageUsers: './manage-users.html',
 };

@@ -59,10 +59,6 @@ export function config(glbl) {
       tags: glbl.url.tags,
       categories: glbl.url.categories,
     },
-    manage: {
-      media: !glbl.user.is.anonymous ? glbl.url.manageMedia : '',
-      users: !glbl.user.is.anonymous ? glbl.url.manageUsers : '',
-    },
   });
 
   site.init(glbl.site);

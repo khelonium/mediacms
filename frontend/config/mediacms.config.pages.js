@@ -79,8 +79,6 @@ const PAGES = {
   techniques: { id: 'techniques', title: 'Techniques', component: 'TechniquesPage' },
   tags: { id: 'tags', title: 'Tags', component: 'TagsPage' },
   categories: { id: 'categories', title: 'Categories', component: 'CategoriesPage' },
-  'manage-media': { id: 'manage-media', title: 'Manage media', component: 'ManageMediaPage' },
-  'manage-users': { id: 'manage-users', title: 'Manage users', component: 'ManageUsersPage' },
   'add-media': {
     id: 'add-media',
     title: 'Add media',

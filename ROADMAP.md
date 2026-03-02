@@ -5,21 +5,6 @@
 
 ---
 
-### Phase A — Quick Wins (trivial, no cross-dependencies)
-
-Phase A items can be done in any order.
-
----
-
-### Phase B — Feature Removals (moderate complexity, need migrations)
-
-Phase B items can be done in parallel except B1 must complete before Phase C.
-
-#### B5. Remove Management Pages
-- **Why:** Django admin suffices for media/user management
-- **Scope:** `manage_media`/`manage_users` views, `management_views.py` API views, URLs, templates, `ManageMediaPage.js`, `ManageUsersPage.js`
-- **Files:** `files/views.py`, `files/management_views.py`, `files/urls.py`, `templates/cms/manage_media.html` (delete), `templates/cms/manage_users.html` (delete)
-
 ---
 
 ### Phase C — App-Level Simplification (after A1 + B1)
@@ -59,8 +44,7 @@ Phase A (parallel, any order):
 Existing items (sequential):
   Contact → Email
 
-Phase B (mostly parallel):
-  B5 Management Pages
+Phase B: (all done)
 
 Phase C (after B1 done):
   C1 Simplify Actions App
@@ -87,6 +71,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### B5. Remove Management Pages
+- Deleted `management_views.py` (manage media/users API views), `manage_media`/`manage_users` Django views, `/manage/media` and `/manage/users` URL patterns, `/api/v1/manage_media` and `/api/v1/manage_users` API endpoints, `manage_media.html`/`manage_users.html` templates. Deleted `ManageMediaPage.js`/`ManageUsersPage.js`, entire `management-table/` component directory, `useManagementTableHeader` hook, `formatManagementTableDate` helper. Removed management nav items from sidebar, manage URL/API/permission configs from templates. Cleaned up stale featured/recommended URL entries.
 
 ### B4. Revise Sharing Options
 - Trimmed `shareOptions` from 12 to 7: removed embed (page deleted in B3), tumblr, vk, pinterest, mix (defunct). Kept: fb, tw, whatsapp, telegram, reddit, linkedin, email. Deleted `MediaShareEmbed.jsx`, `optionsEmbedded.js`, embed share UI code, `embeddedVideo` config. Simplified `MediaShareButton` (no longer needs video/non-video page distinction). Cleaned up stale featured/recommended URL refs in config.js.

@@ -2,8 +2,6 @@ export * from './CategoriesPage';
 export * from './HistoryPage';
 export * from './HomePage';
 export * from './LatestMediaPage';
-export * from './ManageMediaPage';
-export * from './ManageUsersPage';
 export * from './MediaPage';
 export * from './PlaylistPage';
 export * from './ProfileAboutPage';

@@ -2,7 +2,6 @@ export * from './dom';
 export * from './errors';
 export { default as exportStore } from './exportStore';
 export { formatInnerLink } from './formatInnerLink';
-export * from './formatManagementTableDate';
 export { default as formatViewsNumber } from './formatViewsNumber';
 export * from './csrfToken';
 export { imageExtension } from './imageExtension';

@@ -142,22 +142,6 @@ def latest_media(request):
     return render(request, "cms/latest-media.html", context)
 
 
-@login_required
-def manage_users(request):
-    """List users management view"""
-
-    context = {}
-    return render(request, "cms/manage_users.html", context)
-
-
-@login_required
-def manage_media(request):
-    """List media management view"""
-
-    context = {}
-    return render(request, "cms/manage_media.html", context)
-
-
 def search(request):
     """Search view"""
 

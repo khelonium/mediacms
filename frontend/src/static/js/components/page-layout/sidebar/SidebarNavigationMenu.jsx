@@ -172,29 +172,5 @@ export function SidebarNavigationMenu() {
     return items.length ? <NavigationMenuList key="custom" items={formatItems(items)} /> : null;
   }
 
-  function AdminMenuSection() {
-    const items = [];
-
-    if (userCan.manageMedia) {
-      items.push({
-        link: links.manage.media,
-        icon: 'miscellaneous_services',
-        text: 'Manage media',
-        className: 'nav-item-manage-media',
-      });
-    }
-
-    if (userCan.manageUsers) {
-      items.push({
-        link: links.manage.users,
-        icon: 'miscellaneous_services',
-        text: 'Manage users',
-        className: 'nav-item-manage-users',
-      });
-    }
-
-    return items.length ? <NavigationMenuList key="admin" items={formatItems(items)} /> : null;
-  }
-
-  return [MainMenuFirstSection(), TechniquesMenuSection(), MainMenuSecondSection(), UserMenuSection(), CustomMenuSection(), AdminMenuSection()];
+  return [MainMenuFirstSection(), TechniquesMenuSection(), MainMenuSecondSection(), UserMenuSection(), CustomMenuSection()];
 }

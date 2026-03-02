@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import include, re_path
 from django.conf.urls.static import static
 
-from . import management_views, views
+from . import views
 
 urlpatterns = [
     re_path(r"^$", views.index),
@@ -59,8 +59,6 @@ urlpatterns = [
     re_path(r"^api/v1/user/action/(?P<action>[\w]*)$", views.UserActions.as_view()),
     # ADMIN VIEWS
     re_path(r"^api/v1/encode_profiles/$", views.EncodeProfileList.as_view()),
-    re_path(r"^api/v1/manage_media$", management_views.MediaList.as_view()),
-    re_path(r"^api/v1/manage_users$", management_views.UserList.as_view()),
     re_path(r"^api/v1/techniques$", views.TechniquesList.as_view()),
     re_path(r"^api/v1/techniques/tree$", views.TechniqueTreeView.as_view()),
     re_path(r"^api/v1/techniques/categories$", views.TechniqueCategoryCreate.as_view()),
@@ -69,6 +67,4 @@ urlpatterns = [
     re_path(r"^api/v1/tasks$", views.TasksList.as_view()),
     re_path(r"^api/v1/tasks/$", views.TasksList.as_view()),
     re_path(r"^api/v1/tasks/(?P<friendly_token>[\w|\W]*)$", views.TaskDetail.as_view()),
-    re_path(r"^manage/media$", views.manage_media, name="manage_media"),
-    re_path(r"^manage/users$", views.manage_users, name="manage_users"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -36,10 +36,6 @@ export function init(base_url, endpoints) {
       tags: endpoints.tags,
       categories: endpoints.categories,
     },
-    manage: {
-      media: endpoints.manage_media,
-      users: endpoints.manage_users,
-    },
     search: {
       query: endpoints.search + '?q=',
       titles: endpoints.search + '?show=titles&q=',
