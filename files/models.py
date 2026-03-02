@@ -155,8 +155,6 @@ class Media(models.Model):
         help_text="Whether media is reviewed, so it can appear on public listings",
     )
 
-    license = models.ForeignKey("License", on_delete=models.CASCADE, db_index=True, blank=True, null=True)
-
     listable = models.BooleanField(default=False, help_text="Whether it will appear on listings")
 
     md5sum = models.CharField(max_length=50, blank=True, null=True, help_text="Not exposed, used internally")
@@ -847,16 +845,6 @@ class Media(models.Model):
     @property
     def add_subtitle_url(self):
         return "/add_subtitle?m=%s" % self.friendly_token
-
-
-class License(models.Model):
-    """A Base license model to be used in Media"""
-
-    title = models.CharField(max_length=100, unique=True)
-    description = models.TextField(blank=True)
-
-    def __str__(self):
-        return self.title
 
 
 class Category(models.Model):

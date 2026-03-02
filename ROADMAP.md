@@ -9,12 +9,6 @@
 
 Phase A items can be done in any order.
 
-#### A3. Remove License Model
-- **Why:** Never populated or exposed in UI
-- **Scope:** `License` model, `license` FK on Media, serializer field
-- **Files:** `files/models.py`, `files/serializers.py`
-- **Migration:** Drop `files_license`, drop `license_id` from `files_media`
-
 #### A4. Remove Notifications + Channel Subscriptions
 - **Why:** `Notification` model is dead code; `subscribers` M2M on Channel has no UI/API
 - **Scope:** `Notification` model, `NOTIFICATION_METHODS`, `subscribers` M2M on Channel
@@ -159,6 +153,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### A3. Remove License Model
+- Removed `License` model, `license` FK on Media, serializer field. Migration drops table and column.
 
 ### A2. Remove RSS Feeds
 - Deleted `files/feeds.py`, removed feed URL patterns, RSS `<link>` from head template, `RSS_URL` from context_processors and search view.

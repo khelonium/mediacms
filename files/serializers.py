@@ -131,7 +131,6 @@ class SingleMediaSerializer(serializers.ModelSerializer):
             "edit_url",
             "tags_info",
             "hls_info",
-            "license",
             "subtitles_info",
             "add_subtitle_url",
             "allow_download",

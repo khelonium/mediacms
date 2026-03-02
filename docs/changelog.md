@@ -2,6 +2,7 @@
 
 ## 2026-03-02
 
+- **feat:** Remove License model — model, FK on Media, serializer field, migration
 - **feat:** Remove RSS feeds — delete feeds.py, URL patterns, head template link, context_processor/view references
 - **feat:** Remove ratings system — `RatingCategory`/`Rating` models, `rating_category` M2M, `ratings_info`, `update_user_ratings()`, `rate` action, settings
 - **chore(i18n):** Remove dormant i18n infrastructure — `USE_I18N = False`, strip `{% trans %}` / `{% blocktrans %}` from 27 templates, remove `gettext_lazy`
