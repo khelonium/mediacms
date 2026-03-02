@@ -46,7 +46,6 @@ REMOTE_MEDIA_HOST = "https://bjj.chadao.ro"
 
 # FRONTEND_HOST needs an http prefix - at the end of the file
 # there's a conversion to https with the SSL_FRONTEND_HOST env
-INTERNAL_IPS = "127.0.0.1"
 
 PRE_UPLOAD_MEDIA_MESSAGE = ""
 
@@ -197,35 +196,6 @@ ADMIN_TOKEN = "c2b8e1838b6128asd333ddc5e24"
 # uncomment the two lines related to htpasswd
 
 
-CKEDITOR_CONFIGS = {
-    "default": {
-        "toolbar": "Custom",
-        "width": "100%",
-        "toolbar_Custom": [
-            ["Styles"],
-            ["Format"],
-            ["Bold", "Italic", "Underline"],
-            ["HorizontalRule"],
-            [
-                "NumberedList",
-                "BulletedList",
-                "-",
-                "Outdent",
-                "Indent",
-                "-",
-                "JustifyLeft",
-                "JustifyCenter",
-                "JustifyRight",
-                "JustifyBlock",
-            ],
-            ["Link", "Unlink"],
-            ["Image"],
-            ["RemoveFormat", "Source"],
-        ],
-    }
-}
-
-
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "/"
 
@@ -250,11 +220,8 @@ INSTALLED_APPS = [
     "files.apps.FilesConfig",
     "users.apps.UsersConfig",
     "actions.apps.ActionsConfig",
-    "debug_toolbar",
     "mptt",
-    "crispy_forms",
     "uploader.apps.UploaderConfig",
-    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -265,7 +232,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "cms.urls"

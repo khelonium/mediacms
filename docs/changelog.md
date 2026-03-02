@@ -2,6 +2,7 @@
 
 ## 2026-03-02
 
+- **feat:** Remove unused packages — django-ckeditor, django-debug-toolbar, django-crispy-forms (INSTALLED_APPS, settings, middleware, URLs, requirements.txt)
 - **feat:** Remove drf-yasg — package, INSTALLED_APPS, schema_view, swagger/redoc URLs, 28 @swagger_auto_schema decorators, openapi imports
 - **feat:** Simplify Actions App — strip MediaAction to watch-only, remove action/extra_info fields, simplify save_user_action task and pre_save_action, hardcode watch in views
 - **feat:** Remove Management Pages — management_views.py, manage views/URLs/API endpoints, templates, ManageMediaPage/ManageUsersPage, management-table components, sidebar nav items, URL/API/permission configs

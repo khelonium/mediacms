@@ -13,10 +13,7 @@
 
 #### ~~D1. Remove drf-yasg~~ (done)
 
-#### D2. Remove Unused Packages (group into 1 PR)
-- `django-ckeditor`: INSTALLED_APPS + `CKEDITOR_CONFIGS` setting + requirements.txt
-- `django-debug-toolbar`: INSTALLED_APPS + MIDDLEWARE + `cms/urls.py` import/URL + requirements.txt + `INTERNAL_IPS`
-- `django-crispy-forms`: INSTALLED_APPS + requirements.txt
+#### ~~D2. Remove Unused Packages~~ (done)
 
 #### D3. Verify django.contrib.sites
 - allauth 0.44.0 may require it — test before removing
@@ -60,6 +57,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### D2. Remove Unused Packages
+- Removed django-ckeditor (INSTALLED_APPS, `CKEDITOR_CONFIGS`, requirements.txt), django-debug-toolbar (INSTALLED_APPS, MIDDLEWARE, `cms/urls.py` import/URL, requirements.txt, `INTERNAL_IPS`), django-crispy-forms (INSTALLED_APPS, requirements.txt).
 
 ### D1. Remove drf-yasg
 - Removed `drf-yasg` from requirements.txt and `drf_yasg` from INSTALLED_APPS. Removed `schema_view` definition and `/swagger/`, `/docs/api/` URL patterns from `cms/urls.py`. Stripped all `@swagger_auto_schema` decorators (28 total) and `openapi` imports from `files/views.py` and `users/views.py`.

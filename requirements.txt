@@ -9,7 +9,6 @@ uwsgi==2.0.19.1
 django-redis==4.12.1
 celery==4.4.7
 
-
 Pillow==8.2.0
 django-imagekit
 
@@ -19,13 +18,8 @@ django-filter
 filetype
 django-mptt
 
-django-crispy-forms
-
 requests==2.25.0
 
 m3u8
-
-django-ckeditor
-django-debug-toolbar
 
 django-login-required-middleware==0.6.1
