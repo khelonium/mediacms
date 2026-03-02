@@ -7,20 +7,12 @@
 
 ---
 
-### Phase C — App-Level Simplification (after A1 + B1)
-
-#### C1. Simplify Actions App
-- **Why:** After removing like (done), report (B1), and rate (A1), only `watch` action remains. History and playlists are kept.
-- **Depends on:** A1 (Ratings) + B1 (Reporting) must be done first
-- **Scope:** Strip `MediaAction` to `watch` only, remove `report`/`rate` choices, clean up `save_user_action` task to remove report/rate handling
-- **Note:** Keep simplified app — `watch` action powers both view-count and history features
-
 ---
 
 ### Phase D — Third-Party Package Cleanup (after all feature removals)
 
 #### D1. Remove drf-yasg (Swagger/API docs)
-- **Scope:** Remove from INSTALLED_APPS, requirements.txt, `cms/urls.py` schema_view + swagger/redoc URLs, all `@swagger_auto_schema` decorators and `openapi` imports across `files/views.py`, `files/management_views.py`, `users/views.py`
+- **Scope:** Remove from INSTALLED_APPS, requirements.txt, `cms/urls.py` schema_view + swagger/redoc URLs, all `@swagger_auto_schema` decorators and `openapi` imports across `files/views.py`, `users/views.py`
 - **Note:** Moderate — many files have decorators
 
 #### D2. Remove Unused Packages (group into 1 PR)
@@ -46,8 +38,7 @@ Existing items (sequential):
 
 Phase B: (all done)
 
-Phase C (after B1 done):
-  C1 Simplify Actions App
+Phase C: (all done)
 
 Phase D (after all features removed):
   D1 drf-yasg         D2 Unused packages    D3 django.contrib.sites
@@ -71,6 +62,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### C1. Simplify Actions App
+- Stripped `MediaAction` model to watch-only: removed `action`, `extra_info` fields, `USER_MEDIA_ACTIONS` choices tuple. Simplified `save_user_action` task (flattened watch-specific branches, removed action/extra_info params). Rewrote `pre_save_action` (removed action param, clearer throttling logic). Hardcoded `action="watch"` in `MediaActions`/`UserActions` views. Removed dead `actions`/`members` frontend API config entries. Migration drops columns.
 
 ### B5. Remove Management Pages
 - Deleted `management_views.py` (manage media/users API views), `manage_media`/`manage_users` Django views, `/manage/media` and `/manage/users` URL patterns, `/api/v1/manage_media` and `/api/v1/manage_users` API endpoints, `manage_media.html`/`manage_users.html` templates. Deleted `ManageMediaPage.js`/`ManageUsersPage.js`, entire `management-table/` component directory, `useManagementTableHeader` hook, `formatManagementTableDate` helper. Removed management nav items from sidebar, manage URL/API/permission configs from templates. Cleaned up stale featured/recommended URL entries.

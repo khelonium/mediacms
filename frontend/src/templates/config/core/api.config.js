@@ -4,7 +4,5 @@ module.exports = {
   search: '/search',
   tags: '/tags',
   categories: '/categories',
-  members: '/users',
   history: '/user/action/watch',
-  actions: '/actions',
 };

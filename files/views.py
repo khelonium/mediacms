@@ -23,7 +23,6 @@ from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
-from actions.models import USER_MEDIA_ACTIONS
 
 from cms.permissions import IsAuthorizedToAdd, IsSuperUser, IsUserOrEditor, user_allowed_to_upload
 from users.models import User
@@ -62,8 +61,6 @@ from .serializers import (
 )
 from .stop_words import STOP_WORDS
 from .tasks import save_user_action
-
-VALID_USER_ACTIONS = [action for action, name in USER_MEDIA_ACTIONS]
 
 
 def about(request):
@@ -489,25 +486,18 @@ class MediaActions(APIView):
             return media
 
         action = request.data.get("type")
-        extra = request.data.get("extra_info")
-        if request.user.is_anonymous:
-            if action not in settings.ALLOW_ANONYMOUS_ACTIONS:
-                return Response(
-                    {"detail": "action allowed on logged in users only"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-        if action:
-            user_or_session = get_user_or_session(request)
-            save_user_action.delay(
-                user_or_session,
-                friendly_token=media.friendly_token,
-                action=action,
-                extra_info=extra,
+        if action != "watch":
+            return Response({"detail": "only watch action is supported"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if request.user.is_anonymous and "watch" not in settings.ALLOW_ANONYMOUS_ACTIONS:
+            return Response(
+                {"detail": "action allowed on logged in users only"},
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
-            return Response({"detail": "action received"}, status=status.HTTP_201_CREATED)
-        else:
-            return Response({"detail": "no action specified"}, status=status.HTTP_400_BAD_REQUEST)
+        user_or_session = get_user_or_session(request)
+        save_user_action.delay(user_or_session, friendly_token=media.friendly_token)
+        return Response({"detail": "action received"}, status=status.HTTP_201_CREATED)
 
 
 class MediaSearch(APIView):
@@ -941,7 +931,7 @@ class UserActions(APIView):
 
     @swagger_auto_schema(
         manual_parameters=[
-            openapi.Parameter(name='action', type=openapi.TYPE_STRING, in_=openapi.IN_PATH, description='action', required=True, enum=VALID_USER_ACTIONS),
+            openapi.Parameter(name='action', type=openapi.TYPE_STRING, in_=openapi.IN_PATH, description='action', required=True, enum=["watch"]),
         ],
         tags=['Users'],
         operation_summary='List user actions',
@@ -949,15 +939,14 @@ class UserActions(APIView):
     )
     def get(self, request, action):
         media = []
-        if action in VALID_USER_ACTIONS:
+        if action == "watch":
             if request.user.is_authenticated:
-                media = Media.objects.select_related("user").filter(mediaactions__user=request.user, mediaactions__action=action).order_by("-mediaactions__action_date")
+                media = Media.objects.select_related("user").filter(mediaactions__user=request.user).order_by("-mediaactions__action_date")
             elif request.session.session_key:
                 media = (
                     Media.objects.select_related("user")
                     .filter(
                         mediaactions__session_key=request.session.session_key,
-                        mediaactions__action=action,
                     )
                     .order_by("-mediaactions__action_date")
                 )

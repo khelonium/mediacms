@@ -38,46 +38,47 @@ def get_user_or_session(request):
     return ret
 
 
-def pre_save_action(media, user, session_key, action, remote_ip):
-    """This will perform some checkes
-    example threshold checks, before performing an action
+def pre_save_action(media, user, session_key, remote_ip):
+    """Throttle checks before recording a watch action.
+
+    For authenticated users: allow re-counting after media duration has elapsed.
+    For anonymous users: throttle by remote IP and TIME_TO_ACTION_ANONYMOUS.
     """
 
     from actions.models import MediaAction
 
     if user:
-        query = MediaAction.objects.filter(media=media, action=action, user=user)
-    else:
-        query = MediaAction.objects.filter(media=media, action=action, session_key=session_key)
-    query = query.order_by("-action_date")
-
-    if query:
-        query = query.first()
-        if action == "watch" and user:
-            # increase the number of times a media is viewed
-            if media.duration:
-                now = datetime.now(query.action_date.tzinfo)
-                if (now - query.action_date).seconds > media.duration:
-                    return True
-    else:
-        if user:  # first time action
-            return True
-
-    if not user:
-        # perform some checking for requests where no session
-        # id is specified (and user is anonymous) to avoid spam
-        # eg allow for the same remote_ip for a specific number of actions
-        query = MediaAction.objects.filter(media=media, action=action, remote_ip=remote_ip).filter(user=None).order_by("-action_date")
+        query = MediaAction.objects.filter(media=media, user=user).order_by("-action_date")
         if query:
-            query = query.first()
-            now = datetime.now(query.action_date.tzinfo)
-            if action == "watch":
-                if not (now - query.action_date).seconds > media.duration:
-                    return False
-            if (now - query.action_date).seconds > settings.TIME_TO_ACTION_ANONYMOUS:
+            last = query.first()
+            if media.duration:
+                now = datetime.now(last.action_date.tzinfo)
+                if (now - last.action_date).seconds > media.duration:
+                    return True
+            return False
+        return True
+
+    # Anonymous user checks
+    query = MediaAction.objects.filter(media=media, session_key=session_key).order_by("-action_date")
+    if not query.exists():
+        # Also check by remote IP to prevent spam
+        ip_query = MediaAction.objects.filter(media=media, remote_ip=remote_ip, user=None).order_by("-action_date")
+        if ip_query.exists():
+            last = ip_query.first()
+            now = datetime.now(last.action_date.tzinfo)
+            if media.duration and (now - last.action_date).seconds <= media.duration:
+                return False
+            if (now - last.action_date).seconds > settings.TIME_TO_ACTION_ANONYMOUS:
                 return True
-        else:
-            return True
+            return False
+        return True
+
+    last = query.first()
+    now = datetime.now(last.action_date.tzinfo)
+    if media.duration and (now - last.action_date).seconds <= media.duration:
+        return False
+    if (now - last.action_date).seconds > settings.TIME_TO_ACTION_ANONYMOUS:
+        return True
 
     return False
 

@@ -16,7 +16,7 @@ from django.conf import settings
 from django.core.files import File
 from django.db.models import Q
 
-from actions.models import USER_MEDIA_ACTIONS, MediaAction
+from actions.models import MediaAction
 from users.models import User
 
 from .backends import FFmpegBackend
@@ -36,8 +36,6 @@ from .methods import list_tasks, pre_save_action
 from .models import Category, EncodeProfile, Encoding, Media, Tag
 
 logger = get_task_logger(__name__)
-
-VALID_USER_ACTIONS = [action for action, name in USER_MEDIA_ACTIONS]
 
 ERRORS_LIST = [
     "Output file is empty, nothing was encoded",
@@ -568,9 +566,9 @@ def clear_sessions():
 
 @task(name="save_user_action", queue="short_tasks")
 def save_user_action(user_or_session, friendly_token=None, action="watch", extra_info=None):
-    """Short task that saves a user action"""
+    """Record a watch action for a media item."""
 
-    if action not in VALID_USER_ACTIONS:
+    if action != "watch":
         return False
 
     try:
@@ -591,34 +589,18 @@ def save_user_action(user_or_session, friendly_token=None, action="watch", extra
     if not (user or session_key):
         return False
 
-    if action == "watch":
-        if not pre_save_action(
-            media=media,
-            user=user,
-            session_key=session_key,
-            action=action,
-            remote_ip=remote_ip,
-        ):
-            return False
+    if not pre_save_action(media=media, user=user, session_key=session_key, remote_ip=remote_ip):
+        return False
 
-    if action == "watch":
-        if user:
-            MediaAction.objects.filter(user=user, media=media, action="watch").delete()
-        else:
-            MediaAction.objects.filter(session_key=session_key, media=media, action="watch").delete()
-    ma = MediaAction(
-        user=user,
-        session_key=session_key,
-        media=media,
-        action=action,
-        extra_info=extra_info,
-        remote_ip=remote_ip,
-    )
-    ma.save()
+    if user:
+        MediaAction.objects.filter(user=user, media=media).delete()
+    else:
+        MediaAction.objects.filter(session_key=session_key, media=media).delete()
 
-    if action == "watch":
-        media.views += 1
-        media.save(update_fields=["views"])
+    MediaAction(user=user, session_key=session_key, media=media, remote_ip=remote_ip).save()
+
+    media.views += 1
+    media.save(update_fields=["views"])
 
     return True
 
