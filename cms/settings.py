@@ -38,10 +38,6 @@ ALLOW_ANONYMOUS_ACTIONS = []  # need be a list
 ALLOW_ANONYMOUS = False
 DEFAULT_ASSET_VISIBILITY = "private"
 
-# experimental functionality for user ratings - does not work
-ALLOW_RATINGS = False
-ALLOW_RATINGS_CONFIRMED_EMAIL_ONLY = True
-
 # ip of the server should be part of this
 ALLOWED_HOSTS = ["*", "mediacms.io", "127.0.0.1", "localhost"]
 

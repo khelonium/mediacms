@@ -309,16 +309,6 @@ def show_related_media_calculated(media, request, limit):
     return []
 
 
-def update_user_ratings(user, media, user_ratings):
-    """Populate user ratings for a media"""
-
-    for rating in user_ratings:
-        user_rating = models.Rating.objects.filter(user=user, media_id=media, rating_category_id=rating.get("category_id")).only("score").first()
-        if user_rating:
-            rating["score"] = user_rating.score
-    return user_ratings
-
-
 def list_tasks():
     """Lists celery tasks
     To be used in an admin dashboard

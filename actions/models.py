@@ -6,7 +6,6 @@ from users.models import User
 USER_MEDIA_ACTIONS = (
     ("watch", "Watch"),
     ("report", "Report"),
-    ("rate", "Rate"),
 )
 
 

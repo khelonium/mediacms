@@ -34,7 +34,7 @@ from .helpers import (
     run_command,
 )
 from .methods import list_tasks, notify_users, pre_save_action
-from .models import Category, EncodeProfile, Encoding, Media, Rating, Tag
+from .models import Category, EncodeProfile, Encoding, Media, Tag
 
 logger = get_task_logger(__name__)
 
@@ -607,30 +607,6 @@ def save_user_action(user_or_session, friendly_token=None, action="watch", extra
             MediaAction.objects.filter(user=user, media=media, action="watch").delete()
         else:
             MediaAction.objects.filter(session_key=session_key, media=media, action="watch").delete()
-    if action == "rate":
-        try:
-            score = extra_info.get("score")
-            rating_category = extra_info.get("category_id")
-        except BaseException:
-            # TODO: better error handling?
-            return False
-        try:
-            rating = Rating.objects.filter(user=user, media=media, rating_category_id=rating_category).first()
-            if rating:
-                rating.score = score
-                rating.save(update_fields=["score"])
-            else:
-                rating = Rating.objects.create(
-                    user=user,
-                    media=media,
-                    rating_category_id=rating_category,
-                    score=score,
-                )
-        except Exception:
-            # TODO: more specific handling, for errors in score, or
-            # rating_category?
-            return False
-
     ma = MediaAction(
         user=user,
         session_key=session_key,

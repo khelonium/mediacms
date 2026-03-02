@@ -38,7 +38,6 @@ from .methods import (
     list_tasks,
     show_recommended_media,
     show_related_media,
-    update_user_ratings,
 )
 from .models import (
     Category,
@@ -478,12 +477,6 @@ class MediaDetail(APIView):
             related_media_serializer = MediaSerializer(related_media, many=True, context={"request": request})
             related_media = related_media_serializer.data
         ret = serializer.data
-
-        # update rattings info with user specific ratings
-        # eg user has already rated for this media
-        # this only affects user rating and only if enabled
-        if settings.ALLOW_RATINGS and ret.get("ratings_info") and not request.user.is_anonymous:
-            ret["ratings_info"] = update_user_ratings(request.user, media, ret.get("ratings_info"))
 
         ret["related_media"] = related_media
         return Response(ret)

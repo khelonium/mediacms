@@ -2,6 +2,7 @@
 
 ## 2026-03-02
 
+- **feat:** Remove ratings system — `RatingCategory`/`Rating` models, `rating_category` M2M, `ratings_info`, `update_user_ratings()`, `rate` action, settings
 - **chore(i18n):** Remove dormant i18n infrastructure — `USE_I18N = False`, strip `{% trans %}` / `{% blocktrans %}` from 27 templates, remove `gettext_lazy`
 - **chore(dev):** Add local test infrastructure — `docker-compose-test.yaml`, `make test-local` / `check-local` targets, exclude `node_modules` from linters
 

@@ -9,12 +9,6 @@
 
 Phase A items can be done in any order.
 
-#### A1. Remove Ratings System
-- **Why:** `ALLOW_RATINGS=False` — entirely dead code
-- **Scope:** `RatingCategory` + `Rating` models, `rating_category` M2M on Media, `ratings_info` property, `update_user_ratings()`, `rate` action in actions/models.py, settings, serializer fields
-- **Files:** `files/models.py`, `files/methods.py`, `files/tasks.py`, `files/serializers.py`, `files/views.py`, `actions/models.py`, `cms/settings.py`
-- **Migration:** Drop `files_ratingcategory`, `files_rating`, `files_media_rating_category`
-
 #### A2. Remove RSS Feeds
 - **Why:** Legacy distribution channel, no consumers
 - **Scope:** Delete `files/feeds.py`, remove feed URL patterns, remove `RSS_URL` from context_processors
@@ -170,6 +164,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### A1. Remove Ratings System
+- Removed `RatingCategory` + `Rating` models, `rating_category` M2M on Media, `ratings_info` property, `update_user_ratings()`, `rate` action, `ALLOW_RATINGS` settings, serializer/view/context_processor references. Migration to drop tables.
 
 ### Remove Like/Dislike Functionality
 - Removed Like/Dislike from models, API endpoints, Celery tasks, serializers, React components, navigation, pages, state management, config, templates. Database migration to drop `likes`/`dislikes` columns.

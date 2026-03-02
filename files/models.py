@@ -10,7 +10,6 @@ import m3u8
 from django.conf import settings
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
-from django.core.exceptions import ValidationError
 from django.core.files import File
 from django.db import connection, models
 from django.db.models.signals import m2m_changed, post_delete, post_save, pre_delete
@@ -195,12 +194,6 @@ class Media(models.Model):
         blank=True,
         max_length=500,
         help_text="media extracted big thumbnail, shown on media page",
-    )
-
-    rating_category = models.ManyToManyField(
-        "RatingCategory",
-        blank=True,
-        help_text="Rating category, if media Rating is allowed",
     )
 
     reported_times = models.IntegerField(default=0, help_text="how many time a media is reported")
@@ -855,28 +848,6 @@ class Media(models.Model):
     def add_subtitle_url(self):
         return "/add_subtitle?m=%s" % self.friendly_token
 
-    @property
-    def ratings_info(self):
-        """Property used on ratings
-        If ratings functionality enabled
-        """
-
-        # to be used if user ratings are allowed
-        ret = []
-        if not settings.ALLOW_RATINGS:
-            return []
-        for category in self.rating_category.filter(enabled=True):
-            ret.append(
-                {
-                    "score": -1,
-                    # default score, means no score. In case user has already
-                    # rated for this media, it will be populated
-                    "category_id": category.id,
-                    "category_title": category.title,
-                }
-            )
-        return ret
-
 
 class License(models.Model):
     """A Base license model to be used in Media"""
@@ -1148,55 +1119,6 @@ class Subtitle(models.Model):
 
     def __str__(self):
         return "{0}-{1}".format(self.media.title, self.language.title)
-
-
-class RatingCategory(models.Model):
-    """Rating Category
-    Facilitate user ratings.
-    One or more rating categories per Category can exist
-    will be shown to the media if they are enabled
-    """
-
-    description = models.TextField(blank=True)
-
-    enabled = models.BooleanField(default=True)
-
-    title = models.CharField(max_length=200, unique=True, db_index=True)
-
-    class Meta:
-        verbose_name_plural = "Rating Categories"
-
-    def __str__(self):
-        return "{0}".format(self.title)
-
-
-def validate_rating(value):
-    if -1 >= value or value > 5:
-        raise ValidationError("score has to be between 0 and 5")
-
-
-class Rating(models.Model):
-    """User Rating"""
-
-    add_date = models.DateTimeField(auto_now_add=True)
-
-    media = models.ForeignKey(Media, on_delete=models.CASCADE, related_name="ratings")
-
-    rating_category = models.ForeignKey(RatingCategory, on_delete=models.CASCADE)
-
-    score = models.IntegerField(validators=[validate_rating])
-
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name_plural = "Ratings"
-        indexes = [
-            models.Index(fields=["user", "media"]),
-        ]
-        unique_together = ("user", "media", "rating_category")
-
-    def __str__(self):
-        return "{0}, rate for {1} for category {2}".format(self.user.username, self.media.title, self.rating_category.title)
 
 
 class Playlist(models.Model):

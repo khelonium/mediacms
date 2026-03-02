@@ -133,7 +133,6 @@ class SingleMediaSerializer(serializers.ModelSerializer):
             "hls_info",
             "license",
             "subtitles_info",
-            "ratings_info",
             "add_subtitle_url",
             "allow_download",
         )
