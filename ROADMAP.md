@@ -15,9 +15,8 @@
 
 #### ~~D2. Remove Unused Packages~~ (done)
 
-#### D3. Verify django.contrib.sites
-- allauth 0.44.0 may require it — test before removing
-- If safe: remove from INSTALLED_APPS, remove `SITE_ID`, drop `django_site` table
+#### ~~D3. Verify django.contrib.sites~~ (cannot remove)
+- **Verified:** allauth 0.44.0 imports `Site` model directly in `allauth/utils.py`, causing a `RuntimeError` if `django.contrib.sites` is not in INSTALLED_APPS. Must keep until allauth is upgraded.
 
 ---
 
@@ -57,6 +56,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### D3. Verify django.contrib.sites
+- **Cannot remove:** allauth 0.44.0 imports `Site` model in `allauth/utils.py`, causing `RuntimeError` without `django.contrib.sites` in INSTALLED_APPS. Must keep until allauth upgrade.
 
 ### D2. Remove Unused Packages
 - Removed django-ckeditor (INSTALLED_APPS, `CKEDITOR_CONFIGS`, requirements.txt), django-debug-toolbar (INSTALLED_APPS, MIDDLEWARE, `cms/urls.py` import/URL, requirements.txt, `INTERNAL_IPS`), django-crispy-forms (INSTALLED_APPS, requirements.txt).
