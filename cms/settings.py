@@ -255,7 +255,6 @@ INSTALLED_APPS = [
     "crispy_forms",
     "uploader.apps.UploaderConfig",
     "ckeditor",
-    "drf_yasg",
 ]
 
 MIDDLEWARE = [

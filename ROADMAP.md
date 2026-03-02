@@ -11,9 +11,7 @@
 
 ### Phase D — Third-Party Package Cleanup (after all feature removals)
 
-#### D1. Remove drf-yasg (Swagger/API docs)
-- **Scope:** Remove from INSTALLED_APPS, requirements.txt, `cms/urls.py` schema_view + swagger/redoc URLs, all `@swagger_auto_schema` decorators and `openapi` imports across `files/views.py`, `users/views.py`
-- **Note:** Moderate — many files have decorators
+#### ~~D1. Remove drf-yasg~~ (done)
 
 #### D2. Remove Unused Packages (group into 1 PR)
 - `django-ckeditor`: INSTALLED_APPS + `CKEDITOR_CONFIGS` setting + requirements.txt
@@ -62,6 +60,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### D1. Remove drf-yasg
+- Removed `drf-yasg` from requirements.txt and `drf_yasg` from INSTALLED_APPS. Removed `schema_view` definition and `/swagger/`, `/docs/api/` URL patterns from `cms/urls.py`. Stripped all `@swagger_auto_schema` decorators (28 total) and `openapi` imports from `files/views.py` and `users/views.py`.
 
 ### C1. Simplify Actions App
 - Stripped `MediaAction` model to watch-only: removed `action`, `extra_info` fields, `USER_MEDIA_ACTIONS` choices tuple. Simplified `save_user_action` task (flattened watch-specific branches, removed action/extra_info params). Rewrote `pre_save_action` (removed action param, clearer throttling logic). Hardcoded `action="watch"` in `MediaActions`/`UserActions` views. Removed dead `actions`/`members` frontend API config entries. Migration drops columns.
