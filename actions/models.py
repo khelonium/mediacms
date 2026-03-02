@@ -4,8 +4,6 @@ from files.models import Media
 from users.models import User
 
 USER_MEDIA_ACTIONS = (
-    ("like", "Like"),
-    ("dislike", "Dislike"),
     ("watch", "Watch"),
     ("report", "Report"),
     ("rate", "Rate"),

@@ -11,7 +11,6 @@ module.exports = {
   tags: './tags.html',
   categories: './categories.html',
   /* User pages */
-  likedMedia: './liked.html',
   history: './history.html',
   /* Add pages */
   addMedia: './add-media.html',

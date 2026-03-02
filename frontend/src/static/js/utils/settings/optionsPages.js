@@ -29,7 +29,6 @@ export function init(home, search, media, profile, VALID_PAGES) {
     profile: {
       htmlInDescription: false,
       includeHistory: false,
-      includeLikedMedia: false,
     },
   };
 
@@ -97,9 +96,6 @@ export function init(home, search, media, profile, VALID_PAGES) {
       PAGES.profile.includeHistory = profile.includeHistory;
     }
 
-    if (true === profile.includeLikedMedia) {
-      PAGES.profile.includeLikedMedia = profile.includeLikedMedia;
-    }
   }
 }
 

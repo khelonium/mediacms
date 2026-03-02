@@ -171,19 +171,6 @@ export function SidebarNavigationMenu() {
       });
     }
 
-    if (
-      userCan.likeMedia &&
-      PageStore.get('config-enabled').pages.liked &&
-      PageStore.get('config-enabled').pages.liked.enabled
-    ) {
-      items.push({
-        link: links.user.liked,
-        icon: 'thumb_up',
-        text: PageStore.get('config-enabled').pages.liked.title,
-        className: 'nav-item-liked',
-      });
-    }
-
     return items.length ? <NavigationMenuList key="user" items={formatItems(items)} /> : null;
   }
 

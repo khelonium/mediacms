@@ -18,10 +18,6 @@ export function init(settings) {
       enabled: false,
       title: 'Members',
     },
-    liked: {
-      enabled: false,
-      title: 'Liked media',
-    },
     history: {
       enabled: false,
       title: 'History',

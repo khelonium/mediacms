@@ -18,8 +18,6 @@ module.exports = {
     actions: {
       share: true,
       report: true,
-      like: true,
-      dislike: true,
       download: true,
       save: true,
     },

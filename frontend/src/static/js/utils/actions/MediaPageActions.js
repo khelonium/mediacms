@@ -6,18 +6,6 @@ export function loadMediaData() {
   });
 }
 
-export function likeMedia() {
-  Dispatcher.dispatch({
-    type: 'LIKE_MEDIA',
-  });
-}
-
-export function dislikeMedia() {
-  Dispatcher.dispatch({
-    type: 'DISLIKE_MEDIA',
-  });
-}
-
 export function reportMedia(reportDescription) {
   Dispatcher.dispatch({
     type: 'REPORT_MEDIA',

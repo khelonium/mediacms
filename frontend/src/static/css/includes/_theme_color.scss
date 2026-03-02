@@ -313,61 +313,6 @@ dialog {
       }
     }
 
-    .disliked-media {
-      > * {
-        > * {
-          &.dislike {
-            &:before {
-              @include border_color_gradient();
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .media-views-actions {
-    &.liked-media {
-      .media-actions {
-        > * {
-          > * {
-            &.like,
-            &.like button,
-            &.like .circle-icon-button {
-              @include font_color_gradient();
-            }
-
-            &.like,
-            &.dislike {
-              &:before {
-                @include border_color_gradient();
-              }
-            }
-          }
-        }
-      }
-    }
-
-    &.disliked-media {
-      .media-actions {
-        > * {
-          > * {
-            &.dislike,
-            &.dislike button,
-            &.dislike .circle-icon-button {
-              @include font_color_gradient();
-            }
-
-            &.like,
-            &.dislike {
-              &:before {
-                @include border_color_gradient();
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 

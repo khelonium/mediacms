@@ -20,6 +20,5 @@ module.exports = {
   profile: {
     htmlInDescription: false,
     includeHistory: false,
-    includeLikedMedia: false,
   },
 };

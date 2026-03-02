@@ -55,8 +55,6 @@ class MediaPageStore extends EventEmitter {
     MediaPageStoreData[
       Object.defineProperty(this, 'id', { value: 'MediaPageStoreData_' + Object.keys(MediaPageStoreData).length }).id
     ] = {
-      likedMedia: false,
-      dislikedMedia: false,
       reported_times: 0,
       while: {
         deleteMedia: false,
@@ -250,81 +248,6 @@ class MediaPageStore extends EventEmitter {
     }
   }
 
-  requestMediaLike() {
-    if (!MediaPageStoreData[this.id].mediaId) {
-      console.warn('Invalid media id:', MediaPageStoreData[this.id].mediaId);
-      return false;
-    }
-
-    const url = this.mediacms_config.api.media + '/' + MediaPageStoreData[this.id].mediaId + '/actions';
-
-    this.likeActionResponse = this.likeActionResponse.bind(this);
-
-    postRequest(
-      url,
-      {
-        type: 'like',
-        // `headers` are custom headers to be sent
-      },
-      {
-        headers: {
-          'X-CSRFToken': csrfToken(),
-        },
-      },
-      false,
-      this.likeActionResponse,
-      function () {
-        this.emit('liked_media_failed_request');
-      }.bind(this)
-    );
-  }
-
-  likeActionResponse(response) {
-    if (response) {
-      if (response instanceof Error) {
-      } else if (response.data) {
-        MediaPageStoreData[this.id].likedMedia = true;
-        this.emit('liked_media');
-      }
-    }
-  }
-
-  requestMediaDislike() {
-    if (!MediaPageStoreData[this.id].mediaId) {
-      console.warn('Invalid media id:', MediaPageStoreData[this.id].mediaId);
-      return false;
-    }
-
-    const url = this.mediacms_config.api.media + '/' + MediaPageStoreData[this.id].mediaId + '/actions';
-    this.dislikeActionResponse = this.dislikeActionResponse.bind(this);
-    postRequest(
-      url,
-      {
-        type: 'dislike',
-      },
-      {
-        headers: {
-          'X-CSRFToken': csrfToken(),
-        },
-      },
-      false,
-      this.dislikeActionResponse,
-      function () {
-        this.emit('disliked_media_failed_request');
-      }.bind(this)
-    );
-  }
-
-  dislikeActionResponse(response) {
-    if (response) {
-      if (response instanceof Error) {
-      } else if (response.data) {
-        MediaPageStoreData[this.id].dislikedMedia = true;
-        this.emit('disliked_media');
-      }
-    }
-  }
-
   requestMediaReport(descr) {
     if (!MediaPageStoreData[this.id].mediaId) {
       console.warn('Invalid media id:', MediaPageStoreData[this.id].mediaId);
@@ -407,34 +330,6 @@ class MediaPageStore extends EventEmitter {
             ? MediaPageStoreData[this.id].data.add_subtitle_url
             : null;
         break;
-      case 'media-likes':
-        tmp = MediaPageStoreData[this.id].likedMedia ? 1 : 0;
-        if (tmp) {
-          r =
-            void 0 !== MediaPageStoreData[this.id].data && void 0 !== MediaPageStoreData[this.id].data.likes
-              ? MediaPageStoreData[this.id].data.likes + tmp
-              : tmp;
-        } else {
-          r =
-            void 0 !== MediaPageStoreData[this.id].data && void 0 !== MediaPageStoreData[this.id].data.likes
-              ? MediaPageStoreData[this.id].data.likes
-              : 'N/A';
-        }
-        break;
-      case 'media-dislikes':
-        tmp = MediaPageStoreData[this.id].dislikedMedia ? 1 : 0;
-        if (tmp) {
-          r =
-            void 0 !== MediaPageStoreData[this.id].data && void 0 !== MediaPageStoreData[this.id].data.dislikes
-              ? MediaPageStoreData[this.id].data.dislikes + tmp
-              : tmp;
-        } else {
-          r =
-            void 0 !== MediaPageStoreData[this.id].data && void 0 !== MediaPageStoreData[this.id].data.dislikes
-              ? MediaPageStoreData[this.id].data.dislikes
-              : 'N/A';
-        }
-        break;
       case 'media-summary':
         r =
           void 0 !== MediaPageStoreData[this.id].data && void 0 !== MediaPageStoreData[this.id].data.summary
@@ -470,12 +365,6 @@ class MediaPageStore extends EventEmitter {
           void 0 !== MediaPageStoreData[this.id].data && void 0 !== MediaPageStoreData[this.id].data.thumbnail_url
             ? MediaPageStoreData[this.id].data.thumbnail_url
             : null;
-        break;
-      case 'user-liked-media':
-        r = MediaPageStoreData[this.id].likedMedia;
-        break;
-      case 'user-disliked-media':
-        r = MediaPageStoreData[this.id].dislikedMedia;
         break;
       case 'media-author-thumbnail-url':
         r =
@@ -661,16 +550,6 @@ class MediaPageStore extends EventEmitter {
           this.loadData();
         }
 
-        break;
-      case 'LIKE_MEDIA':
-        if (!MediaPageStoreData[this.id].likedMedia && !MediaPageStoreData[this.id].dislikedMedia) {
-          this.requestMediaLike();
-        }
-        break;
-      case 'DISLIKE_MEDIA':
-        if (!MediaPageStoreData[this.id].likedMedia && !MediaPageStoreData[this.id].dislikedMedia) {
-          this.requestMediaDislike();
-        }
         break;
       case 'REPORT_MEDIA':
         if (!MediaPageStoreData[this.id].reported_times) {

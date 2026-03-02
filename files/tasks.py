@@ -592,7 +592,7 @@ def save_user_action(user_or_session, friendly_token=None, action="watch", extra
     if not (user or session_key):
         return False
 
-    if action in ["like", "dislike", "watch", "report"]:
+    if action in ["watch", "report"]:
         if not pre_save_action(
             media=media,
             user=user,
@@ -656,12 +656,6 @@ def save_user_action(user_or_session, friendly_token=None, action="watch", extra
             action="media_reported",
             extra=extra_info,
         )
-    elif action == "like":
-        media.likes += 1
-        media.save(update_fields=["likes"])
-    elif action == "dislike":
-        media.dislikes += 1
-        media.save(update_fields=["dislikes"])
 
     return True
 
@@ -670,34 +664,25 @@ def save_user_action(user_or_session, friendly_token=None, action="watch", extra
 def get_list_of_popular_media():
     """Experimental task for preparing media listing
     for index page / recommended section
-    calculate and return the top 50 popular media, based on two rules
-    X = the top 25 videos that have the most views during the last week
-    Y = the most recent 25 videos that have been liked over the last 6 months
+    calculate and return the top 50 popular media based on views
+    X = the top 50 videos that have the most views during the last week
     """
 
     valid_media_x = {}
-    valid_media_y = {}
     basic_query = Q(listable=True)
     media_x = Media.objects.filter(basic_query).values("friendly_token")
 
     period_x = datetime.now() - timedelta(days=7)
-    period_y = datetime.now() - timedelta(days=30 * 6)
 
     for media in media_x:
         ft = media["friendly_token"]
         num = MediaAction.objects.filter(action_date__gte=period_x, action="watch", media__friendly_token=ft).count()
         if num:
             valid_media_x[ft] = num
-        num = MediaAction.objects.filter(action_date__gte=period_y, action="like", media__friendly_token=ft).count()
-        if num:
-            valid_media_y[ft] = num
 
-    x = sorted(valid_media_x.items(), key=lambda kv: kv[1], reverse=True)[:25]
-    y = sorted(valid_media_y.items(), key=lambda kv: kv[1], reverse=True)[:25]
+    x = sorted(valid_media_x.items(), key=lambda kv: kv[1], reverse=True)[:50]
 
     media_ids = [a[0] for a in x]
-    media_ids.extend([a[0] for a in y])
-    media_ids = list(set(media_ids))
     cache.set("popular_media_ids", media_ids, 60 * 60 * 12)
     logger.info("saved popular media ids")
 

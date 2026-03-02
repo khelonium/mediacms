@@ -54,7 +54,6 @@ export function config(glbl) {
           playlists: glbl.site.url.replace(/\/$/, '') + '/user/' + glbl.profileId + '/playlists',
         },
     user: {
-      liked: glbl.url.likedMedia,
       history: glbl.url.history,
       addMedia: glbl.url.addMedia,
       editChannel: glbl.url.editChannel,

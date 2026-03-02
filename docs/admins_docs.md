@@ -268,13 +268,11 @@ To hide:
 UPLOAD_MEDIA_ALLOWED = False
 ```
 
-### 5.8 Show or hide the actions buttons (like/dislike/report)
+### 5.8 Show or hide the actions buttons (report/share)
 
 Make changes (True/False) to any of the following:
 
 ```
-- CAN_LIKE_MEDIA = True  # whether the like media appears
-- CAN_DISLIKE_MEDIA = True  # whether the dislike media appears
 - CAN_REPORT_MEDIA = True  # whether the report media appears
 - CAN_SHARE_MEDIA = True  # whether the share media appears
 ```

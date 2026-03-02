@@ -239,13 +239,6 @@ def latest_media(request):
     return render(request, "cms/latest-media.html", context)
 
 
-def liked_media(request):
-    """List user's liked media view"""
-
-    context = {}
-    return render(request, "cms/liked_media.html", context)
-
-
 @login_required
 def manage_users(request):
     """List users management view"""
@@ -743,7 +736,7 @@ class MediaSearch(APIView):
         author = params.get("author", "").strip()
         upload_date = params.get('upload_date', '').strip()
 
-        sort_by_options = ["title", "add_date", "edit_date", "views", "likes"]
+        sort_by_options = ["title", "add_date", "edit_date", "views"]
         if sort_by not in sort_by_options:
             sort_by = "add_date"
         if ordering == "asc":

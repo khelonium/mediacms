@@ -2,7 +2,7 @@ import React from 'react';
 import { formatViewsNumber } from '../../utils/helpers/';
 import { PageStore, MediaPageStore } from '../../utils/stores/';
 import { MemberContext, PlaylistsContext } from '../../utils/contexts/';
-import { MediaLikeIcon, MediaDislikeIcon, OtherMediaDownloadLink, VideoMediaDownloadLink, MediaSaveButton, MediaShareButton, MediaMoreOptionsIcon, MediaTechniqueButton } from '../media-actions/';
+import { OtherMediaDownloadLink, VideoMediaDownloadLink, MediaSaveButton, MediaShareButton, MediaMoreOptionsIcon, MediaTechniqueButton } from '../media-actions/';
 import ViewerInfoTitleBanner from './ViewerInfoTitleBanner';
 
 export default class ViewerInfoVideoTitleBanner extends ViewerInfoTitleBanner {
@@ -43,13 +43,7 @@ export default class ViewerInfoVideoTitleBanner extends ViewerInfoTitleBanner {
           </div>
         ) : null}
 
-        <div
-          className={
-            'media-views-actions' +
-            (this.state.likedMedia ? ' liked-media' : '') +
-            (this.state.dislikedMedia ? ' disliked-media' : '')
-          }
-        >
+        <div className="media-views-actions">
           {!displayViews && PageStore.get('config-options').pages.media.categoriesWithTitle
             ? this.mediaCategories()
             : null}
@@ -62,8 +56,6 @@ export default class ViewerInfoVideoTitleBanner extends ViewerInfoTitleBanner {
 
           <div className="media-actions">
             <div>
-              {MemberContext._currentValue.can.likeMedia ? <MediaLikeIcon /> : null}
-              {MemberContext._currentValue.can.dislikeMedia ? <MediaDislikeIcon /> : null}
               {MemberContext._currentValue.can.shareMedia ? <MediaShareButton isVideo={true} /> : null}
 
               {!MemberContext._currentValue.is.anonymous &&

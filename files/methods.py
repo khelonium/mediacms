@@ -55,8 +55,8 @@ def pre_save_action(media, user, session_key, action, remote_ip):
 
     if query:
         query = query.first()
-        if action in ["like", "dislike", "report"]:
-            return False  # has alread done action once
+        if action in ["report"]:
+            return False  # has already done action once
         elif action == "watch" and user:
             # increase the number of times a media is viewed
             if media.duration:
@@ -191,9 +191,7 @@ Media %s was added by user %s.
             msg = """
 Your media has been added! It will be encoded and will be available soon.
 URL: %s
-            """ % (
-                media_url
-            )
+            """ % (media_url)
             d = {}
             d["title"] = title
             d["msg"] = msg
@@ -217,7 +215,7 @@ def show_recommended_media(request, limit=100):
     if pmi:
         media = list(models.Media.objects.filter(friendly_token__in=pmi).filter(basic_query).prefetch_related("user")[:limit])
     else:
-        media = list(models.Media.objects.filter(basic_query).order_by("-views", "-likes").prefetch_related("user")[:limit])
+        media = list(models.Media.objects.filter(basic_query).order_by("-views").prefetch_related("user")[:limit])
     random.shuffle(media)
     return media
 
@@ -304,7 +302,6 @@ def show_related_media_author(media, request, limit):
 
 
 def show_related_media_calculated(media, request, limit):
-
     """Return a list of related media based on ML recommendations
     A big todo!
     """

@@ -35,9 +35,6 @@ module.exports = {
     },
   },
   userPages: {
-    liked: {
-      title: 'Liked media',
-    },
     history: {
       title: 'History',
     },

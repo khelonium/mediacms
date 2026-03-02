@@ -341,15 +341,6 @@ class NavMenuInlineTabs extends React.PureComponent {
                 link={LinksContext._currentValue.user.history}
               />
             ) : null}
-            {PageStore.get('config-options').pages.profile.includeLikedMedia && this.userIsAuthor ? (
-              <InlineTab
-                id="liked"
-                isActive={'liked' === this.props.type}
-                label={PageStore.get('config-enabled').pages.liked.title}
-                link={LinksContext._currentValue.user.liked}
-              />
-            ) : null}
-
             <li className="media-search">
               <ProfileSearchBar onQueryChange={this.props.onQueryChange} toggleSearchField={this.onToggleSearchField} />
             </li>

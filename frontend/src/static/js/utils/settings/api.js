@@ -32,7 +32,6 @@ export function init(base_url, endpoints) {
     playlists: endpoints.playlists,
     users: endpoints.members,
     user: {
-      liked: endpoints.liked,
       history: endpoints.history,
       playlists: endpoints.playlists + '?author=',
     },

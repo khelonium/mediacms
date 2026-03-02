@@ -134,8 +134,6 @@ class Media(models.Model):
 
     description = models.TextField(blank=True)
 
-    dislikes = models.IntegerField(default=0)
-
     duration = models.IntegerField(default=0)
 
     edit_date = models.DateTimeField(auto_now=True)
@@ -159,8 +157,6 @@ class Media(models.Model):
     )
 
     license = models.ForeignKey("License", on_delete=models.CASCADE, db_index=True, blank=True, null=True)
-
-    likes = models.IntegerField(db_index=True, default=1)
 
     listable = models.BooleanField(default=False, help_text="Whether it will appear on listings")
 
@@ -411,9 +407,7 @@ class Media(models.Model):
             UPDATE {db_table} SET search = to_tsvector(
                 '{config}', '{text}'
             ) WHERE {db_table}.id = {id}
-            """.format(
-            db_table=db_table, config="simple", text=text, id=self.id
-        )
+            """.format(db_table=db_table, config="simple", text=text, id=self.id)
 
         try:
             with connection.cursor() as cursor:

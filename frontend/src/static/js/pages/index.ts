@@ -4,7 +4,6 @@ export * from './FeaturedMediaPage';
 export * from './HistoryPage';
 export * from './HomePage';
 export * from './LatestMediaPage';
-export * from './LikedMediaPage';
 export * from './ManageMediaPage';
 export * from './ManageUsersPage';
 export * from './MediaPage';

@@ -1238,56 +1238,6 @@
       }
     }
 
-    .disliked-media {
-      > * {
-        > * {
-          &.dislike {
-            &:before {
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .media-views-actions {
-    &.liked-media {
-      .media-actions {
-        > * {
-          > * {
-            &.like,
-            &.like button,
-            &.like .circle-icon-button {
-            }
-
-            &.like,
-            &.dislike {
-              &:before {
-              }
-            }
-          }
-        }
-      }
-    }
-
-    &.disliked-media {
-      .media-actions {
-        > * {
-          > * {
-            &.dislike,
-            &.dislike button,
-            &.dislike .circle-icon-button {
-            }
-
-            &.like,
-            &.dislike {
-              &:before {
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 

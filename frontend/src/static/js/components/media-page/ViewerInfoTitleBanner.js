@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { PageStore, MediaPageStore } from '../../utils/stores/';
 import { formatInnerLink, formatViewsNumber } from '../../utils/helpers/';
 import { MemberContext, PlaylistsContext, SiteContext } from '../../utils/contexts/';
-import { MediaLikeIcon, MediaDislikeIcon, OtherMediaDownloadLink, VideoMediaDownloadLink, MediaSaveButton, MediaShareButton, MediaMoreOptionsIcon } from '../media-actions/';
+import { OtherMediaDownloadLink, VideoMediaDownloadLink, MediaSaveButton, MediaShareButton, MediaMoreOptionsIcon } from '../media-actions/';
 
 function Tooltip(el) {
   const parent = document.body;
@@ -44,37 +44,21 @@ export default class ViewerInfoTitleBanner extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      likedMedia: MediaPageStore.get('user-liked-media'),
-      dislikedMedia: MediaPageStore.get('user-disliked-media'),
-    };
+    this.state = {};
 
     this.downloadLink =
       'video' !== MediaPageStore.get('media-type')
         ? formatInnerLink(MediaPageStore.get('media-original-url'), SiteContext._currentValue.url)
         : null;
 
-    this.updateStateValues = this.updateStateValues.bind(this);
   }
 
   componentDidMount() {
-    MediaPageStore.on('liked_media', this.updateStateValues);
-    MediaPageStore.on('unliked_media', this.updateStateValues);
-    MediaPageStore.on('disliked_media', this.updateStateValues);
-    MediaPageStore.on('undisliked_media', this.updateStateValues);
-
     const tooltips = document.querySelectorAll('[data-tooltip]');
 
     if (tooltips.length) {
       tooltips.forEach((tooltipElem) => Tooltip(tooltipElem));
     }
-  }
-
-  updateStateValues() {
-    this.setState({
-      likedMedia: MediaPageStore.get('user-liked-media'),
-      dislikedMedia: MediaPageStore.get('user-disliked-media'),
-    });
   }
 
   mediaCategories(overTitle) {
@@ -138,13 +122,7 @@ export default class ViewerInfoTitleBanner extends React.PureComponent {
           </div>
         ) : null}
 
-        <div
-          className={
-            'media-views-actions' +
-            (this.state.likedMedia ? ' liked-media' : '') +
-            (this.state.dislikedMedia ? ' disliked-media' : '')
-          }
-        >
+        <div className="media-views-actions">
           {!displayViews && PageStore.get('config-options').pages.media.categoriesWithTitle
             ? this.mediaCategories()
             : null}
@@ -157,8 +135,6 @@ export default class ViewerInfoTitleBanner extends React.PureComponent {
 
           <div className="media-actions">
             <div>
-              {MemberContext._currentValue.can.likeMedia ? <MediaLikeIcon /> : null}
-              {MemberContext._currentValue.can.dislikeMedia ? <MediaDislikeIcon /> : null}
               {MemberContext._currentValue.can.shareMedia ? <MediaShareButton isVideo={false} /> : null}
 
               {!MemberContext._currentValue.is.anonymous &&
