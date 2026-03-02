@@ -1,10 +1,4 @@
 module.exports = {
-  embeddedVideo: {
-    initialDimensions: {
-      width: 560, // In pixels.
-      height: 315, // In pixels.
-    },
-  },
   headerBar: {
     hideLogin: false,
     hideRegister: false,
@@ -21,16 +15,11 @@ module.exports = {
       save: true,
     },
     shareOptions: [
-      'embed',
       'fb',
       'tw',
       'whatsapp',
       'telegram',
       'reddit',
-      'tumblr',
-      'vk',
-      'pinterest',
-      'mix',
       'linkedin',
       'email',
     ],

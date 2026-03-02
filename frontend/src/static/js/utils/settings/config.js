@@ -9,7 +9,6 @@ import * as pages from './pages.js';
 import * as sidebar from './sidebar.js';
 import * as taxonomies from './taxonomies.js';
 import * as optionsPages from './optionsPages.js';
-import * as optionsEmbedded from './optionsEmbedded.js';
 import * as playlists from './playlists.js';
 import * as notifications from './notifications.js';
 
@@ -27,10 +26,7 @@ export function config(glbl) {
     home: glbl.url.home,
     admin: !glbl.user.is.anonymous && glbl.user.is.admin ? glbl.url.admin : '',
     error404: glbl.url.error404,
-    embed: glbl.site.url.replace(/\/+$/, '') + '/embed?m=',
     latest: glbl.url.latestMedia,
-    featured: glbl.url.featuredMedia,
-    recommended: glbl.url.recommendedMedia,
     signin: glbl.url.signin,
     signout: !glbl.user.is.anonymous ? glbl.url.signout : '',
     register: glbl.url.register,
@@ -76,7 +72,6 @@ export function config(glbl) {
   taxonomies.init(glbl.site.taxonomies);
   member.init(glbl.user, glbl.features);
   theme.init(glbl.site.theme, glbl.site.logo);
-  optionsEmbedded.init(glbl.features.embeddedVideo);
   media.init(glbl.features.mediaItem, glbl.features.media.shareOptions);
   playlists.init(glbl.features.playlists);
 
@@ -94,7 +89,6 @@ export function config(glbl) {
     contents: contents.settings(),
     options: {
       pages: optionsPages.settings(),
-      embedded: optionsEmbedded.settings(),
     },
     enabled: {
       pages: pages.settings(),

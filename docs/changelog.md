@@ -2,6 +2,7 @@
 
 ## 2026-03-02
 
+- **feat:** Revise Sharing Options — trim to 7 platforms (fb, tw, whatsapp, telegram, reddit, linkedin, email), remove embed/tumblr/vk/pinterest/mix, delete MediaShareEmbed.jsx and optionsEmbedded.js
 - **feat:** Remove Embed Page — `embed_media` view, URL, template, `EmbedPage.tsx`, config, renderer
 - **feat:** Remove Featured/Recommended Media — views, URLs, Celery task, settings, `featured`/`user_featured` fields, frontend pages/configs
 - **feat:** Remove Media Reporting — `reported_times` field, `CAN_REPORT_MEDIA` setting, report action, `ReportForm.jsx`, report config, management table column

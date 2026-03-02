@@ -15,11 +15,6 @@ Phase A items can be done in any order.
 
 Phase B items can be done in parallel except B1 must complete before Phase C.
 
-#### B4. Revise Sharing Options
-- **Why:** Current config has 13 share targets (fb, tw, whatsapp, telegram, reddit, tumblr, vk, pinterest, mix, linkedin, email, embed). Trim to only relevant ones.
-- **Scope:** Update `shareOptions` in `frontend/src/templates/config/installation/features.config.js`
-- **Note:** Config change only, not a code removal. Decide specific platforms later.
-
 #### B5. Remove Management Pages
 - **Why:** Django admin suffices for media/user management
 - **Scope:** `manage_media`/`manage_users` views, `management_views.py` API views, URLs, templates, `ManageMediaPage.js`, `ManageUsersPage.js`
@@ -65,7 +60,6 @@ Existing items (sequential):
   Contact → Email
 
 Phase B (mostly parallel):
-  B4 Revise Sharing Options (config only)
   B5 Management Pages
 
 Phase C (after B1 done):
@@ -93,6 +87,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### B4. Revise Sharing Options
+- Trimmed `shareOptions` from 12 to 7: removed embed (page deleted in B3), tumblr, vk, pinterest, mix (defunct). Kept: fb, tw, whatsapp, telegram, reddit, linkedin, email. Deleted `MediaShareEmbed.jsx`, `optionsEmbedded.js`, embed share UI code, `embeddedVideo` config. Simplified `MediaShareButton` (no longer needs video/non-video page distinction). Cleaned up stale featured/recommended URL refs in config.js.
 
 ### B3. Remove Embed Page
 - Removed `embed_media` view, `/embed` URL pattern, `embed.html` template, `EmbedPage.tsx`, embed page config, `renderEmbedPage` renderer, EJS templates. Cleaned up stale page exports (`MembersPage`, `FeaturedMediaPage`, `RecommendedMediaPage`) from `index.ts`.

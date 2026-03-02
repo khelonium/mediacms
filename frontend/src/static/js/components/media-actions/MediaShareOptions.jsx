@@ -16,11 +16,6 @@ function shareOptionsList() {
 
   while (i < socialMedia.length) {
     switch (socialMedia[i]) {
-      case 'embed':
-        if ('video' === MediaPageStore.get('media-data').media_type) {
-          ret[socialMedia[i]] = {};
-        }
-        break;
       case 'email':
         ret[socialMedia[i]] = {
           title: 'Email',
@@ -45,34 +40,10 @@ function shareOptionsList() {
           shareUrl: 'https://reddit.com/submit?url=' + mediaUrl + '&title=' + mediaTitle,
         };
         break;
-      case 'tumblr':
-        ret[socialMedia[i]] = {
-          title: 'Tumblr',
-          shareUrl: 'https://www.tumblr.com/widgets/share/tool?canonicalUrl=' + mediaUrl + '&title=' + mediaTitle,
-        };
-        break;
-      case 'pinterest':
-        ret[socialMedia[i]] = {
-          title: 'Pinterest',
-          shareUrl: 'http://pinterest.com/pin/create/link/?url=' + mediaUrl,
-        };
-        break;
-      case 'vk':
-        ret[socialMedia[i]] = {
-          title: 'ВКонтакте',
-          shareUrl: 'http://vk.com/share.php?url=' + mediaUrl + '&title=' + mediaTitle,
-        };
-        break;
       case 'linkedin':
         ret[socialMedia[i]] = {
           title: 'LinkedIn',
           shareUrl: 'https://www.linkedin.com/shareArticle?mini=true&url=' + mediaUrl,
-        };
-        break;
-      case 'mix':
-        ret[socialMedia[i]] = {
-          title: 'Mix',
-          shareUrl: 'https://mix.com/add?url=' + mediaUrl,
         };
         break;
       case 'whatsapp':
@@ -102,18 +73,7 @@ function ShareOptions() {
 
   for (let k in shareOptions) {
     if (shareOptions.hasOwnProperty(k)) {
-      if (k === 'embed') {
-        compList.push(
-          <div key={'share-' + k} className={'sh-option share-' + k + '-opt'}>
-            <button className="sh-option change-page" data-page-id="shareEmbed">
-              <span>
-                <i className="material-icons">code</i>
-              </span>
-              <span>Embed</span>
-            </button>
-          </div>
-        );
-      } else if (k === 'whatsapp') {
+      if (k === 'whatsapp') {
         compList.push(
           <div key={'share-' + k} className={'sh-option share-' + k}>
             <a

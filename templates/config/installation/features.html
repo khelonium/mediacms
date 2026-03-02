@@ -1,10 +1,4 @@
 MediaCMS.features = {
-	embeddedVideo: {
-		initialDimensions: {	// In pixels.
-			width: 560,		
-            height: 315,
-		},
-	},
 	headerBar:{
 		hideLogin: {% if CAN_LOGIN %}false{% else %}true{% endif %},
 		hideRegister: {% if CAN_REGISTER %}false{% else %}true{% endif %},
@@ -20,7 +14,7 @@ MediaCMS.features = {
 			download: true,
 			save: true,
 		},
-		shareOptions: [ 'embed', 'fb', 'tw', 'whatsapp', 'telegram', 'reddit', 'tumblr', 'vk', 'pinterest', 'mix', 'linkedin', 'email' ],
+		shareOptions: [ 'fb', 'tw', 'whatsapp', 'telegram', 'reddit', 'linkedin', 'email' ],
 	},
 	mediaItem:{
 		hideDate: false,
