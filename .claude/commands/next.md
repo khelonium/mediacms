@@ -12,9 +12,11 @@ Enter plan mode with `EnterPlanMode`, then:
 
 ### Step 1: Pick the Next Item
 
-1. Read `ROADMAP.md` and identify the first item under "## Up Next".
-2. If "Up Next" is empty, tell the user "Nothing left on the roadmap!" and stop.
-3. Display the picked item (name, why, scope, files) and confirm with the user via `AskUserQuestion`: "Ready to start on **[item name]**?"
+1. Read `ROADMAP.md`.
+2. If there are items under "## Up Next", pick the first one.
+3. Otherwise, scan the phases in order (Phase A → Existing Items → Phase B → Phase C → Phase D) and pick the first item whose dependencies are satisfied (i.e., all "Depends on" items are in the "## Done" section). Phase A items can be done in any order — pick the first one listed.
+4. If no eligible items remain, tell the user "Nothing left on the roadmap!" and stop.
+5. Display the picked item (name, why, scope, files) and confirm with the user via `AskUserQuestion`: "Ready to start on **[item name]**?"
 
 ### Step 2: Senior Developer — Technical Investigation
 
@@ -52,6 +54,11 @@ Enter plan mode with `EnterPlanMode`, then:
 
 ## Phase 2 — Implementation (after approval)
 
+### Step 0: Create Feature Branch
+
+1. If already on a feature branch (not `main`), use the current branch.
+2. If on `main`, create and switch to a new branch: `git checkout -b feat/<item-slug>` (e.g., `feat/remove-ratings-system`).
+
 ### Senior Developer
 
 1. Call `TaskList` to see all tasks.
@@ -80,7 +87,7 @@ Enter plan mode with `EnterPlanMode`, then:
 
 After all code changes are verified, update project documentation so it stays in sync with the codebase. Read each file first, then edit only the sections affected by this removal.
 
-1. **`ROADMAP.md`** — Remove the completed item from "## Up Next".
+1. **`ROADMAP.md`** — Move the completed item to the "## Done" section (remove it from its current location — whether "## Up Next" or a phase section).
 2. **`docs/changelog.md`** — Add a new entry at the top:
    - Use today's date as the section header (or append to today's section if it exists)
    - Use conventional commit format: `**chore(scope):** description`
@@ -97,6 +104,7 @@ After all code changes are verified, update project documentation so it stays in
 
 1. Stage all changed files (code + docs) with `git add` listing specific files.
 2. Commit with a conventional commit message: `chore(scope): remove [feature name]`
+3. Tell the user which branch the commit is on and suggest next steps (e.g., `git push -u origin <branch>` or create a PR).
 
 ---
 
