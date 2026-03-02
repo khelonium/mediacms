@@ -9,17 +9,6 @@
 
 Phase A items can be done in any order.
 
-### Existing Items
-
-#### Remove Email Functionality
-- **Why:** Simplify operations — remove SMTP dependency, async email infrastructure, notification system
-- **Depends on:** Remove Contact Feature (contact form sends email — remove that first to reduce scope)
-- **Scope:** Remove `django-celery-email` package and `djcelery_email` from INSTALLED_APPS, all `EMAIL_*` settings, `ADMIN_EMAIL_LIST`, notification toggle settings (`USERS_NOTIFICATIONS`, `ADMINS_NOTIFICATIONS`). Stub out allauth email adapter (`users/adapter.py`), remove `notify_users()` email logic in `files/methods.py`, remove new-user email alert signal in `users/models.py`. Set `ACCOUNT_EMAIL_VERIFICATION = "none"` so signup works without SMTP. Remove email templates.
-- **Files (~15):**
-  - **Backend:** `cms/settings.py` (EMAIL_* settings, INSTALLED_APPS, notification toggles), `users/adapter.py` (stub send_mail), `users/models.py` (post_user_create signal email block), `files/methods.py` (notify_users email logic)
-  - **Config:** `requirements.txt` (django-celery-email)
-  - **Templates:** `templates/account/email/` (4 email body/subject templates), `templates/account/email.html` (email management page), `templates/account/messages/` (email-related flash messages)
-
 ---
 
 ### Phase B — Feature Removals (moderate complexity, need migrations)
@@ -123,6 +112,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### Remove Email Functionality
+- Removed `django-celery-email` package and `djcelery_email` from INSTALLED_APPS, all `EMAIL_*` settings, `ADMIN_EMAIL_LIST`, `USERS_NOTIFICATIONS`/`ADMINS_NOTIFICATIONS`, `notify_users()`, new-user email alert signal. Stubbed allauth adapter `send_mail`. Set `ACCOUNT_EMAIL_VERIFICATION = "none"`. Deleted email templates.
 
 ### Remove Contact Feature
 - Removed `/contact` page view/form/URL/template, user-to-user `contact_user` API endpoint, `allow_contact` field on User model, `SHOW_CONTACT_FORM` context, `ChannelContactForm` React component, sidebar nav link, `contactUser` permission, profile contact form SCSS. Migration drops column.

@@ -33,7 +33,7 @@ from .helpers import (
     rm_file,
     run_command,
 )
-from .methods import list_tasks, notify_users, pre_save_action
+from .methods import list_tasks, pre_save_action
 from .models import Category, EncodeProfile, Encoding, Media, Tag
 
 logger = get_task_logger(__name__)
@@ -626,12 +626,6 @@ def save_user_action(user_or_session, friendly_token=None, action="watch", extra
         if media.reported_times >= settings.REPORTED_TIMES_THRESHOLD:
             media.state = "private"
         media.save(update_fields=["reported_times", "state"])
-
-        notify_users(
-            friendly_token=media.friendly_token,
-            action="media_reported",
-            extra=extra_info,
-        )
 
     return True
 

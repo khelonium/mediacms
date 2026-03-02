@@ -18,5 +18,4 @@ class MyAccountAdapter(DefaultAccountAdapter):
         return settings.USERS_CAN_SELF_REGISTER
 
     def send_mail(self, template_prefix, email, context):
-        msg = self.render_mail(template_prefix, email, context)
-        msg.send(fail_silently=True)
+        pass

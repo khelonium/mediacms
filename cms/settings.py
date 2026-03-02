@@ -58,16 +58,6 @@ VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE = False
 
 PRE_UPLOAD_MEDIA_MESSAGE = ""
 
-# email settings
-DEFAULT_FROM_EMAIL = "info@mediacms.io"
-EMAIL_HOST_PASSWORD = "xyz"
-EMAIL_HOST_USER = "info@mediacms.io"
-EMAIL_USE_TLS = True
-SERVER_EMAIL = DEFAULT_FROM_EMAIL
-EMAIL_HOST = "mediacms.io"
-EMAIL_PORT = 587
-ADMIN_EMAIL_LIST = ["info@mediacms.io"]
-
 
 MEDIA_IS_REVIEWED = True  # whether an admin needs to review a media file.
 # By default consider this is not needed.
@@ -100,7 +90,7 @@ TIME_TO_ACTION_ANONYMOUS = 10 * 60
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True  # new users need to specify email
-ACCOUNT_EMAIL_VERIFICATION = "optional"  # 'mandatory' 'none'
+ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_USERNAME_MIN_LENGTH = "4"
 ACCOUNT_ADAPTER = "users.adapter.MyAccountAdapter"
@@ -176,22 +166,6 @@ VIDEO_CHUNKS_DURATION = 60 * 4
 # always get these two, even if upscaling
 MINIMUM_RESOLUTIONS_TO_ENCODE = [240, 360]
 
-# default settings for notifications
-# not all of them are implemented
-
-USERS_NOTIFICATIONS = {
-    "MEDIA_ADDED": True,  # in use
-    "MEDIA_ENCODED": False,  # not implemented
-    "MEDIA_REPORTED": True,  # in use
-}
-
-ADMINS_NOTIFICATIONS = {
-    "NEW_USER": True,  # in use
-    "MEDIA_ADDED": True,  # in use
-    "MEDIA_ENCODED": False,  # not implemented
-    "MEDIA_REPORTED": True,  # in use
-}
-
 
 # this is for fineuploader - media uploads
 UPLOAD_DIR = "uploads/"
@@ -204,10 +178,6 @@ CHUNKS_DONE_PARAM_NAME = "done"
 FILE_STORAGE = "django.core.files.storage.DefaultStorage"
 
 X_FRAME_OPTIONS = "ALLOWALL"
-EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
-CELERY_EMAIL_TASK_CONFIG = {
-    "queue": "short_tasks",
-}
 
 POST_UPLOAD_AUTHOR_MESSAGE_UNLISTED_NO_COMMENTARY = ""
 # a message to be shown on the author of a media file and only
@@ -292,7 +262,6 @@ INSTALLED_APPS = [
     "mptt",
     "crispy_forms",
     "uploader.apps.UploaderConfig",
-    "djcelery_email",
     "ckeditor",
     "drf_yasg",
 ]

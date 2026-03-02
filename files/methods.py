@@ -8,7 +8,6 @@ from datetime import datetime
 
 from django.conf import settings
 from django.core.cache import cache
-from django.core.mail import EmailMessage
 from django.db.models import Q
 
 from cms import celery_app
@@ -131,77 +130,6 @@ def get_next_state(user, current_state, next_state):
             next_state = current_state
 
     return next_state
-
-
-def notify_users(friendly_token=None, action=None, extra=None):
-    """Notify users through email, for a set of actions"""
-
-    notify_items = []
-    media = None
-    if friendly_token:
-        media = models.Media.objects.filter(friendly_token=friendly_token).first()
-        if not media:
-            return False
-        media_url = settings.SSL_FRONTEND_HOST + media.get_absolute_url()
-
-    if action == "media_reported" and media:
-        msg = """
-Media %s was reported.
-Reason: %s\n
-Total times this media has been reported: %s\n
-Media becomes private if it gets reported %s times\n
-        """ % (
-            media_url,
-            extra,
-            media.reported_times,
-            settings.REPORTED_TIMES_THRESHOLD,
-        )
-
-        if settings.ADMINS_NOTIFICATIONS.get("MEDIA_REPORTED", False):
-            title = "[{}] - Media was reported".format(settings.PORTAL_NAME)
-            d = {}
-            d["title"] = title
-            d["msg"] = msg
-            d["to"] = settings.ADMIN_EMAIL_LIST
-            notify_items.append(d)
-        if settings.USERS_NOTIFICATIONS.get("MEDIA_REPORTED", False):
-            title = "[{}] - Media was reported".format(settings.PORTAL_NAME)
-            d = {}
-            d["title"] = title
-            d["msg"] = msg
-            d["to"] = [media.user.email]
-            notify_items.append(d)
-
-    if action == "media_added" and media:
-        if settings.ADMINS_NOTIFICATIONS.get("MEDIA_ADDED", False):
-            title = "[{}] - Media was added".format(settings.PORTAL_NAME)
-            msg = """
-Media %s was added by user %s.
-""" % (
-                media_url,
-                media.user,
-            )
-            d = {}
-            d["title"] = title
-            d["msg"] = msg
-            d["to"] = settings.ADMIN_EMAIL_LIST
-            notify_items.append(d)
-        if settings.USERS_NOTIFICATIONS.get("MEDIA_ADDED", False):
-            title = "[{}] - Your media was added".format(settings.PORTAL_NAME)
-            msg = """
-Your media has been added! It will be encoded and will be available soon.
-URL: %s
-            """ % (media_url)
-            d = {}
-            d["title"] = title
-            d["msg"] = msg
-            d["to"] = [media.user.email]
-            notify_items.append(d)
-
-    for item in notify_items:
-        email = EmailMessage(item["title"], item["msg"], settings.DEFAULT_FROM_EMAIL, item["to"])
-        email.send(fail_silently=True)
-    return True
 
 
 def show_recommended_media(request, limit=100):
