@@ -128,23 +128,6 @@ def edit_media(request):
     )
 
 
-def embed_media(request):
-    """Embed media view"""
-
-    friendly_token = request.GET.get("m", "").strip()
-    if not friendly_token:
-        return HttpResponseRedirect("/")
-
-    media = Media.objects.values("title").filter(friendly_token=friendly_token).first()
-
-    if not media:
-        return HttpResponseRedirect("/")
-
-    context = {}
-    context["media"] = friendly_token
-    return render(request, "cms/embed.html", context)
-
-
 def index(request):
     """Index view"""
 

@@ -57,10 +57,3 @@ export function renderPage(idSelector, PageComponent) {
   }
 }
 
-export function renderEmbedPage(idSelector, PageComponent) {
-  const appContent = idSelector ? document.getElementById(idSelector) : undefined;
-
-  if (appContent && PageComponent) {
-    ReactDOM.render(<PageComponent />, appContent);
-  }
-}

@@ -15,11 +15,6 @@ Phase A items can be done in any order.
 
 Phase B items can be done in parallel except B1 must complete before Phase C.
 
-#### B3. Remove Embed Page
-- **Why:** Embed is an external integration point; sharing options are kept but embed view is separate
-- **Scope:** `embed_media` view, embed URL/template, `EmbedPage.tsx`
-- **Files:** `files/views.py`, `files/urls.py`, `templates/cms/embed.html` (delete)
-
 #### B4. Revise Sharing Options
 - **Why:** Current config has 13 share targets (fb, tw, whatsapp, telegram, reddit, tumblr, vk, pinterest, mix, linkedin, email, embed). Trim to only relevant ones.
 - **Scope:** Update `shareOptions` in `frontend/src/templates/config/installation/features.config.js`
@@ -70,7 +65,7 @@ Existing items (sequential):
   Contact → Email
 
 Phase B (mostly parallel):
-  B3 Remove Embed Page      B4 Revise Sharing Options (config only)
+  B4 Revise Sharing Options (config only)
   B5 Management Pages
 
 Phase C (after B1 done):
@@ -98,6 +93,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### B3. Remove Embed Page
+- Removed `embed_media` view, `/embed` URL pattern, `embed.html` template, `EmbedPage.tsx`, embed page config, `renderEmbedPage` renderer, EJS templates. Cleaned up stale page exports (`MembersPage`, `FeaturedMediaPage`, `RecommendedMediaPage`) from `index.ts`.
 
 ### B2. Remove Featured/Recommended Media
 - Removed `featured`/`user_featured` fields on Media, `featured_media`/`recommended_media` views, `/featured`/`/popular`/`/recommended` URL patterns, `show_recommended_media()`, `get_list_of_popular_media` Celery beat task, `VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE` setting, `FeaturedMediaPage.tsx`/`RecommendedMediaPage.tsx`, featured/recommended sections from HomePage, sidebar nav items, management table column, admin filters, serializer/form fields. Migration drops columns.

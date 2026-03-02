@@ -21,12 +21,10 @@ const compileStaticTmpl = (filename) =>
 
 module.exports = {
   htmlBodySnippet: compileTmpl('htmlBodySnippet.ejs'),
-  htmlBodySnippetEmbedPage: compileTmpl('htmlBodySnippetEmbedPage.ejs'),
   htmlBodySnippetAddMediaPage: compileTmpl('htmlBodySnippetAddMediaPage.ejs'),
   renderBase: compileTmpl('renderBase.ejs'),
   renderPageContent: compileTmpl('renderPageContent.ejs'),
   renderPageStaticContent: compileTmpl('renderPageStaticContent.ejs'),
-  renderEmbedPageContent: compileTmpl('renderEmbedPageContent.ejs'),
   renderAddMediaPageContent: compileTmpl('renderAddMediaPageContent.ejs'),
   static: {
     errorPage: compileStaticTmpl('errorPage.html'),

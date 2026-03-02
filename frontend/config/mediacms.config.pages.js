@@ -89,13 +89,6 @@ const PAGES = {
     headLinks: [{ rel: 'preload', href: './static/lib/file-uploader/5.13.0/fine-uploader.min.js', as: 'script' }],
     bodyScripts: [{ src: './static/lib/file-uploader/5.13.0/fine-uploader.min.js' }],
   },
-  embed: {
-    id: 'embed',
-    title: 'Embedded player',
-    renderer: templates.renderEmbedPageContent({ page: { id: 'page-embed', component: 'EmbedPage' } }),
-    snippet: templates.htmlBodySnippetEmbedPage({ id: 'page-embed' }),
-    global: { mediaId: DEV_SAMPLE_DATA.media.videoId },
-  },
   media: {
     id: 'media',
     title: 'Media',
