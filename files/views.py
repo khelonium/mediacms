@@ -24,7 +24,7 @@ from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
 from actions.models import USER_MEDIA_ACTIONS
-from cms.custom_pagination import FastPaginationWithoutCount
+
 from cms.permissions import IsAuthorizedToAdd, IsSuperUser, IsUserOrEditor, user_allowed_to_upload
 from users.models import User
 
@@ -35,7 +35,6 @@ from .methods import (
     is_mediacms_editor,
     is_mediacms_manager,
     list_tasks,
-    show_recommended_media,
     show_related_media,
 )
 from .models import (
@@ -146,13 +145,6 @@ def embed_media(request):
     return render(request, "cms/embed.html", context)
 
 
-def featured_media(request):
-    """List featured media view"""
-
-    context = {}
-    return render(request, "cms/featured-media.html", context)
-
-
 def index(request):
     """Index view"""
 
@@ -181,13 +173,6 @@ def manage_media(request):
 
     context = {}
     return render(request, "cms/manage_media.html", context)
-
-
-def recommended_media(request):
-    """List recommended media view"""
-
-    context = {}
-    return render(request, "cms/recommended-media.html", context)
 
 
 def search(request):
@@ -285,37 +270,24 @@ class MediaList(APIView):
     def get(self, request, format=None):
         # Show media
         params = self.request.query_params
-        show_param = params.get("show", "")
 
         author_param = params.get("author", "").strip()
         if author_param:
             user_queryset = User.objects.all()
             user = get_object_or_404(user_queryset, username=author_param)
-        if show_param == "recommended":
-            pagination_class = FastPaginationWithoutCount
-            media = show_recommended_media(request, limit=50)
-        else:
-            pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
-            if author_param:
-                # in case request.user is the user here, show
-                # all media independant of state
-                if self.request.user == user:
-                    basic_query = Q(user=user)
-                else:
-                    basic_query = Q(listable=True, user=user)
-            else:
-                # base listings should show safe content
-                basic_query = Q(listable=True)
 
-            if show_param == "featured":
-                media = Media.objects.filter(basic_query, featured=True)
+        pagination_class = api_settings.DEFAULT_PAGINATION_CLASS
+        if author_param:
+            if self.request.user == user:
+                basic_query = Q(user=user)
             else:
-                media = Media.objects.filter(basic_query).order_by("-add_date")
+                basic_query = Q(listable=True, user=user)
+        else:
+            basic_query = Q(listable=True)
+
+        media = Media.objects.filter(basic_query).order_by("-add_date").prefetch_related("user")
 
         paginator = pagination_class()
-
-        if show_param != "recommended":
-            media = media.prefetch_related("user")
         page = paginator.paginate_queryset(media, request)
 
         serializer = MediaSerializer(page, many=True, context={"request": request})

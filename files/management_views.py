@@ -44,7 +44,6 @@ class MediaList(APIView):
         encoding_status = params.get("encoding_status", "").strip()
         media_type = params.get("media_type", "").strip()
 
-        featured = params.get("featured", "").strip()
         is_reviewed = params.get("is_reviewed", "").strip()
 
         sort_by_options = [
@@ -69,12 +68,6 @@ class MediaList(APIView):
         if encoding_status not in ["pending", "running", "fail", "success"]:
             encoding_status = None
 
-        if featured == "true":
-            featured = True
-        elif featured == "false":
-            featured = False
-        else:
-            featured = "all"
         if is_reviewed == "true":
             is_reviewed = True
         elif is_reviewed == "false":
@@ -91,8 +84,6 @@ class MediaList(APIView):
         if media_type:
             qs = qs.filter(media_type=media_type)
 
-        if featured != "all":
-            qs = qs.filter(featured=featured)
         if is_reviewed != "all":
             qs = qs.filter(is_reviewed=is_reviewed)
 

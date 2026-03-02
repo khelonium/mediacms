@@ -45,27 +45,6 @@ export function SidebarNavigationMenu() {
       });
     }
 
-    if (PageStore.get('config-enabled').pages.featured && PageStore.get('config-enabled').pages.featured.enabled) {
-      items.push({
-        link: links.featured,
-        icon: 'star',
-        text: PageStore.get('config-enabled').pages.featured.title,
-        className: 'nav-item-featured',
-      });
-    }
-
-    if (
-      PageStore.get('config-enabled').pages.recommended &&
-      PageStore.get('config-enabled').pages.recommended.enabled
-    ) {
-      items.push({
-        link: links.recommended,
-        icon: 'done_outline',
-        text: PageStore.get('config-enabled').pages.recommended.title,
-        className: 'nav-item-recommended',
-      });
-    }
-
     if (PageStore.get('config-enabled').pages.latest && PageStore.get('config-enabled').pages.latest.enabled) {
       items.push({
         link: links.latest,

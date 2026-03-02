@@ -21,7 +21,6 @@ class MediaForm(forms.ModelForm):
             "uploaded_poster",
             "description",
             "state",
-            "featured",
             "thumbnail_time",
             "is_reviewed",
             "allow_download",
@@ -36,7 +35,6 @@ class MediaForm(forms.ModelForm):
         if self.instance.media_type != "video":
             self.fields.pop("thumbnail_time")
         if not is_mediacms_editor(user):
-            self.fields.pop("featured")
             self.fields.pop("is_reviewed")
         self.fields["new_tags"].initial = ", ".join([tag.title for tag in self.instance.tags.all()])
 

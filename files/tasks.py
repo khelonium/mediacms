@@ -4,7 +4,7 @@ import re
 import shutil
 import subprocess
 import tempfile
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from celery import Task
 from celery.decorators import task
@@ -13,7 +13,6 @@ from celery.signals import task_revoked
 from celery.task.control import revoke
 from celery.utils.log import get_task_logger
 from django.conf import settings
-from django.core.cache import cache
 from django.core.files import File
 from django.db.models import Q
 
@@ -620,35 +619,6 @@ def save_user_action(user_or_session, friendly_token=None, action="watch", extra
     if action == "watch":
         media.views += 1
         media.save(update_fields=["views"])
-
-    return True
-
-
-@task(name="get_list_of_popular_media", queue="long_tasks")
-def get_list_of_popular_media():
-    """Experimental task for preparing media listing
-    for index page / recommended section
-    calculate and return the top 50 popular media based on views
-    X = the top 50 videos that have the most views during the last week
-    """
-
-    valid_media_x = {}
-    basic_query = Q(listable=True)
-    media_x = Media.objects.filter(basic_query).values("friendly_token")
-
-    period_x = datetime.now() - timedelta(days=7)
-
-    for media in media_x:
-        ft = media["friendly_token"]
-        num = MediaAction.objects.filter(action_date__gte=period_x, action="watch", media__friendly_token=ft).count()
-        if num:
-            valid_media_x[ft] = num
-
-    x = sorted(valid_media_x.items(), key=lambda kv: kv[1], reverse=True)[:50]
-
-    media_ids = [a[0] for a in x]
-    cache.set("popular_media_ids", media_ids, 60 * 60 * 12)
-    logger.info("saved popular media ids")
 
     return True
 

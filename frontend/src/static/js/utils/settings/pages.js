@@ -6,14 +6,6 @@ export function init(settings) {
       enabled: false,
       title: 'Recent uploads',
     },
-    featured: {
-      enabled: false,
-      title: 'Featured',
-    },
-    recommended: {
-      enabled: false,
-      title: 'Recommended',
-    },
     history: {
       enabled: false,
       title: 'History',

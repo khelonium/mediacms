@@ -27,8 +27,6 @@ export function init(base_url, endpoints) {
 
   ENDPOINTS = formatEndpoints({
     media: endpoints.media,
-    featured: endpoints.media + '?show=featured',
-    recommended: endpoints.media + '?show=recommended',
     playlists: endpoints.playlists,
     user: {
       history: endpoints.history,

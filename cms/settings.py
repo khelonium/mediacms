@@ -48,10 +48,6 @@ REMOTE_MEDIA_HOST = "https://bjj.chadao.ro"
 # there's a conversion to https with the SSL_FRONTEND_HOST env
 INTERNAL_IPS = "127.0.0.1"
 
-# settings that are related with UX/appearance
-# whether a featured item appears enlarged with player on index page
-VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE = False
-
 PRE_UPLOAD_MEDIA_MESSAGE = ""
 
 
@@ -388,10 +384,6 @@ CELERY_BEAT_SCHEDULE = {
     "clear_sessions": {
         "task": "clear_sessions",
         "schedule": crontab(hour=1, minute=1, day_of_week=6),
-    },
-    "get_list_of_popular_media": {
-        "task": "get_list_of_popular_media",
-        "schedule": crontab(minute=1, hour="*/10"),
     },
     "update_listings_thumbnails": {
         "task": "update_listings_thumbnails",

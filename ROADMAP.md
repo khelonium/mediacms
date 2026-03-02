@@ -15,12 +15,6 @@ Phase A items can be done in any order.
 
 Phase B items can be done in parallel except B1 must complete before Phase C.
 
-#### B2. Remove Featured/Recommended Media
-- **Why:** Simple "latest" listing suffices; editorial features add complexity
-- **Scope:** `featured_media`/`recommended_media` views, URLs, templates, `show_recommended_media()`, `get_list_of_popular_media` Celery beat task, `VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE` setting, `featured`/`user_featured` fields on Media, `FeaturedMediaPage.tsx`, `RecommendedMediaPage.tsx`
-- **Files:** `files/views.py`, `files/urls.py`, `files/methods.py`, `files/tasks.py`, `files/models.py`, `files/serializers.py`, `files/forms.py`, `cms/settings.py`
-- **Migration:** Drop `featured`, `user_featured` from `files_media`
-
 #### B3. Remove Embed Page
 - **Why:** Embed is an external integration point; sharing options are kept but embed view is separate
 - **Scope:** `embed_media` view, embed URL/template, `EmbedPage.tsx`
@@ -76,7 +70,6 @@ Existing items (sequential):
   Contact → Email
 
 Phase B (mostly parallel):
-  B2 Featured/Recommended
   B3 Remove Embed Page      B4 Revise Sharing Options (config only)
   B5 Management Pages
 
@@ -105,6 +98,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### B2. Remove Featured/Recommended Media
+- Removed `featured`/`user_featured` fields on Media, `featured_media`/`recommended_media` views, `/featured`/`/popular`/`/recommended` URL patterns, `show_recommended_media()`, `get_list_of_popular_media` Celery beat task, `VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE` setting, `FeaturedMediaPage.tsx`/`RecommendedMediaPage.tsx`, featured/recommended sections from HomePage, sidebar nav items, management table column, admin filters, serializer/form fields. Migration drops columns.
 
 ### B1. Remove Media Reporting
 - Removed `reported_times` field, `CAN_REPORT_MEDIA`/`REPORTED_TIMES_THRESHOLD` settings, `report` action from `USER_MEDIA_ACTIONS`, report handling in `pre_save_action`/`save_user_action`/`MediaActions` view, `CAN_REPORT_MEDIA` context var, `ReportForm.jsx`, report config in features template/config, `reportMedia` member permission, `MediaPageStore` report methods, management table reported column. Migration drops column.

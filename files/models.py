@@ -133,12 +133,6 @@ class Media(models.Model):
 
     encoding_status = models.CharField(max_length=20, choices=MEDIA_ENCODING_STATUS, default="pending", db_index=True)
 
-    featured = models.BooleanField(
-        default=False,
-        db_index=True,
-        help_text="Whether media is globally featured by a MediaCMS editor",
-    )
-
     friendly_token = models.CharField(blank=True, max_length=12, db_index=True, help_text="Identifier for the Media")
 
     hls_file = models.CharField(max_length=1000, blank=True, help_text="Path to HLS file for videos")
@@ -255,8 +249,6 @@ class Media(models.Model):
     )
 
     user = models.ForeignKey("users.User", on_delete=models.CASCADE, help_text="user that uploads the media")
-
-    user_featured = models.BooleanField(default=False, help_text="Featured by the user")
 
     video_height = models.IntegerField(default=1)
 

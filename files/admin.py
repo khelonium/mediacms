@@ -23,9 +23,8 @@ class MediaAdmin(admin.ModelAdmin):
         "state",
         "is_reviewed",
         "encoding_status",
-        "featured",
     ]
-    list_filter = ["state", "is_reviewed", "encoding_status", "featured", "category"]
+    list_filter = ["state", "is_reviewed", "encoding_status", "category"]
     ordering = ("-add_date",)
     readonly_fields = ("user", "tags", "category", "channel")
 

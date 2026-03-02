@@ -21,5 +21,4 @@ def stuff(request):
     ret["IS_MEDIACMS_ADMIN"] = request.user.is_superuser
     ret["IS_MEDIACMS_EDITOR"] = is_mediacms_editor(request.user)
     ret["IS_MEDIACMS_MANAGER"] = is_mediacms_manager(request.user)
-    ret["VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE"] = settings.VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE
     return ret

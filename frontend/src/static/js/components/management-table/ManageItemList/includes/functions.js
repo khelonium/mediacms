@@ -33,7 +33,6 @@ function ListManageMediaItem(props) {
     encoding_status: itemData.encoding_status,
     state: itemData.state,
     is_reviewed: itemData.is_reviewed,
-    featured: itemData.featured,
     token: itemData.friendly_token,
   };
 

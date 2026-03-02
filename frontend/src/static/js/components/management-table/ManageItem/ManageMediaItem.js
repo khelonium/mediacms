@@ -212,15 +212,6 @@ export function ManageMediaItem(props) {
           <MaterialIcon type="cancel" />
         )}
       </div>
-      <div className="mi-featured">
-        {void 0 === props.featured ? (
-          <i className="non-available">N/A</i>
-        ) : props.featured ? (
-          <MaterialIcon type="check_circle" />
-        ) : (
-          '-'
-        )}
-      </div>
     </div>
   );
 }

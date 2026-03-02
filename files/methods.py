@@ -7,7 +7,6 @@ import random
 from datetime import datetime
 
 from django.conf import settings
-from django.core.cache import cache
 from django.db.models import Q
 
 from cms import celery_app
@@ -130,22 +129,6 @@ def get_next_state(user, current_state, next_state):
     return next_state
 
 
-def show_recommended_media(request, limit=100):
-    """Return a list of recommended media
-    used on the index page
-    """
-
-    basic_query = Q(listable=True)
-    pmi = cache.get("popular_media_ids")
-    # produced by task get_list_of_popular_media and cached
-    if pmi:
-        media = list(models.Media.objects.filter(friendly_token__in=pmi).filter(basic_query).prefetch_related("user")[:limit])
-    else:
-        media = list(models.Media.objects.filter(basic_query).order_by("-views").prefetch_related("user")[:limit])
-    random.shuffle(media)
-    return media
-
-
 def show_related_media(media, request=None, limit=100):
     """Return a list of related media"""
 
@@ -176,10 +159,6 @@ def show_related_media_content(media, request, limit):
         "views",
         "add_date",
         "-add_date",
-        "featured",
-        "-featured",
-        "user_featured",
-        "-user_featured",
     ]
     # TODO: MAke this mess more readable, and add TAGS support - aka related
     # tags rather than random media

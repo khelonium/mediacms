@@ -75,8 +75,6 @@ const PAGES = {
   index: { id: 'home', title: 'Home', component: 'HomePage' },
   search: { id: 'search', title: 'Search results', component: 'SearchPage' },
   latest: { id: 'latest', title: 'Recent uploads', component: 'LatestMediaPage' },
-  featured: { id: 'featured', title: 'Featured', component: 'FeaturedMediaPage' },
-  recommended: { id: 'recommended', title: 'Recommended', component: 'RecommendedMediaPage' },
   history: { id: 'history', title: 'History', component: 'HistoryPage' },
   techniques: { id: 'techniques', title: 'Techniques', component: 'TechniquesPage' },
   tags: { id: 'tags', title: 'Tags', component: 'TagsPage' },

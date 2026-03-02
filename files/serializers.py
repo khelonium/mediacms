@@ -45,7 +45,6 @@ class MediaSerializer(serializers.ModelSerializer):
             "views",
             "size",
             "is_reviewed",
-            "featured",
         )
         fields = (
             "friendly_token",
@@ -67,8 +66,6 @@ class MediaSerializer(serializers.ModelSerializer):
             "author_thumbnail",
             "encoding_status",
             "views",
-            "featured",
-            "user_featured",
             "size",
         )
 
@@ -118,7 +115,6 @@ class SingleMediaSerializer(serializers.ModelSerializer):
             "encodings_info",
             "encoding_status",
             "views",
-            "user_featured",
             "original_media_url",
             "size",
             "video_height",
