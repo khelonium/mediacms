@@ -9,11 +9,6 @@
 
 Phase A items can be done in any order.
 
-#### A2. Remove RSS Feeds
-- **Why:** Legacy distribution channel, no consumers
-- **Scope:** Delete `files/feeds.py`, remove feed URL patterns, remove `RSS_URL` from context_processors
-- **Files:** `files/feeds.py` (delete), `files/urls.py`, `files/context_processors.py`
-
 #### A3. Remove License Model
 - **Why:** Never populated or exposed in UI
 - **Scope:** `License` model, `license` FK on Media, serializer field
@@ -164,6 +159,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### A2. Remove RSS Feeds
+- Deleted `files/feeds.py`, removed feed URL patterns, RSS `<link>` from head template, `RSS_URL` from context_processors and search view.
 
 ### A1. Remove Ratings System
 - Removed `RatingCategory` + `Rating` models, `rating_category` M2M on Media, `ratings_info` property, `update_user_ratings()`, `rate` action, `ALLOW_RATINGS` settings, serializer/view/context_processor references. Migration to drop tables.

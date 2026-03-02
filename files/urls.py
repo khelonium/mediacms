@@ -1,10 +1,8 @@
 from django.conf import settings
 from django.conf.urls import include, re_path
 from django.conf.urls.static import static
-from django.urls import path
 
 from . import management_views, views
-from .feeds import IndexRSSFeed, SearchRSSFeed
 
 urlpatterns = [
     re_path(r"^$", views.index),
@@ -31,8 +29,6 @@ urlpatterns = [
     ),
     re_path(r"^popular$", views.recommended_media),
     re_path(r"^recommended$", views.recommended_media),
-    path("rss/", IndexRSSFeed()),
-    re_path("^rss/search", SearchRSSFeed()),
     re_path(r"^search", views.search, name="search"),
     re_path(r"^scpublisher", views.upload_media, name="upload_media"),
     re_path(r"^techniques$", views.techniques, name="techniques"),
