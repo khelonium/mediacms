@@ -254,13 +254,6 @@ def manage_media(request):
     return render(request, "cms/manage_media.html", context)
 
 
-def members(request):
-    """List members view"""
-
-    context = {}
-    return render(request, "cms/members.html", context)
-
-
 def recommended_media(request):
     """List recommended media view"""
 

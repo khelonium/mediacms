@@ -16,7 +16,6 @@ urlpatterns = [
     re_path(r"^fu/", include(("uploader.urls", "uploader"), namespace="uploader")),
     re_path(r"^history$", views.history, name="history"),
     re_path(r"^latest$", views.latest_media),
-    re_path(r"^members", views.members, name="members"),
     re_path(
         r"^playlist/(?P<friendly_token>[\w]*)$",
         views.view_playlist,

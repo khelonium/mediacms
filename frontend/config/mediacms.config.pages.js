@@ -77,7 +77,6 @@ const PAGES = {
   latest: { id: 'latest', title: 'Recent uploads', component: 'LatestMediaPage' },
   featured: { id: 'featured', title: 'Featured', component: 'FeaturedMediaPage' },
   recommended: { id: 'recommended', title: 'Recommended', component: 'RecommendedMediaPage' },
-  members: { id: 'members', title: 'Members', component: 'MembersPage' },
   history: { id: 'history', title: 'History', component: 'HistoryPage' },
   techniques: { id: 'techniques', title: 'Techniques', component: 'TechniquesPage' },
   tags: { id: 'tags', title: 'Tags', component: 'TagsPage' },

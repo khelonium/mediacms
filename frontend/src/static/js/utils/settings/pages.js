@@ -14,10 +14,6 @@ export function init(settings) {
       enabled: false,
       title: 'Recommended',
     },
-    members: {
-      enabled: false,
-      title: 'Members',
-    },
     history: {
       enabled: false,
       title: 'History',

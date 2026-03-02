@@ -9,11 +9,6 @@
 
 Phase A items can be done in any order.
 
-#### A5. Remove Member Directory
-- **Why:** Public user listing not needed for private portal
-- **Scope:** `members` view, URL, template, `MembersPage.tsx`, page config entries
-- **Files:** `files/views.py`, `files/urls.py`, `templates/cms/members.html` (delete), `frontend/src/.../MembersPage.tsx`
-
 #### A6. Remove Subtitles
 - **Why:** Not needed for this use case
 - **Scope:** `Subtitle` + `Language` models, `SubtitleForm`, `add_subtitle` view/URL/template, `subtitles_info` property on Media, admin registrations
@@ -146,6 +141,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### A5. Remove Member Directory
+- Removed `members` view, URL, template, `MembersPage.tsx`, all page/URL/API config entries. Redirects changed to `/`.
 
 ### A4. Remove Notifications + Channel Subscriptions
 - Removed `Notification` model, `NOTIFICATION_METHODS`, `subscribers` M2M on Channel. Migration drops tables.

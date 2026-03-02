@@ -30,7 +30,6 @@ export function init(base_url, endpoints) {
     featured: endpoints.media + '?show=featured',
     recommended: endpoints.media + '?show=recommended',
     playlists: endpoints.playlists,
-    users: endpoints.members,
     user: {
       history: endpoints.history,
       playlists: endpoints.playlists + '?author=',

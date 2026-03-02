@@ -39,7 +39,7 @@ def view_user(request, username):
     context = {}
     user = get_user(username=username)
     if not user:
-        return HttpResponseRedirect("/members")
+        return HttpResponseRedirect("/")
     context["user"] = user
     context["CAN_EDIT"] = True if ((user and user == request.user) or is_mediacms_manager(request.user)) else False
     context["CAN_DELETE"] = True if is_mediacms_manager(request.user) else False
@@ -51,7 +51,7 @@ def view_user_media(request, username):
     context = {}
     user = get_user(username=username)
     if not user:
-        return HttpResponseRedirect("/members")
+        return HttpResponseRedirect("/")
 
     context["user"] = user
     context["CAN_EDIT"] = True if ((user and user == request.user) or is_mediacms_manager(request.user)) else False
@@ -64,7 +64,7 @@ def view_user_playlists(request, username):
     context = {}
     user = get_user(username=username)
     if not user:
-        return HttpResponseRedirect("/members")
+        return HttpResponseRedirect("/")
 
     context["user"] = user
     context["CAN_EDIT"] = True if ((user and user == request.user) or is_mediacms_manager(request.user)) else False
@@ -78,7 +78,7 @@ def view_user_about(request, username):
     context = {}
     user = get_user(username=username)
     if not user:
-        return HttpResponseRedirect("/members")
+        return HttpResponseRedirect("/")
 
     context["user"] = user
     context["CAN_EDIT"] = True if ((user and user == request.user) or is_mediacms_manager(request.user)) else False

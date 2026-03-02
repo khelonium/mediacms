@@ -2,6 +2,7 @@
 
 ## 2026-03-02
 
+- **feat:** Remove Member Directory — view, URL, template, MembersPage.tsx, config entries
 - **feat:** Remove Notifications + Channel Subscriptions — `Notification` model, `NOTIFICATION_METHODS`, `subscribers` M2M
 - **feat:** Remove License model — model, FK on Media, serializer field, migration
 - **feat:** Remove RSS feeds — delete feeds.py, URL patterns, head template link, context_processor/view references

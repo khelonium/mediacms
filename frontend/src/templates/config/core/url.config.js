@@ -4,7 +4,6 @@ module.exports = {
   latestMedia: './latest.html',
   featuredMedia: './featured.html',
   recommendedMedia: './recommended.html',
-  members: './members.html',
   /* Error pages */
   error404: './error.html',
   /* Archive pages */
