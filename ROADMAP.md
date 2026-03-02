@@ -9,13 +9,6 @@
 
 Phase A items can be done in any order.
 
-#### A4. Remove Notifications + Channel Subscriptions
-- **Why:** `Notification` model is dead code; `subscribers` M2M on Channel has no UI/API
-- **Scope:** `Notification` model, `NOTIFICATION_METHODS`, `subscribers` M2M on Channel
-- **Files:** `users/models.py`
-- **Migration:** Drop `users_notification`, `users_channel_subscribers`
-- **Note:** Leave `USERS_NOTIFICATIONS`/`ADMINS_NOTIFICATIONS` settings — removed later with Email item
-
 #### A5. Remove Member Directory
 - **Why:** Public user listing not needed for private portal
 - **Scope:** `members` view, URL, template, `MembersPage.tsx`, page config entries
@@ -153,6 +146,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### A4. Remove Notifications + Channel Subscriptions
+- Removed `Notification` model, `NOTIFICATION_METHODS`, `subscribers` M2M on Channel. Migration drops tables.
 
 ### A3. Remove License Model
 - Removed `License` model, `license` FK on Media, serializer field. Migration drops table and column.

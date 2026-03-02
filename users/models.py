@@ -112,7 +112,6 @@ class Channel(models.Model):
     description = models.TextField(blank=True, help_text="description")
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True, related_name="channels")
     add_date = models.DateTimeField(auto_now_add=True, db_index=True)
-    subscribers = models.ManyToManyField(User, related_name="subscriptions", blank=True)
     friendly_token = models.CharField(blank=True, max_length=12)
     banner_logo = ProcessedImageField(
         upload_to="userlogos/%Y/%m/%d",
@@ -167,27 +166,6 @@ Visit user profile page at %s
             )
             email = EmailMessage(title, msg, settings.DEFAULT_FROM_EMAIL, settings.ADMIN_EMAIL_LIST)
             email.send(fail_silently=True)
-
-
-NOTIFICATION_METHODS = (("email", "Email"),)
-
-
-class Notification(models.Model):
-    """User specific notifications
-    To be exposed on user profile
-    Needs work
-    """
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True, related_name="notifications")
-    action = models.CharField(max_length=30, blank=True)
-    notify = models.BooleanField(default=False)
-    method = models.CharField(max_length=20, choices=NOTIFICATION_METHODS, default="email")
-
-    def save(self, *args, **kwargs):
-        super(Notification, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.user.username
 
 
 @receiver(post_delete, sender=User)

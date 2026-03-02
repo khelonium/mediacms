@@ -2,6 +2,7 @@
 
 ## 2026-03-02
 
+- **feat:** Remove Notifications + Channel Subscriptions — `Notification` model, `NOTIFICATION_METHODS`, `subscribers` M2M
 - **feat:** Remove License model — model, FK on Media, serializer field, migration
 - **feat:** Remove RSS feeds — delete feeds.py, URL patterns, head template link, context_processor/view references
 - **feat:** Remove ratings system — `RatingCategory`/`Rating` models, `rating_category` M2M, `ratings_info`, `update_user_ratings()`, `rate` action, settings
