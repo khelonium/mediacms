@@ -18,7 +18,6 @@ export function init(user, features) {
       deleteProfile: false,
       editMedia: false,
       deleteMedia: false,
-      editSubtitle: false,
       manageMedia: false,
       manageUsers: false,
       addToTechniques: false,
@@ -56,7 +55,6 @@ export function init(user, features) {
       MEMBER.can.deleteProfile = true === user.can.deleteProfile;
       MEMBER.can.editMedia = true === user.can.editMedia;
       MEMBER.can.deleteMedia = true === user.can.deleteMedia;
-      MEMBER.can.editSubtitle = true === user.can.editSubtitle;
       MEMBER.can.manageMedia = true === user.can.manageMedia;
       MEMBER.can.manageUsers = true === user.can.manageUsers;
       MEMBER.can.addToTechniques = true === user.can.addToTechniques;

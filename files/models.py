@@ -101,12 +101,6 @@ def original_thumbnail_file_path(instance, filename):
     return settings.THUMBNAIL_UPLOAD_DIR + "user/{0}/{1}".format(instance.user.username, filename)
 
 
-def subtitles_file_path(instance, filename):
-    """Helper function to place subtitle file"""
-
-    return settings.SUBTITLES_UPLOAD_DIR + "user/{0}/{1}".format(instance.media.user.username, filename)
-
-
 def category_thumb_path(instance, filename):
     """Helper function to place category thumbnail file"""
 
@@ -748,23 +742,6 @@ class Media(models.Model):
         return None
 
     @property
-    def subtitles_info(self):
-        """Property used on serializers
-        Returns subtitles info
-        """
-
-        ret = []
-        for subtitle in self.subtitles.all():
-            ret.append(
-                {
-                    "src": helpers.url_from_path(subtitle.subtitle_file.path),
-                    "srclang": subtitle.language.code,
-                    "label": subtitle.language.title,
-                }
-            )
-        return ret
-
-    @property
     def sprites_url(self):
         """Property used on serializers
         Returns sprites url
@@ -841,10 +818,6 @@ class Media(models.Model):
     @property
     def edit_url(self):
         return self.get_absolute_url(edit=True)
-
-    @property
-    def add_subtitle_url(self):
-        return "/add_subtitle?m=%s" % self.friendly_token
 
 
 class Category(models.Model):
@@ -1071,42 +1044,6 @@ class Encoding(models.Model):
 
     def get_absolute_url(self):
         return reverse("api_get_encoding", kwargs={"encoding_id": self.id})
-
-
-class Language(models.Model):
-    """Language model
-    to be used with Subtitles
-    """
-
-    code = models.CharField(max_length=12, help_text="language code")
-
-    title = models.CharField(max_length=100, help_text="language code")
-
-    class Meta:
-        ordering = ["id"]
-
-    def __str__(self):
-        return "{0}-{1}".format(self.code, self.title)
-
-
-class Subtitle(models.Model):
-    """Subtitles model"""
-
-    language = models.ForeignKey(Language, on_delete=models.CASCADE)
-
-    media = models.ForeignKey(Media, on_delete=models.CASCADE, related_name="subtitles")
-
-    subtitle_file = models.FileField(
-        "Subtitle/CC file",
-        help_text="File has to be WebVTT format",
-        upload_to=subtitles_file_path,
-        max_length=500,
-    )
-
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return "{0}-{1}".format(self.media.title, self.language.title)
 
 
 class Playlist(models.Model):

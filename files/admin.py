@@ -5,9 +5,7 @@ from .models import (
     Category,
     EncodeProfile,
     Encoding,
-    Language,
     Media,
-    Subtitle,
     Tag,
     Technique,
     TechniqueMedia,
@@ -54,14 +52,6 @@ class EncodeProfileAdmin(admin.ModelAdmin):
     fields = ("name", "extension", "resolution", "codec", "description", "active")
 
 
-class LanguageAdmin(admin.ModelAdmin):
-    pass
-
-
-class SubtitleAdmin(admin.ModelAdmin):
-    pass
-
-
 class EncodingAdmin(admin.ModelAdmin):
     pass
 
@@ -71,8 +61,6 @@ admin.site.register(Media, MediaAdmin)
 admin.site.register(Encoding, EncodingAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
-admin.site.register(Subtitle, SubtitleAdmin)
-admin.site.register(Language, LanguageAdmin)
 
 
 class TechniqueAdmin(MPTTModelAdmin):

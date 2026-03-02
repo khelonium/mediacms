@@ -545,7 +545,6 @@ export default class VideoViewer extends React.PureComponent {
                     sources={this.videoSources}
                     poster={this.videoPoster}
                     previewSprite={previewSprite}
-                    subtitlesInfo={this.props.data.subtitles_info}
                     enableAutoplay={!this.props.inEmbed}
                     inEmbed={this.props.inEmbed}
                     hasTheaterMode={!this.props.inEmbed}

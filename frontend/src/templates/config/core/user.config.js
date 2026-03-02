@@ -16,7 +16,6 @@ module.exports = {
     addMedia: true,
     editMedia: true,
     deleteMedia: true,
-    editSubtitle: true,
     editProfile: true,
     deleteProfile: true,
     manageMedia: true,

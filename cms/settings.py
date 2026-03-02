@@ -153,7 +153,6 @@ MEDIA_ROOT = BASE_DIR + "/media_files/"
 MEDIA_UPLOAD_DIR = "original/"
 MEDIA_ENCODING_DIR = "encoded/"
 THUMBNAIL_UPLOAD_DIR = f"{MEDIA_UPLOAD_DIR}/thumbnails/"
-SUBTITLES_UPLOAD_DIR = f"{MEDIA_UPLOAD_DIR}/subtitles/"
 HLS_DIR = os.path.join(MEDIA_ROOT, "hls/")
 
 FFMPEG_COMMAND = "ffmpeg"  # this is the path

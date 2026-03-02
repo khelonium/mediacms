@@ -16,7 +16,6 @@ export function VideoPlayerByPageLink(props) {
   const [videoPoster, setVideoPoster] = useState(null);
   const [videoSources, setVideoSources] = useState([]);
   const [videoResolutions, setVideoResolutions] = useState({});
-  const [subtitlesInfo, setSubtitlesInfo] = useState([]);
   const [previewSprite, setPreviewSprite] = useState({});
 
   // Keep cache data "fresh" for one day.
@@ -149,7 +148,6 @@ export function VideoPlayerByPageLink(props) {
     setVideoPoster(videoPoster);
     setVideoSources(videoSources);
     setVideoResolutions(videoInfo);
-    setSubtitlesInfo(data.subtitles_info);
     setPreviewSprite(
       !!data.sprites_url
         ? { url: formatInnerLink(data.sprites_url, site.url), frame: { width: 160, height: 90, seconds: 10 } }
@@ -196,7 +194,6 @@ export function VideoPlayerByPageLink(props) {
         sources={videoSources}
         poster={videoPoster}
         previewSprite={previewSprite}
-        subtitlesInfo={subtitlesInfo}
         enableAutoplay={false}
         inEmbed={false}
         hasTheaterMode={false}

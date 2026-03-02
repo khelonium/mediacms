@@ -9,14 +9,6 @@
 
 Phase A items can be done in any order.
 
-#### A6. Remove Subtitles
-- **Why:** Not needed for this use case
-- **Scope:** `Subtitle` + `Language` models, `SubtitleForm`, `add_subtitle` view/URL/template, `subtitles_info` property on Media, admin registrations
-- **Files:** `files/models.py`, `files/forms.py`, `files/views.py`, `files/urls.py`, `files/admin.py`, `templates/cms/add_subtitle.html` (delete)
-- **Migration:** Drop `files_subtitle`, `files_language`
-
----
-
 ### Existing Items (sequential: Contact before Email)
 
 #### Remove Contact Feature
@@ -141,6 +133,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### A6. Remove Subtitles
+- Removed `Language` + `Subtitle` models, `SubtitleForm`, `add_subtitle` view/URL/template, `subtitles_info`/`add_subtitle_url` properties, admin registrations, serializer fields, `SUBTITLES_UPLOAD_DIR` setting, frontend subtitle components. Migration drops tables.
 
 ### A5. Remove Member Directory
 - Removed `members` view, URL, template, `MembersPage.tsx`, all page/URL/API config entries. Redirects changed to `/`.

@@ -2,6 +2,7 @@
 
 ## 2026-03-02
 
+- **feat:** Remove Subtitles — `Language`/`Subtitle` models, `SubtitleForm`, `add_subtitle` view/URL/template, frontend components
 - **feat:** Remove Member Directory — view, URL, template, MembersPage.tsx, config entries
 - **feat:** Remove Notifications + Channel Subscriptions — `Notification` model, `NOTIFICATION_METHODS`, `subscribers` M2M
 - **feat:** Remove License model — model, FK on Media, serializer field, migration

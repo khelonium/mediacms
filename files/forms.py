@@ -1,7 +1,7 @@
 from django import forms
 
 from .methods import get_next_state, is_mediacms_editor
-from .models import Media, Subtitle
+from .models import Media
 
 
 class MultipleSelect(forms.CheckboxSelectMultiple):
@@ -56,21 +56,6 @@ class MediaForm(forms.ModelForm):
             self.instance.state = get_next_state(self.user, self.initial["state"], self.instance.state)
 
         media = super(MediaForm, self).save(*args, **kwargs)
-        return media
-
-
-class SubtitleForm(forms.ModelForm):
-    class Meta:
-        model = Subtitle
-        fields = ["language", "subtitle_file"]
-
-    def __init__(self, media_item, *args, **kwargs):
-        super(SubtitleForm, self).__init__(*args, **kwargs)
-        self.instance.media = media_item
-
-    def save(self, *args, **kwargs):
-        self.instance.user = self.instance.media.user
-        media = super(SubtitleForm, self).save(*args, **kwargs)
         return media
 
 

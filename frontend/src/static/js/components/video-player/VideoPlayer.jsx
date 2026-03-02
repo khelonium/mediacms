@@ -110,35 +110,6 @@ export function VideoPlayer(props) {
       videoElemRef.current.focus(); // Focus on player before instance init.
     }
 
-    const subtitles = {
-      on: false,
-    };
-
-    if (void 0 !== props.subtitlesInfo && null !== props.subtitlesInfo && props.subtitlesInfo.length) {
-      subtitles.languages = [];
-
-      let i = 0;
-      while (i < props.subtitlesInfo.length) {
-        if (
-          void 0 !== props.subtitlesInfo[i].src &&
-          void 0 !== props.subtitlesInfo[i].srclang &&
-          void 0 !== props.subtitlesInfo[i].label
-        ) {
-          subtitles.languages.push({
-            src: formatInnerLink(props.subtitlesInfo[i].src, props.siteUrl),
-            srclang: props.subtitlesInfo[i].srclang,
-            label: props.subtitlesInfo[i].label,
-          });
-        }
-
-        i += 1;
-      }
-
-      if (subtitles.languages.length) {
-        subtitles.on = true;
-      }
-    }
-
     player = new MediaPlayer(
       videoElemRef.current,
       {
@@ -153,7 +124,6 @@ export function VideoPlayer(props) {
           next: props.hasNextLink ? true : false,
           previous: props.hasPreviousLink ? true : false,
         },
-        subtitles: subtitles,
         cornerLayers: props.cornerLayers,
         videoPreviewThumb: props.previewSprite,
       },
@@ -225,7 +195,6 @@ VideoPlayer.propTypes = {
   siteUrl: PropTypes.string.isRequired,
   errorMessage: PropTypes.string,
   cornerLayers: PropTypes.object,
-  subtitlesInfo: PropTypes.array.isRequired,
   inEmbed: PropTypes.bool.isRequired,
   sources: PropTypes.array.isRequired,
   info: PropTypes.object.isRequired,
