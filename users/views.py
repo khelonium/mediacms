@@ -1,13 +1,10 @@
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from drf_yasg import openapi as openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, permissions, status
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import (
     FileUploadParser,
@@ -20,7 +17,7 @@ from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
 from cms.permissions import IsUserOrManager
-from files.methods import is_mediacms_editor, is_mediacms_manager
+from files.methods import is_mediacms_manager
 
 from .forms import ChannelForm, UserForm
 from .models import Channel, User
@@ -43,7 +40,6 @@ def view_user(request, username):
     context["user"] = user
     context["CAN_EDIT"] = True if ((user and user == request.user) or is_mediacms_manager(request.user)) else False
     context["CAN_DELETE"] = True if is_mediacms_manager(request.user) else False
-    context["SHOW_CONTACT_FORM"] = True if (user.allow_contact or is_mediacms_editor(request.user)) else False
     return render(request, "cms/user.html", context)
 
 
@@ -56,7 +52,6 @@ def view_user_media(request, username):
     context["user"] = user
     context["CAN_EDIT"] = True if ((user and user == request.user) or is_mediacms_manager(request.user)) else False
     context["CAN_DELETE"] = True if is_mediacms_manager(request.user) else False
-    context["SHOW_CONTACT_FORM"] = True if (user.allow_contact or is_mediacms_editor(request.user)) else False
     return render(request, "cms/user_media.html", context)
 
 
@@ -69,7 +64,6 @@ def view_user_playlists(request, username):
     context["user"] = user
     context["CAN_EDIT"] = True if ((user and user == request.user) or is_mediacms_manager(request.user)) else False
     context["CAN_DELETE"] = True if is_mediacms_manager(request.user) else False
-    context["SHOW_CONTACT_FORM"] = True if (user.allow_contact or is_mediacms_editor(request.user)) else False
 
     return render(request, "cms/user_playlists.html", context)
 
@@ -83,7 +77,6 @@ def view_user_about(request, username):
     context["user"] = user
     context["CAN_EDIT"] = True if ((user and user == request.user) or is_mediacms_manager(request.user)) else False
     context["CAN_DELETE"] = True if is_mediacms_manager(request.user) else False
-    context["SHOW_CONTACT_FORM"] = True if (user.allow_contact or is_mediacms_editor(request.user)) else False
 
     return render(request, "cms/user_about.html", context)
 
@@ -132,47 +125,6 @@ def edit_channel(request, friendly_token):
     else:
         form = ChannelForm(instance=channel)
     return render(request, "cms/channel_edit.html", {"form": form})
-
-
-@swagger_auto_schema(
-    methods=['post'],
-    manual_parameters=[],
-    tags=['Users'],
-    operation_summary='Contact user',
-    operation_description='Contact user through email, if user has set this option',
-)
-@api_view(["POST"])
-def contact_user(request, username):
-    if not request.user.is_authenticated:
-        return Response(
-            {"detail": "request need be authenticated"},
-            status=status.HTTP_401_UNAUTHORIZED,
-        )
-    user = User.objects.filter(username=username).first()
-    if user and (user.allow_contact or is_mediacms_editor(request.user)):
-        from_email = request.user.email
-        subject = f"[{settings.PORTAL_NAME}] - Message from {from_email}"
-        body = request.data.get("body")
-        body = """
-You have received a message through the contact form\n
-Sender name: %s
-Sender email: %s\n
-\n %s
-""" % (
-            request.user.name,
-            from_email,
-            body,
-        )
-        email = EmailMessage(
-            subject,
-            body,
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-            reply_to=[from_email],
-        )
-        email.send(fail_silently=True)
-
-    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class UserList(APIView):

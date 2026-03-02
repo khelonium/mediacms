@@ -57,19 +57,3 @@ class MediaForm(forms.ModelForm):
 
         media = super(MediaForm, self).save(*args, **kwargs)
         return media
-
-
-class ContactForm(forms.Form):
-    from_email = forms.EmailField(required=True)
-    name = forms.CharField(required=False)
-    message = forms.CharField(widget=forms.Textarea, required=True)
-
-    def __init__(self, user, *args, **kwargs):
-        super(ContactForm, self).__init__(*args, **kwargs)
-        self.fields["name"].label = "Your name:"
-        self.fields["from_email"].label = "Your email:"
-        self.fields["message"].label = "Please add your message here and submit:"
-        self.user = user
-        if user.is_authenticated:
-            self.fields.pop("name")
-            self.fields.pop("from_email")

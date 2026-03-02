@@ -1,160 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import UrlParse from 'url-parse';
-import { ApiUrlContext, MemberContext, SiteContext } from '../utils/contexts/';
-import { formatInnerLink, csrfToken, postRequest } from '../utils/helpers/';
-import { PageActions } from '../utils/actions/';
-import { PageStore, ProfilePageStore } from '../utils/stores/';
+import { SiteContext } from '../utils/contexts/';
+import { formatInnerLink } from '../utils/helpers/';
+import { PageStore } from '../utils/stores/';
 import ProfilePagesHeader from '../components/profile-page/ProfilePagesHeader';
 import ProfilePagesContent from '../components/profile-page/ProfilePagesContent';
 import { MediaListRow } from '../components/MediaListRow';
 import { ProfileMediaPage } from './ProfileMediaPage';
 
-class ChannelContactForm extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      subject: '',
-      body: '',
-      isSending: false,
-    };
-
-    this.onUpdateSubject = this.onUpdateSubject.bind(this);
-    this.onUpdateBody = this.onUpdateBody.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onSubmitSuccess = this.onSubmitSuccess.bind(this);
-    this.onSubmitFail = this.onSubmitFail.bind(this);
-  }
-
-  onUpdateSubject() {
-    this.setState({
-      subject: this.refs.msgSubject.value.trim(),
-    });
-  }
-
-  onUpdateBody() {
-    this.setState({
-      body: this.refs.msgBody.value.trim(),
-    });
-  }
-
-  onSubmitSuccess(response) {
-    this.setState(
-      {
-        subject: '',
-        body: '',
-        isSending: false,
-      },
-      function () {
-        setTimeout(
-          function () {
-            // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
-            PageActions.addNotification(
-              'Your message was successfully submitted to ' + this.props.author.name,
-              'messageSubmitSucceed'
-            );
-          }.bind(this),
-          100
-        );
-      }
-    );
-  }
-
-  onSubmitFail(response) {
-    this.setState(
-      {
-        isSending: false,
-      },
-      function () {
-        console.log(response);
-
-        setTimeout(
-          function () {
-            // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
-            PageActions.addNotification('Your message failed to submit. Please try again', 'messageSubmitFailed');
-          }.bind(this),
-          100
-        );
-      }
-    );
-  }
-
-  onSubmit(ev) {
-    if (this.state.isSending || '' === this.state.subject || '' === this.state.body) {
-      return;
-    }
-
-    ev.preventDefault();
-    ev.stopPropagation();
-
-    this.setState(
-      {
-        isSending: true,
-      },
-      function () {
-        const url = ApiUrlContext._currentValue.users + '/' + this.props.author.username + '/contact';
-
-        postRequest(
-          url,
-          {
-            subject: this.state.subject,
-            body: this.state.body,
-          },
-          {
-            headers: {
-              'X-CSRFToken': csrfToken(),
-            },
-          },
-          false,
-          this.onSubmitSuccess,
-          this.onSubmitFail
-        );
-      }
-    );
-  }
-
-  render() {
-    return (
-      <div className="media-list-row profile-contact">
-        <div className="media-list-header">
-          <h2>Contact</h2>
-        </div>
-        <form method="post" className={'user-contact-form' + (this.state.isSending ? ' pending-response' : '')}>
-          <span>
-            <label>Subject</label>
-            <input
-              ref="msgSubject"
-              type="text"
-              required={true}
-              onChange={this.onUpdateSubject}
-              value={this.state.subject}
-            />
-          </span>
-          <span>
-            <label>Message</label>
-            <textarea
-              ref="msgBody"
-              required={true}
-              cols="40"
-              rows="10"
-              onChange={this.onUpdateBody}
-              value={this.state.body}
-            ></textarea>
-          </span>
-          <button onClick={this.onSubmit}>SUBMIT</button>
-        </form>
-      </div>
-    );
-  }
-}
-
 export class ProfileAboutPage extends ProfileMediaPage {
   constructor(props) {
     super(props, 'author-about');
 
-    this.userIsAuthor = null;
-    this.enabledContactForm = false;
   }
 
   pageContent() {
@@ -163,16 +21,6 @@ export class ProfileAboutPage extends ProfileMediaPage {
     let socialMedia = [];
 
     if (this.state.author) {
-      if (null === this.userIsAuthor) {
-        if (MemberContext._currentValue.is.anonymous) {
-          this.userIsAuthor = false;
-          this.enabledContactForm = false;
-        } else {
-          this.userIsAuthor = ProfilePageStore.get('author-data').username === MemberContext._currentValue.username;
-          this.enabledContactForm = !this.userIsAuthor && MemberContext._currentValue.can.contactUser;
-        }
-      }
-
       let i;
 
       if (
@@ -271,7 +119,7 @@ export class ProfileAboutPage extends ProfileMediaPage {
         <ProfilePagesHeader key="ProfilePagesHeader" author={this.state.author} type="about" />
       ) : null,
       this.state.author ? (
-        <ProfilePagesContent key="ProfilePagesContent" enabledContactForm={this.enabledContactForm}>
+        <ProfilePagesContent key="ProfilePagesContent">
           <div className="media-list-wrapper items-list-ver  profile-about-content ">
             {null === description && 0 < details.length ? null : PageStore.get('config-options').pages.profile
                 .htmlInDescription ? (
@@ -288,7 +136,6 @@ export class ProfileAboutPage extends ProfileMediaPage {
               </MediaListRow>
             )}
 
-            {this.enabledContactForm ? <ChannelContactForm author={this.state.author} /> : null}
           </div>
         </ProfilePagesContent>
       ) : null,

@@ -39,9 +39,4 @@ urlpatterns = [
         views.UserDetail.as_view(),
         name="api_get_user",
     ),
-    re_path(
-        r"^api/v1/users/(?P<username>[\w@._-]*)/contact",
-        views.contact_user,
-        name="api_contact_user",
-    ),
 ]

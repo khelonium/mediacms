@@ -240,13 +240,6 @@ const DEV_ONLY_STATIC_PAGES = {
     renderer: templates.renderBase(),
     snippet: templates.static.resetPasswordPage(),
   },
-  contact: {
-    buildExclude: true,
-    id: 'contact',
-    title: 'Contact us',
-    renderer: templates.renderBase(),
-    snippet: templates.static.contactPage(),
-  },
 };
 
 const pages = {};

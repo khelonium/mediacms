@@ -24,7 +24,6 @@ class UserForm(forms.ModelForm):
             "advancedUser",
             "is_manager",
             "is_editor",
-            # "allow_contact",
         )
 
     def clean_logo(self):

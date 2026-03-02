@@ -5,7 +5,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchQuery
-from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -29,7 +28,7 @@ from cms.custom_pagination import FastPaginationWithoutCount
 from cms.permissions import IsAuthorizedToAdd, IsSuperUser, IsUserOrEditor, user_allowed_to_upload
 from users.models import User
 
-from .forms import ContactForm, MediaForm
+from .forms import MediaForm
 from .helpers import clean_query, produce_ffmpeg_commands
 from .methods import (
     get_user_or_session,
@@ -80,51 +79,6 @@ def categories(request):
 
     context = {}
     return render(request, "cms/categories.html", context)
-
-
-def contact(request):
-    """Contact view"""
-
-    context = {}
-    if request.method == "GET":
-        form = ContactForm(request.user)
-        context["form"] = form
-
-    else:
-        form = ContactForm(request.user, request.POST)
-        if form.is_valid():
-            if request.user.is_authenticated:
-                from_email = request.user.email
-                name = request.user.name
-            else:
-                from_email = request.POST.get("from_email")
-                name = request.POST.get("name")
-            message = request.POST.get("message")
-
-            title = "[{}] - Contact form message received".format(settings.PORTAL_NAME)
-
-            msg = """
-You have received a message through the contact form\n
-Sender name: %s
-Sender email: %s\n
-\n %s
-""" % (
-                name,
-                from_email,
-                message,
-            )
-            email = EmailMessage(
-                title,
-                msg,
-                settings.DEFAULT_FROM_EMAIL,
-                settings.ADMIN_EMAIL_LIST,
-                reply_to=[from_email],
-            )
-            email.send(fail_silently=True)
-            success_msg = "Message was sent! Thanks for contacting"
-            context["success_msg"] = success_msg
-
-    return render(request, "cms/contact.html", context)
 
 
 def history(request):

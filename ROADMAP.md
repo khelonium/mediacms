@@ -9,17 +9,7 @@
 
 Phase A items can be done in any order.
 
-### Existing Items (sequential: Contact before Email)
-
-#### Remove Contact Feature
-- **Why:** Unused feature — no contact page linked in the main UI, user-to-user messaging not needed for this use case
-- **Scope:** Remove `/contact` page (view, form, URL, template), user-to-user contact API endpoint, `allow_contact` field on User model, `ChannelContactForm` React component, sidebar nav link, profile page contact form logic, related SCSS. Database migration to drop `allow_contact` column.
-- **Files (~20):**
-  - **Backend:** `files/views.py` (contact view), `files/forms.py` (ContactForm), `files/urls.py` (contact URL), `users/views.py` (contact_user endpoint + SHOW_CONTACT_FORM context), `users/urls.py` (contact_user URL), `users/models.py` (allow_contact field), `users/forms.py` (commented allow_contact)
-  - **Templates:** `templates/cms/contact.html` (delete), `templates/config/installation/contents.html` (nav link), `templates/cms/add-media.html` (contact link in help text)
-  - **Frontend:** `frontend/src/.../ProfileAboutPage.js` (ChannelContactForm + enabledContactForm), `frontend/src/.../ProfilePagesContent.js` (with-cform class), `frontend/src/.../member.js` (contactUser permission), `frontend/src/.../user.config.js` (contactUser default), `frontend/src/.../contents.config.js` (nav link), `frontend/src/.../ProfilePage.scss` (contact form styles), `frontend/config/templates/static/contactPage.html` (delete), `frontend/config/mediacms.config.templates.js` (contactPage entry)
-  - **Tests:** `tests/forms/test_contact_TOWRITE.py` (delete placeholder)
-  - **Migration:** New migration to drop `allow_contact` column from `users_user`
+### Existing Items
 
 #### Remove Email Functionality
 - **Why:** Simplify operations — remove SMTP dependency, async email infrastructure, notification system
@@ -133,6 +123,9 @@ This makes feasible:
 
 ## Done
 <!-- Completed items are recorded in docs/changelog.md -->
+
+### Remove Contact Feature
+- Removed `/contact` page view/form/URL/template, user-to-user `contact_user` API endpoint, `allow_contact` field on User model, `SHOW_CONTACT_FORM` context, `ChannelContactForm` React component, sidebar nav link, `contactUser` permission, profile contact form SCSS. Migration drops column.
 
 ### A6. Remove Subtitles
 - Removed `Language` + `Subtitle` models, `SubtitleForm`, `add_subtitle` view/URL/template, `subtitles_info`/`add_subtitle_url` properties, admin registrations, serializer fields, `SUBTITLES_UPLOAD_DIR` setting, frontend subtitle components. Migration drops tables.

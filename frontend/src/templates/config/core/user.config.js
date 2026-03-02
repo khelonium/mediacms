@@ -20,7 +20,6 @@ module.exports = {
     deleteProfile: true,
     manageMedia: true,
     manageUsers: true,
-    contactUser: false,
   },
   pages: {
     about: './profile-about.html',

@@ -25,7 +25,6 @@ export function init(user, features) {
       downloadMedia: false,
       saveMedia: false,
       shareMedia: true,
-      contactUser: false,
     },
     pages: {
       home: null,
@@ -59,7 +58,6 @@ export function init(user, features) {
       MEMBER.can.manageUsers = true === user.can.manageUsers;
       MEMBER.can.addToTechniques = true === user.can.addToTechniques;
 
-      MEMBER.can.contactUser = true === user.can.contactUser;
 
       if (void 0 !== user.pages) {
 
