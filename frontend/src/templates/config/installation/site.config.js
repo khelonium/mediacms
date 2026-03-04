@@ -24,15 +24,6 @@ module.exports = {
     latest: {
       title: 'Recent uploads',
     },
-    featured: {
-      title: 'Featured',
-    },
-    recommended: {
-      title: 'Recommended',
-    },
-    members: {
-      title: 'Members',
-    },
   },
   userPages: {
     history: {

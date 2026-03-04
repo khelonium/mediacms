@@ -14,6 +14,8 @@ Platform simplification — removing unused features. See [ROADMAP.md](../ROADMA
 | 2026-03-01 | Remove social accounts                        | Removed `allauth.socialaccount` from INSTALLED_APPS, switched URL include to `allauth.account.urls`, migration to drop tables |
 | 2026-02-28 | Decision log (`MEMORY.md`)                    | Docker, allauth middleware, black line-length decisions |
 
+| 2026-03-02 | Fix blank profile pages                       | Re-added `members: '/users'` to `api.html`; was incorrectly removed with Member Directory feature |
+
 ## Upcoming
 
 See [ROADMAP.md](../ROADMAP.md)

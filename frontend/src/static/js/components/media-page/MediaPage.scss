@@ -171,29 +171,6 @@
   }
 }
 
-.report-form {
-  .form-title {
-    color: var(--report-form-title-text-color);
-  }
-
-  .form-field {
-    .label {
-      color: var(--report-form-field-label-text-color);
-    }
-
-    input[type='text'],
-    textarea {
-      color: var(--report-form-field-input-text-color);
-      border-color: var(--report-form-field-input-border-color);
-      background-color: var(--report-form-field-input-bg-color);
-    }
-  }
-
-  .form-help-text {
-    color: var(--report-form-help-text-color);
-  }
-}
-
 .form-actions-bottom {
   border-top-color: var(--form-actions-bottom-border-top-color);
 }
@@ -1241,82 +1218,6 @@
   }
 }
 
-.nav-page-loggedInReportMedia .popup-main > div {
-  padding: 0 !important;
-  max-width: 450px !important;
-}
-
-.report-form {
-  display: block;
-  overflow: auto;
-  max-height: 50%;
-
-  .form-title {
-    padding: 20px 24px 0;
-  }
-
-  .form-field {
-    padding: 24px 24px;
-
-    + .form-field {
-      padding: 0 24px 24px 24px;
-    }
-
-    position: relative;
-    display: block;
-
-    .label {
-      display: block;
-      line-height: 1.5;
-      font-size: 13px;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-
-    input[type='text'],
-    textarea {
-      min-width: 100%;
-      width: 100%;
-      max-width: 100%;
-      height: 42px;
-      padding: 1px 12px;
-      margin: 0;
-      font-family: Arial;
-      font-size: 14px;
-      line-height: normal;
-
-      border-width: 1px;
-      border-style: solid;
-
-      border-radius: 2px;
-    }
-
-    *[readonly] {
-      cursor: default;
-      cursor: not-allowed;
-    }
-
-    input[type='text'] {
-      font-size: 14px;
-    }
-
-    textarea {
-      line-height: 1.4;
-      padding: 8px 12px;
-      min-height: 80px;
-      min-height: 20vh;
-      max-height: 50vh;
-    }
-  }
-
-  .form-help-text {
-    font-family: inherit;
-    font-size: 12px;
-    line-height: 15px;
-    margin-bottom: 8px;
-  }
-}
-
 .form-actions-bottom {
   display: block;
   text-align: right;
@@ -1808,14 +1709,6 @@
     }
   }
 
-  li.reports span {
-    color: red;
-  }
-}
-
-.loggedin-media-reported .menu-item-icon .material-icons {
-  color: red;
-  color: rgba(red, 0.8);
 }
 
 @media screen and (min-width: 1008px) {

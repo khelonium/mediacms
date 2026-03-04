@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { PageStore } from '../../utils/stores/';
 import { FilterOptions } from '../_shared';
-import '../management-table/ManageItemList-filters.scss';
+import './SearchResultsFilters.scss';
 
 const filters = {
   media_type: [
