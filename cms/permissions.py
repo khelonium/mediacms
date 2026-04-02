@@ -14,7 +14,7 @@ class IsSuperUser(permissions.BasePermission):
 class IsAuthorizedToAdd(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
-            return True
+            return True  # read access controlled by IsAuthenticated co-permission
         return user_allowed_to_upload(request)
 
 

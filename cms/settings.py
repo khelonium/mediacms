@@ -110,6 +110,9 @@ REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": [
         "rest_framework.parsers.JSONParser",
     ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
 }
 
 
@@ -399,4 +402,5 @@ if GLOBAL_LOGIN_REQUIRED:
         r'/accounts/login/$',
         r'/accounts/logout/$',
         r'/accounts/signup/$',
+        r'/api/',
     ]

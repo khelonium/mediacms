@@ -127,7 +127,7 @@ def edit_channel(request, friendly_token):
 
 class UserList(APIView):
 
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
     parser_classes = (JSONParser, MultiPartParser, FormParser, FileUploadParser)
 
     def get(self, request, format=None):
@@ -147,7 +147,7 @@ class UserList(APIView):
 class UserDetail(APIView):
     """"""
 
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsUserOrManager)
+    permission_classes = (permissions.IsAuthenticated, IsUserOrManager)
     parser_classes = (JSONParser, MultiPartParser, FormParser, FileUploadParser)
 
     def get_user(self, username):

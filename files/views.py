@@ -211,7 +211,7 @@ def view_playlist(request, friendly_token):
 class MediaList(APIView):
     """Media listings views"""
 
-    permission_classes = (IsAuthorizedToAdd,)
+    permission_classes = (permissions.IsAuthenticated, IsAuthorizedToAdd)
     parser_classes = (MultiPartParser, FormParser, FileUploadParser)
 
     def get(self, request, format=None):
@@ -255,7 +255,7 @@ class MediaDetail(APIView):
     Retrieve, update or delete a media instance.
     """
 
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsUserOrEditor)
+    permission_classes = (permissions.IsAuthenticated, IsUserOrEditor)
     parser_classes = (MultiPartParser, FormParser, FileUploadParser)
 
     def get_object(self, friendly_token, password=None):
@@ -379,7 +379,7 @@ class MediaActions(APIView):
     Retrieve, update or delete a media action instance.
     """
 
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
     parser_classes = (JSONParser,)
 
     def get_object(self, friendly_token):
@@ -516,7 +516,7 @@ class MediaSearch(APIView):
 class PlaylistList(APIView):
     """Playlists listings and creation views"""
 
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAuthorizedToAdd)
+    permission_classes = (permissions.IsAuthenticated, IsAuthorizedToAdd)
     parser_classes = (JSONParser, MultiPartParser, FormParser, FileUploadParser)
 
     def get(self, request, format=None):
@@ -544,7 +544,7 @@ class PlaylistList(APIView):
 class PlaylistDetail(APIView):
     """Playlist related views"""
 
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsUserOrEditor)
+    permission_classes = (permissions.IsAuthenticated, IsUserOrEditor)
     parser_classes = (JSONParser, MultiPartParser, FormParser, FileUploadParser)
 
     def get_playlist(self, friendly_token):
