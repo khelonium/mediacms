@@ -5,6 +5,84 @@
 
 ---
 
+### Phase E — Private S3 Storage + CloudFront Signed Cookies
+
+**Goal:** Move file storage to AWS S3 (private bucket) and serve video/audio through CloudFront signed cookies so only authenticated users can stream content. Thumbnails stay publicly accessible. Local dev works with no AWS credentials (`STORAGE_BACKEND=local`).
+
+**Architectural decisions:**
+- `STORAGE_BACKEND=local` (default) → filesystem + Nginx, unchanged
+- `STORAGE_BACKEND=s3` → S3Boto3Storage + CloudFront signed cookies
+- Single private S3 bucket; CloudFront OAC is the only reader
+- Two CloudFront behaviours: `/original/thumbnails/*` (public) and `/*` (signed cookie required)
+- Cookie domain: CloudFront must use a custom domain sharing a parent with the app (e.g. `cdn.example.com`); `*.cloudfront.net` does NOT work for cross-domain cookies
+- Cookie lifetime: 24 h; refreshed if within 1 h of expiry
+- HLS: task downloads encoded MP4s to temp dir → runs `mp4hls` → uploads output to S3 → cleans up
+
+**New dependencies:** `django-storages[s3]==1.14.4`, `boto3>=1.34`, `cryptography>=42.0`
+
+**Files to create:**
+- `cms/storage.py` — `PrivateS3Storage` and `PublicThumbnailStorage` subclasses
+- `cms/middleware/__init__.py` — empty package init
+- `cms/middleware/cloudfront.py` — sets/clears three `CloudFront-*` signed cookies per request
+- `files/management/commands/migrate_to_s3.py` — idempotent migration command
+
+**Files to modify:**
+- `requirements.txt` — add three packages
+- `cms/settings.py` — conditional S3 block after `FILE_STORAGE` line (~169)
+- `docker-compose.yaml` — add env vars to `web` and `celery_worker` services
+- `files/tasks.py` — `create_hls` task: download MP4s from S3, run mp4hls, upload output
+
+**AWS infrastructure (manual, not code):** S3 bucket (private), CloudFront distribution with OAC + two behaviours + trusted key group, RSA-2048 key pair, custom domain + ACM cert, IAM user with bucket-scoped permissions.
+
+**Verification:**
+1. Local dev starts clean with no AWS env vars set
+2. S3 mode: upload → file in bucket; unauthenticated request → CF 403; login → cookies set → HLS streams; logout → cookies cleared
+3. `migrate_to_s3` command is idempotent
+4. `pytest` passes in local mode (no AWS credentials in CI)
+
+**Full plan transcript:** `/Users/cdordea/.claude/projects/-Users-cdordea-study-khelonium-taiko-mediacms/e5f6587f-9fc1-41ed-a3fb-f5648c433fc8.jsonl`
+
+---
+
+---
+
+### Phase F — Full AWS Migration (EC2 + S3 + CloudFront)
+
+**Goal:** Move compute from Linode to EC2 t3.medium, reducing hosting cost ~37% (~$60 → ~$37/month).
+
+**Prerequisite:** Phase E must be completed and running on Linode first.
+
+**AWS cost breakdown:**
+- EC2 t3.medium ~$30/month
+- EBS 20 GB ~$1.60/month
+- S3 200 GB ~$4.60/month
+- CloudFront ~$1/month
+- **Total: ~$37/month**
+
+**AWS infrastructure (manual, not code):**
+- S3 bucket (private)
+- CloudFront distribution with OAC + two behaviours: `/original/thumbnails/*` public; `/*` signed-cookie required
+- RSA-2048 key pair (private key stored as mounted file `/run/secrets/cf_private.pem`, not env var)
+- Custom CDN domain + ACM certificate
+- IAM user with bucket-scoped permissions
+- EC2 t3.medium Ubuntu 22.04 + Elastic IP
+
+**New Makefile targets needed:** `migrate-to-s3`, `db-dump-linode`, `db-restore-ec2`, `ec2-verify`
+
+**Migration sequence:**
+1. Test Phase E (`STORAGE_BACKEND=s3`) on Linode for 24–48h to confirm stability
+2. Run `migrate_to_s3` (idempotent) to copy 100–500 GB media to S3
+3. Provision EC2, restore DB dump
+4. Reduce DNS TTL → 60s, perform final DB sync, DNS cutover (A record → EC2 Elastic IP)
+5. Let's Encrypt cert auto-issues; verify production
+6. Decommission Linode after 48h stability
+
+**Key design decisions:**
+- RSA private key stored as mounted file (`/run/secrets/cf_private.pem`), not env var
+- CloudFront behaviours: `/original/thumbnails/*` public; `/*` signed-cookie required
+- `hls_file` field stores S3 key after migration (not absolute filesystem path)
+- `STORAGE_BACKEND=local` default preserves zero-credential local dev
+
 ---
 
 ---
@@ -36,6 +114,12 @@ Phase C: (all done)
 
 Phase D (after all features removed):
   D1 drf-yasg         D2 Unused packages    D3 django.contrib.sites
+
+Phase E (after Phase D):
+  S3 storage + CloudFront signed cookies (Linode)
+
+Phase F (after Phase E, 24-48h soak):
+  EC2 + S3 + CloudFront full migration (Linode → AWS)
 ```
 
 ## What This Enables
