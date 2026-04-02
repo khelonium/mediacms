@@ -100,7 +100,7 @@ REMOTE_USER ?= root
 REMOTE_DIR  ?= /mediacms/cms/mediacms
 REMOTE_COMPOSE ?= docker-compose-letsencrypt.yaml
 
-.PHONY: sync-db sync-assets sync-json sync-remote
+.PHONY: sync-db sync-assets sync-remote
 
 sync-db: ## Dump remote DB and restore locally
 	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T db pg_dump -U mediacms -Fc mediacms" > bjj_dump.pgdump
@@ -110,11 +110,7 @@ sync-db: ## Dump remote DB and restore locally
 sync-assets: ## Download thumbnails + HLS manifests from remote
 	$(COMPOSE) exec web python manage.py sync_remote_assets
 
-sync-json: ## Sync techniques.json from remote server
-	ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T web cat files/data/techniques.json" > files/data/techniques.json
-	@echo "techniques.json synced from $(REMOTE_HOST)"
-
-sync-remote: sync-db sync-assets sync-json ## Full sync: database + assets + JSON data from remote
+sync-remote: sync-db sync-assets ## Full sync: database + assets from remote
 
 # ──────────────────────────────────────────────
 # Frontend build
@@ -202,7 +198,6 @@ deploy-verify: ## Comprehensive health check after deploy
 	@echo "=== HTTP checks ==="
 	@curl -s -o /dev/null -w "Homepage:   %{http_code}\n" -L https://$(REMOTE_HOST)/
 	@curl -s -o /dev/null -w "API:        %{http_code}\n" -L https://$(REMOTE_HOST)/api/v1/
-	@curl -s -o /dev/null -w "Techniques: %{http_code}\n" -L https://$(REMOTE_HOST)/techniques/
 	@echo ""
 	@echo "=== Manifest entry count ==="
 	ssh $(REMOTE) "$(REMOTE_CD) && $(REMOTE_DC) exec -T web python -c \"import json; m=json.load(open('static/staticfiles.json')); print(len(m.get('paths', {})), 'entries')\""
@@ -217,41 +212,6 @@ deploy-rollback: ## Rollback to pre-deploy commit
 	ssh $(REMOTE) "$(REMOTE_CD) && $(REMOTE_DC) exec -T web python manage.py collectstatic --noinput"
 	ssh $(REMOTE) "$(REMOTE_CD) && $(REMOTE_DC) restart web celery_worker celery_beat"
 	@echo "Rollback complete. Verify with: make deploy-verify"
-
-# ──────────────────────────────────────────────
-# Sync DB data to production
-# ──────────────────────────────────────────────
-
-.PHONY: push-technique-media rebuild-techniques
-
-push-technique-media: ## Export local TechniqueMedia records and import to production
-	@echo "Exporting TechniqueMedia from local DB..."
-	$(COMPOSE) exec -T web python manage.py shell -c "\
-from files.models import TechniqueMedia; \
-[print(f'{tm.technique.slug}|{tm.media.friendly_token}|{tm.title_override or \"\"}') for tm in TechniqueMedia.objects.select_related('technique', 'media').all()]" > /tmp/technique_media_export.txt
-	@echo "Importing $$(wc -l < /tmp/technique_media_export.txt | tr -d ' ') records to production..."
-	@cat /tmp/technique_media_export.txt | ssh $(REMOTE_USER)@$(REMOTE_HOST) "cd $(REMOTE_DIR) && docker-compose -f $(REMOTE_COMPOSE) exec -T web python manage.py shell -c \"\
-import sys; \
-from files.models import Technique, TechniqueMedia, Media; \
-from users.models import User; \
-admin = User.objects.filter(is_superuser=True).first(); \
-created = 0; \
-for line in sys.stdin: \
-    parts = line.strip().split('|'); \
-    if len(parts) < 2: continue; \
-    slug, token, title = parts[0], parts[1], parts[2] if len(parts) > 2 else ''; \
-    try: \
-        technique = Technique.objects.get(slug=slug); \
-        media = Media.objects.get(friendly_token=token); \
-        _, was_created = TechniqueMedia.objects.get_or_create(technique=technique, media=media, defaults={'title_override': title, 'added_by': admin}); \
-        created += int(was_created); \
-    except (Technique.DoesNotExist, Media.DoesNotExist) as e: print('Missing: ' + slug + '/' + token); \
-print(str(created) + ' records created'); \
-\""
-	@rm /tmp/technique_media_export.txt
-
-rebuild-techniques: ## Rebuild MPTT tree for Technique model
-	$(COMPOSE) exec web python manage.py shell -c "from files.models import Technique; Technique.objects.rebuild(); print(f'Rebuilt {Technique.objects.count()} techniques')"
 
 # ──────────────────────────────────────────────
 # Status
