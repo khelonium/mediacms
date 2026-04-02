@@ -56,7 +56,10 @@ htmlcov/
 # Frontend
 frontend/node_modules/
 
-# collectstatic hashed copies of vendored/image/favicon assets
+# collectstatic output (regenerated at deploy time)
 static/lib/
 static/favicons/
 static/images/
+static/js/*.*.*.[jt]s
+static/js/*.*.*.txt
+static/css/*.*.*.css
