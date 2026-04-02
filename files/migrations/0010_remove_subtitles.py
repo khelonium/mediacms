@@ -4,7 +4,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("files", "0009_remove_likes_dislikes"),
+        ("files", "0007_remove_license"),
     ]
 
     operations = [

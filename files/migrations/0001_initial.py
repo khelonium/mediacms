@@ -3,10 +3,23 @@
 import uuid
 
 import django.contrib.postgres.search
+import django.core.exceptions
 import imagekit.models.fields
+from django.conf import settings
 from django.db import migrations, models
 
 import files.models
+
+
+# Stubs for functions removed by feature-removal migrations.
+# Kept here so the initial migration can still load on a fresh database.
+def _subtitles_file_path(instance, filename):
+    return getattr(settings, "SUBTITLES_UPLOAD_DIR", "subtitles/") + "user/{0}/{1}".format(instance.media.user.username, filename)
+
+
+def _validate_rating(value):
+    if value < 0 or value > 5:
+        raise django.core.exceptions.ValidationError("score has to be between 0 and 5")
 
 
 class Migration(migrations.Migration):
@@ -540,7 +553,7 @@ class Migration(migrations.Migration):
                 ("add_date", models.DateTimeField(auto_now_add=True)),
                 (
                     "score",
-                    models.IntegerField(validators=[files.models.validate_rating]),
+                    models.IntegerField(validators=[_validate_rating]),
                 ),
             ],
             options={
@@ -584,7 +597,7 @@ class Migration(migrations.Migration):
                     models.FileField(
                         help_text="File has to be WebVTT format",
                         max_length=500,
-                        upload_to=files.models.subtitles_file_path,
+                        upload_to=_subtitles_file_path,
                         verbose_name="Subtitle/CC file",
                     ),
                 ),
