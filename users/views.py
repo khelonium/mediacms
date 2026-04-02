@@ -148,7 +148,7 @@ class UserDetail(APIView):
     """"""
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsUserOrManager)
-    parser_classes = (MultiPartParser, FormParser, FileUploadParser)
+    parser_classes = (JSONParser, MultiPartParser, FormParser, FileUploadParser)
 
     def get_user(self, username):
         try:
@@ -246,7 +246,7 @@ class UserToken(APIView):
 class LoginView(APIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = LoginSerializer
-    parser_classes = (MultiPartParser, FormParser, FileUploadParser)
+    parser_classes = (JSONParser, MultiPartParser, FormParser, FileUploadParser)
 
     def post(self, request):
         data = request.data
