@@ -22,7 +22,7 @@ from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
 
-from cms.permissions import IsAuthorizedToAdd, IsSuperUser, IsUserOrEditor, user_allowed_to_upload
+from cms.permissions import IsAuthorizedToAdd, IsUserOrEditor, user_allowed_to_upload
 from users.models import User
 
 from .forms import MediaForm
@@ -42,8 +42,6 @@ from .models import (
     Playlist,
     PlaylistMedia,
     Tag,
-    Technique,
-    TechniqueMedia,
 )
 from .serializers import (
     CategorySerializer,
@@ -54,8 +52,6 @@ from .serializers import (
     PlaylistSerializer,
     SingleMediaSerializer,
     TagSerializer,
-    TechniqueMediaSerializer,
-    TechniqueNodeSerializer,
 )
 from .stop_words import STOP_WORDS
 from .tasks import save_user_action
@@ -876,157 +872,3 @@ class TaskDetail(APIView):
     def delete(self, request, uid, format=None):
         revoke(uid, terminate=True)
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-def _is_techniques_user(user):
-    return user.is_authenticated and (user.username == "madalina130" or user.is_superuser)
-
-
-@login_required
-def techniques(request):
-    if not _is_techniques_user(request.user):
-        return HttpResponseRedirect("/")
-    return render(request, "cms/techniques.html", {})
-
-
-class TechniquesList(APIView):
-    """List BJJ techniques (private, restricted access)"""
-
-    swagger_schema = None
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get(self, request, format=None):
-        if not _is_techniques_user(request.user):
-            return Response({"detail": "not allowed"}, status=status.HTTP_403_FORBIDDEN)
-
-        # Build media lookup from DB
-        associations = TechniqueMedia.objects.select_related("media", "added_by", "technique").all()
-        media_by_slug = {}
-        for assoc in associations:
-            entry = {
-                "friendly_token": assoc.media.friendly_token,
-                "title": assoc.title_override or assoc.media.title,
-                "thumbnail_url": assoc.media.thumbnail_url,
-                "url": assoc.media.get_absolute_url(),
-            }
-            media_by_slug.setdefault(assoc.technique.slug, []).append(entry)
-
-        # Deduplicate: if a media token appears on both a parent and a
-        # descendant technique, keep it only on the descendant.
-        technique_objects = {t.slug: t for t in Technique.objects.all()}
-        for slug in list(media_by_slug.keys()):
-            technique = technique_objects.get(slug)
-            if not technique:
-                continue
-            descendants = technique.get_descendants()
-            descendant_slugs = set(descendants.values_list("slug", flat=True))
-            descendant_tokens = set()
-            for d_slug in descendant_slugs:
-                for entry in media_by_slug.get(d_slug, []):
-                    descendant_tokens.add(entry["friendly_token"])
-            if descendant_tokens:
-                media_by_slug[slug] = [e for e in media_by_slug[slug] if e["friendly_token"] not in descendant_tokens]
-
-        roots = Technique.objects.root_nodes()
-        serializer = TechniqueNodeSerializer(roots, many=True, context={"media_by_slug": media_by_slug})
-        return Response({"version": 3, "tree": serializer.data})
-
-
-class TechniqueTreeView(APIView):
-    """Lightweight categories/subcategories for the technique modal dropdown."""
-
-    swagger_schema = None
-    permission_classes = (IsSuperUser,)
-
-    def _extract_tree(self, nodes, depth=0):
-        result = []
-        for node in nodes:
-            item = {"id": node.slug, "title": node.title}
-            children = node.get_children()
-            if children.exists() and depth < 2:
-                item["children"] = self._extract_tree(children, depth + 1)
-            result.append(item)
-        return result
-
-    def get(self, request, format=None):
-        roots = Technique.objects.root_nodes()
-        tree = self._extract_tree(roots)
-        return Response(tree)
-
-
-class TechniqueMediaAdd(APIView):
-    """Associate a video with a technique."""
-
-    swagger_schema = None
-    permission_classes = (IsSuperUser,)
-
-    def post(self, request, technique_id, format=None):
-        media_token = request.data.get("media_friendly_token")
-        title_override = request.data.get("title_override", "")
-
-        if not media_token:
-            return Response({"detail": "media_friendly_token is required"}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            technique = Technique.objects.get(slug=technique_id)
-        except Technique.DoesNotExist:
-            return Response({"detail": "Technique not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        try:
-            media = Media.objects.get(friendly_token=media_token)
-        except Media.DoesNotExist:
-            return Response({"detail": "Media not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        obj, created = TechniqueMedia.objects.get_or_create(
-            technique=technique,
-            media=media,
-            defaults={"added_by": request.user, "title_override": title_override},
-        )
-
-        if not created:
-            return Response({"detail": "Media already associated with this technique"}, status=status.HTTP_409_CONFLICT)
-
-        serializer = TechniqueMediaSerializer(obj)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-class TechniqueMediaRemove(APIView):
-    """Remove a video association from a technique."""
-
-    swagger_schema = None
-    permission_classes = (IsSuperUser,)
-
-    def delete(self, request, technique_id, friendly_token, format=None):
-        try:
-            assoc = TechniqueMedia.objects.get(technique__slug=technique_id, media__friendly_token=friendly_token)
-        except TechniqueMedia.DoesNotExist:
-            return Response({"detail": "Association not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        assoc.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class TechniqueCategoryCreate(APIView):
-    """Create a new category or subcategory in the techniques tree."""
-
-    swagger_schema = None
-    permission_classes = (IsSuperUser,)
-
-    def post(self, request, format=None):
-        parent_id = request.data.get("parent_id")
-        title = request.data.get("title", "").strip()
-
-        if not title:
-            return Response({"detail": "title is required"}, status=status.HTTP_400_BAD_REQUEST)
-
-        new_slug = (parent_id + "." if parent_id else "root.") + slugify(title)
-
-        parent = None
-        if parent_id:
-            try:
-                parent = Technique.objects.get(slug=parent_id)
-            except Technique.DoesNotExist:
-                return Response({"detail": "Parent not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        Technique.objects.create(title=title, slug=new_slug, parent=parent)
-        return Response({"id": new_slug, "title": title}, status=status.HTTP_201_CREATED)

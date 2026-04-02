@@ -2,7 +2,7 @@ import React from 'react';
 import { formatViewsNumber } from '../../utils/helpers/';
 import { PageStore, MediaPageStore } from '../../utils/stores/';
 import { MemberContext, PlaylistsContext } from '../../utils/contexts/';
-import { OtherMediaDownloadLink, VideoMediaDownloadLink, MediaSaveButton, MediaShareButton, MediaMoreOptionsIcon, MediaTechniqueButton } from '../media-actions/';
+import { OtherMediaDownloadLink, VideoMediaDownloadLink, MediaSaveButton, MediaShareButton, MediaMoreOptionsIcon } from '../media-actions/';
 import ViewerInfoTitleBanner from './ViewerInfoTitleBanner';
 
 export default class ViewerInfoVideoTitleBanner extends ViewerInfoTitleBanner {
@@ -62,10 +62,6 @@ export default class ViewerInfoVideoTitleBanner extends ViewerInfoTitleBanner {
                 MemberContext._currentValue.can.saveMedia &&
                 -1 < PlaylistsContext._currentValue.mediaTypes.indexOf(MediaPageStore.get('media-type')) ? (
                 <MediaSaveButton />
-              ) : null}
-
-              {MemberContext._currentValue.can.addToTechniques ? (
-                <MediaTechniqueButton />
               ) : null}
 
               {!this.props.allowDownload || !MemberContext._currentValue.can.downloadMedia ? null : !this

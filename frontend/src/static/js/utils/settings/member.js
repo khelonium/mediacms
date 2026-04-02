@@ -18,7 +18,6 @@ export function init(user, features) {
       deleteProfile: false,
       editMedia: false,
       deleteMedia: false,
-      addToTechniques: false,
       downloadMedia: false,
       saveMedia: false,
       shareMedia: true,
@@ -51,8 +50,6 @@ export function init(user, features) {
       MEMBER.can.deleteProfile = true === user.can.deleteProfile;
       MEMBER.can.editMedia = true === user.can.editMedia;
       MEMBER.can.deleteMedia = true === user.can.deleteMedia;
-      MEMBER.can.addToTechniques = true === user.can.addToTechniques;
-
 
       if (void 0 !== user.pages) {
 

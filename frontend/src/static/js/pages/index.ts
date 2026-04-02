@@ -9,4 +9,3 @@ export * from './ProfileMediaPage';
 export * from './ProfilePlaylistsPage';
 export * from './SearchPage';
 export * from './TagsPage';
-export * from './TechniquesPage';
